@@ -1,0 +1,29 @@
+# Dependency directories
+node_modules/
+
+# Production build outputs
+dist/
+build/
+
+# Firebase & Environment credentials
+.env
+.env.local
+*.serviceAccountKey.json
+serviceAccountKey.json
+serviceAccountKey*.json
+
+# Backend Uploads
+backend/uploads/*
+!backend/uploads/.gitkeep
+
+# IDE & System files
+.vscode/
+.idea/
+.DS_Store
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Gemini internal artifacts
+tmp/

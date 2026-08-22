@@ -1,0 +1,129 @@
+# Database Schema & Controller Analysis
+
+This document provides a comprehensive overview of the database structure (Firestore collections) and their relationships within the **Fean Pet Shop** backend.
+
+## 1. Database Collections (Tables)
+
+Since this project uses **Firebase Firestore**, data is stored in "Collections" rather than traditional SQL tables. Each document in a collection represents a record.
+
+### Collections Overview
+
+| Collection | Description | Primary Controller |
+| :--- | :--- | :--- |
+| `users` | Stores user profiles, authentication metadata, and roles. | [userController.js](file:///c:/Users/Samar%20Taibani/Desktop/fean/backend/controllers/userController.js), [authController.js](file:///c:/Users/Samar%20Taibani/Desktop/fean/backend/controllers/authController.js) |
+| `products` | Contains details of pets and pet food items. | [productController.js](file:///c:/Users/Samar%20Taibani/Desktop/fean/backend/controllers/productController.js) |
+| `categories` | Categorizes products (e.g., Dog Food, Cats). | [categoryController.js](file:///c:/Users/Samar%20Taibani/Desktop/fean/backend/controllers/categoryController.js) |
+| `orders` | Records transactions and order status tracking. | [orderController.js](file:///c:/Users/Samar%20Taibani/Desktop/fean/backend/controllers/orderController.js) |
+| `payments` | Stores detailed payment transaction history. | [paymentController.js](file:///c:/Users/Samar%20Taibani/Desktop/fean/backend/controllers/paymentController.js) |
+| `wishlist` | Tracks products users have saved for later. | [wishlistController.js](file:///c:/Users/Samar%20Taibani/Desktop/fean/backend/controllers/wishlistController.js) |
+| `ratings` | Stores product reviews and star ratings. | [ratingController.js](file:///c:/Users/Samar%20Taibani/Desktop/fean/backend/controllers/ratingController.js) |
+| `contacts` | Stores messages from the "Contact Us" form. | [contactController.js](file:///c:/Users/Samar%20Taibani/Desktop/fean/backend/controllers/contactController.js) |
+
+---
+
+## 2. Key Fields & Data Structure
+
+### `users`
+- `uid`: Unique User ID (from Firebase Auth)
+- `email`: User's email address
+- `role`: `0` for User, `1` for Admin
+- `name`, `phone`, `address`: Basic profile info
+- `profileImage`: URL to the user's avatar
+- `addresses`: Array of saved delivery addresses
+
+### `products`
+- `id`: Unique Product ID
+- `type`: `pet` or `food`
+- `name`, `description`, `price`, `stock`
+- `categoryId`: Reference to the `categories` collection
+- `images` (Array) / `imageUrl`: Product visuals
+- **Pet Specific**: `breed`, `lifeExpectancy`, `careInstructions`
+- **Food Specific**: `companyName`, `expiryDate`, `weight`, `flavor`
+
+### `orders`
+- `userId`: Reference to the user who placed the order
+- `items`: Array of objects containing `productId`, `quantity`, `price`, `name`
+- `totalAmount`: Sum of all items
+- `status`: `Pending`, `Shipped`, `Delivered`, `Cancelled`, `Collected`
+- `paymentStatus`: `Paid` or `Pending`
+- `shippingDetails`: `address`, `phone`, `customerName`, `email`
+
+---
+
+## 3. Entity Relationship (ER) Diagram
+
+Below is a technical representation of the connections between these entities.
+
+```mermaid
+erDiagram
+    USERS ||--o{ ORDERS : places
+    USERS ||--o{ WISHLIST : maintains
+    USERS ||--o{ RATINGS : writes
+    USERS ||--o{ PAYMENTS : makes
+
+    PRODUCTS ||--o{ ORDERS : "contained in"
+    PRODUCTS ||--o{ WISHLIST : "saved in"
+    PRODUCTS ||--o{ RATINGS : "rated in"
+
+    CATEGORIES ||--o{ PRODUCTS : categorizes
+
+    ORDERS ||--o| PAYMENTS : "has record"
+    
+    USERS {
+        string uid PK
+        string email
+        int role
+        string name
+        string profileImage
+    }
+
+    PRODUCTS {
+        string id PK
+        string name
+        string type
+        float price
+        int stock
+        string categoryId FK
+    }
+
+    CATEGORIES {
+        string id PK
+        string name
+    }
+
+    ORDERS {
+        string id PK
+        string userId FK
+        float totalAmount
+        string status
+        string paymentStatus
+    }
+
+    RATINGS {
+        string id PK
+        string userId FK
+        string productId FK
+        int rating
+        string comment
+    }
+```
+
+---
+
+## 4. Relationship Logic
+
+1.  **Product - Category**: Each product belongs to one category. If a category is deleted, products under it may lose their context.
+2.  **Order - User**: Every order is linked to a `uid`. This allows users to see their "My Orders" history.
+3.  **Order - Product**: An order contains multiple items. Each item references a `productId` to fetch current name/images for display.
+4.  **Rating/Wishlist**: These are "Bridge" collections that link a [User](file:///c:/Users/Samar%20Taibani/Desktop/fean/backend/controllers/userController.js#85-99) to a [Product](file:///c:/Users/Samar%20Taibani/Desktop/fean/backend/controllers/productController.js#50-106).
+
+---
+
+## 5. Presentation Guidance
+
+If you are creating this for a presentation, I have generated a **professional ER diagram mockup** for you. You can directly save and paste it into your slides.
+
+![ER Diagram Mockup](/C:/Users/Samar%20Taibani/.gemini/antigravity/brain/e2480804-a4ec-48c1-9976-385d3e77b2d0/er_diagram_fean_pet_shop_1772703061680.png)
+
+> [!TIP]
+> **To Create Your Own**: You can use tools like **Lucidchart**, **Draw.io**, or **Mermaid Live Editor** using the code provided above.

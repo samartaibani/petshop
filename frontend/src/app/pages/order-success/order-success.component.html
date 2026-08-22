@@ -1,0 +1,51 @@
+<div
+    class="container-fluid success-viewport d-flex align-items-center justify-content-center py-5 animate__animated animate__fadeIn">
+    <div class="glass-card success-vault-card p-5 text-center shadow-premium-lg">
+        <!-- Animated Icon Container -->
+        <div class="success-icon-wrapper mx-auto mb-5 animate__animated animate__zoomIn animate__delay-1s">
+            <div class="success-glow"></div>
+            <div class="success-circle-outer">
+                <div class="success-circle-inner">
+                    <i class="bi bi-shield-check display-3 text-accent"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Message -->
+        <div class="success-content animate__animated animate__fadeInUp animate__delay-1s">
+            <h6 class="text-accent fw-black ls-3 uppercase xs mb-3">MISSION ACCOMPLISHED</h6>
+            <h1 class="display-3 fw-black text-dark mb-4 ls-n1">Acquisition Secured</h1>
+
+            <p class="text-muted fs-5 mx-auto max-w-600 mb-5 lh-lg">
+                Your credentials have been authorized and the fulfillment portal is now active. <br>
+                Our logistical team is preparing your premium acquisitions for immediate deployment.
+            </p>
+
+            <div class="order-id-badge mb-5">
+                <span class="xs fw-black ls-2 uppercase text-muted">TRACKING IDENTIFIER:</span>
+                <span class="text-dark fw-bold ms-2">#BLACKBERRY-{{ 110000 | number }}</span>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center">
+                <button class="btn-premium px-5 py-3" routerLink="/my-orders">
+                    <i class="bi bi-grid-fill me-2"></i> COMMAND CENTER
+                </button>
+                <button class="btn-outline-dark-glass px-5 py-3" routerLink="/products">
+                    <i class="bi bi-search me-2"></i> FURTHER ARCHIVES
+                </button>
+            </div>
+        </div>
+
+        <!-- Subtle Footer Info -->
+        <div
+            class="mt-5 pt-4 border-top border-dark border-opacity-05 animate__animated animate__fadeIn animate__delay-2s">
+            <div
+                class="d-flex align-items-center justify-content-center gap-4 text-muted opacity-50 xs fw-black ls-1 uppercase">
+                <span><i class="bi bi-lock-fill me-1"></i>SECURE GATEWAY</span>
+                <span><i class="bi bi-truck me-1"></i>GLOBAL LOGISTICS</span>
+                <span><i class="bi bi-patch-check-fill me-1"></i>CERTIFIED QUALITY</span>
+            </div>
+        </div>
+    </div>
+</div>

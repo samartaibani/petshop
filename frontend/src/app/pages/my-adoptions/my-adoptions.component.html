@@ -1,0 +1,314 @@
+<div class="container py-5 animate__animated animate__fadeIn">
+    <div class="mb-5 d-flex justify-content-between align-items-end flex-wrap gap-4">
+        <div>
+            <h1 class="display-5 fw-black text-dark mb-2">My Adoptions</h1>
+            <p class="text-muted mb-0">Track your requests and manage your adoption profile.</p>
+        </div>
+        <div class="d-flex gap-3">
+            <!-- Master Form Toggle Button -->
+            <button (click)="openMasterForm()"
+                class="btn fw-black px-4 py-3 rounded-3 text-uppercase ls-1 d-flex align-items-center gap-2"
+                [style.background]="masterForm ? '#111' : 'var(--theme-accent-orange)'" [style.color]="'#fff'">
+                <i class="bi" [ngClass]="masterForm ? 'bi-pencil-square' : 'bi-plus-circle-fill'"></i>
+                {{ masterForm ? 'Edit My Form' : 'Complete My Form Profile' }}
+            </button>
+            <a routerLink="/adopt"
+                class="btn btn-outline-dark fw-bold px-4 py-3 rounded-3 xs text-uppercase ls-1">Browse More Pets</a>
+        </div>
+    </div>
+
+    <div *ngIf="loading" class="text-center py-5">
+        <div class="spinner-border text-accent" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <ng-container *ngIf="!loading">
+        <!-- Master Form Section -->
+        <div *ngIf="masterForm" class="mb-5 animate__animated animate__fadeIn">
+            <div class="profile-card">
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-4 z-1">
+                    <div class="d-flex align-items-center gap-4">
+                        <div class="avatar-wrapper">
+                            <img *ngIf="masterForm.userImage" [src]="masterForm.userImage"
+                                class="w-100 h-100 object-fit-cover">
+                            <div *ngIf="!masterForm.userImage" class="w-100 h-100 d-flex align-items-center justify-content-center bg-dark text-white">
+                                <i class="bi bi-person-fill fs-2"></i>
+                            </div>
+                        </div>
+                        <div class="profile-info">
+                            <div class="xs fw-black ls-2 text-accent uppercase mb-1">YOUR ADOPTION PROFILE</div>
+                            <h2 class="fw-black text-dark mb-1 h3">{{ masterForm.formData.fullName }}</h2>
+                            <div class="d-flex gap-3 mt-2">
+                                <div class="xs text-muted fw-bold"><i class="bi bi-people-fill me-1 text-accent"></i> Family: {{
+                                    masterForm.familyMembers || masterForm.formData.familyMembers || 1 }} Members</div>
+                                <div class="xs text-muted fw-bold"><i
+                                        class="bi bi-shield-check text-success me-1"></i> Form profile active</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-action btn-light-premium"
+                            (click)="openMasterForm()">EDIT PROFILE</button>
+                        <button class="btn btn-action btn-outline-danger-premium" (click)="deleteMasterForm()">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Empty State for Requests -->
+        <div *ngIf="requests.length === 0" class="card border-0 rounded-4 shadow-sm p-5 text-center bg-white">
+            <i class="bi bi-heart-break display-3 text-muted mb-4 d-block opacity-25"></i>
+            <h3 class="fw-black mb-3">No Active Requests</h3>
+            <p class="text-muted mb-4">You haven't requested to adopt any pets yet.</p>
+            <div class="d-flex justify-content-center">
+                <a routerLink="/adopt" class="btn btn-dark fw-black px-5 py-3 rounded-pill text-white"
+                    style="background: var(--theme-accent-orange); border: none;">EXPLORE THE PETS</a>
+            </div>
+        </div>
+
+        <!-- Requests List -->
+        <div *ngIf="requests.length > 0" class="row g-4 mb-5">
+            <div class="col-12" *ngFor="let req of requests; let i = index">
+                <div class="request-card p-4">
+                    <div class="row align-items-center">
+                        <div class="col-md-auto mb-3 mb-md-0">
+                            <div class="pet-img-container shadow-sm">
+                                <img [src]="req.petData?.imageUrl || 'assets/placeholder.png'"
+                                    class="w-100 h-100 object-fit-cover" [alt]="req.petData?.name">
+                            </div>
+                        </div>
+
+                        <!-- Pet Info -->
+                        <div class="col-md">
+                            <div class="xs fw-black ls-1 text-muted uppercase mb-1">{{ req.petData?.breed || 'Pet' }}</div>
+                            <h3 class="fw-black mb-1 text-dark h4">{{ req.petData?.name }}</h3>
+                            <div class="d-flex align-items-center gap-2">
+                                <i class="bi bi-calendar3 text-accent xs"></i>
+                                <span class="text-muted xs fw-bold">{{ req.createdAt | date:'medium' }}</span>
+                            </div>
+                        </div>
+
+                        <!-- Status -->
+                        <div class="col-md-2 text-md-center">
+                            <div class="xs fw-black ls-1 text-muted uppercase mb-2">Current Status</div>
+                            <span [class]="getStatusBadgeClass(req.status)" class="badge">
+                                {{ req.status }}
+                            </span>
+                        </div>
+
+                        <!-- Fee -->
+                        <div class="col-md-2 text-md-center">
+                            <div class="xs fw-black ls-1 text-muted uppercase mb-1">Adoption Fee</div>
+                            <div class="fw-black text-dark h4 mb-0">₹{{ (req.petData?.price || 0) | number }}</div>
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="col-md-auto text-md-end d-flex gap-2">
+                            <button *ngIf="req.status === 'Pending'" class="btn btn-action btn-light-premium"
+                                (click)="editRequest(req)">
+                                <i class="bi bi-pencil-square"></i> Edit
+                            </button>
+                            <!-- Phase 5: Allow cancellation for Pending, Approved, and Paid requests -->
+                            <button
+                                *ngIf="req.status === 'Pending' || req.status === 'Approved' || req.status === 'Paid'"
+                                class="btn btn-action btn-outline-danger-premium"
+                                (click)="cancelRequest(req)">
+                                <i class="bi bi-trash"></i> {{ req.status === 'Pending' ? 'Cancel' : 'Stop' }}
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Conditional Actions for Approved Requests -->
+                    <div class="mt-4 pt-4 border-top border-opacity-05 border-dark"
+                        *ngIf="req.status === 'Approved'">
+                        <div *ngIf="!req.paymentStatus"
+                            class="alert d-flex align-items-center justify-content-between rounded-4 px-4 py-3"
+                            style="background: #fff8f0; border: 1px dashed var(--theme-accent-orange);">
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-patch-check-fill text-success fs-2 me-3"></i>
+                                <div>
+                                    <strong class="text-dark d-block">Congratulations! Your request is
+                                        approved.</strong>
+                                    <span class="text-muted small">Please pay the adoption fee to finalize.</span>
+                                </div>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-outline-danger btn-sm fw-bold px-3 rounded-3"
+                                    (click)="cancelRequest(req)">CANCEL ADOPTION</button>
+                                <button class="btn btn-dark fw-black px-4 rounded-3 text-white"
+                                    style="background: #111;" (click)="payFee(req)">PAY FEE</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Post-Payment Logistics & Delivery Info -->
+                    <div class="mt-4 pt-4 border-top border-opacity-05" *ngIf="req.status === 'Paid' || req.status === 'Completed'">
+                        <div class="logistics-banner" [ngClass]="{'status-paid': req.status === 'Paid'}">
+                            
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="bg-white rounded-circle p-2 shadow-sm d-flex align-items-center justify-content-center" style="width: 54px; height: 54px;">
+                                    <i class="bi" [ngClass]="req.status === 'Completed' ? 'bi-patch-check-fill text-success' : 'bi-truck text-accent'" style="font-size: 1.8rem;"></i>
+                                </div>
+                                <div class="ms-3">
+                                    <strong class="text-dark d-block h5 mb-0 fw-black">
+                                        {{ req.status === 'Completed' ? 'Forever Home Found!' : 'Logistics in Progress' }}
+                                    </strong>
+                                    <div class="badge bg-white text-dark border xs uppercase ls-1 px-3 py-1 radius-pill mt-1">
+                                        Handover Status: <span class="fw-black text-accent">{{ req.deliveryStatus || 'Processing' }}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="handover-card">
+                                <h6 class="fw-black text-dark mb-4 xs uppercase ls-2 d-flex align-items-center gap-2">
+                                    <i class="bi bi-info-circle-fill text-accent"></i> Handover Details
+                                </h6>
+                                
+                                <div class="row g-4">
+                                    <!-- Destination -->
+                                    <div class="col-md-7">
+                                        <div class="d-flex align-items-start gap-3">
+                                            <div class="bg-light p-2 rounded-3">
+                                                <i class="bi bi-geo-alt-fill text-accent fs-5"></i>
+                                            </div>
+                                            <div>
+                                                <span class="xs fw-bold text-muted uppercase d-block ls-1 mb-1">Pickup Location</span>
+                                                <span class="fw-black text-dark fs-5">{{ req.destinationBranch || 'Determining best location...' }}</span>
+                                                <p class="xs text-muted mb-0 mt-1" *ngIf="!req.destinationBranch">Please wait while our team optimizes the nearest branch.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Deadline -->
+                                    <div class="col-md-5" *ngIf="req.pickupDeadline">
+                                        <div class="d-flex align-items-start gap-3">
+                                            <div class="bg-light p-2 rounded-3">
+                                                <i class="bi bi-clock-history text-dark fs-5"></i>
+                                            </div>
+                                            <div>
+                                                <span class="xs fw-bold text-muted uppercase d-block ls-1 mb-1">Pickup Deadline</span>
+                                                <span class="fw-black text-danger d-block fs-5">{{ req.pickupDeadline | date:'MMM d, y' }}</span>
+                                                <span class="xs text-muted fw-bold">7-day hold period active</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mt-4 pt-3 border-top d-flex align-items-center gap-3">
+                                    <p class="text-muted small mb-0 flex-grow-1 fw-bold" style="line-height: 1.4;">
+                                        Bring a <span class="text-dark">Valid Govt Photo ID</span> and <span class="text-dark">Digital Receipt</span>.
+                                    </p>
+                                    <button class="btn btn-action btn-light-premium">
+                                        <i class="bi bi-file-earmark-pdf"></i> RECEIPT
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</div>
+<!-- Payment Modal Overlay -->
+<div class="modal fade show d-block" *ngIf="selectedRequestForPayment" tabindex="-1"
+    style="background: rgba(0,0,0,0.6); backdrop-filter: blur(5px);">
+    <div class="modal-dialog modal-dialog-centered">
+        <div
+            class="modal-content border-0 rounded-4 shadow-lg overflow-hidden animate__animated animate__zoomIn animate__faster">
+            <!-- Header -->
+            <div class="modal-header border-0 bg-dark text-white px-4 py-3">
+                <h5 class="modal-title fw-black ls-1 mb-0 d-flex align-items-center gap-2">
+                    <i class="bi bi-wallet2 text-accent"></i> Complete Payment
+                </h5>
+                <button type="button" class="btn-close btn-close-white" (click)="closePaymentModal()"
+                    [disabled]="isProcessingPayment"></button>
+            </div>
+
+            <!-- Body -->
+            <div class="modal-body p-4 bg-light">
+                <!-- Summary -->
+                <div class="bg-white rounded-4 p-3 shadow-sm border mb-4 text-center">
+                    <div class="xs text-muted fw-bold ls-1 uppercase mb-1">Adoption Fee for {{
+                        selectedRequestForPayment.petData?.name }}</div>
+                    <div class="display-5 fw-black text-dark">₹{{ selectedRequestForPayment.petData?.price | number }}
+                    </div>
+                </div>
+
+                <!-- Method Selector -->
+                <div class="d-flex gap-2 mb-4">
+                    <button class="btn flex-fill py-2 fw-bold text-uppercase ls-1 rounded-3"
+                        [ngClass]="paymentMethod === 'Card' ? 'btn-dark' : 'btn-outline-dark'"
+                        (click)="paymentMethod = 'Card'" [disabled]="isProcessingPayment">
+                        <i class="bi bi-credit-card me-2"></i> Card
+                    </button>
+                    <button class="btn flex-fill py-2 fw-bold text-uppercase ls-1 rounded-3"
+                        [ngClass]="paymentMethod === 'UPI' ? 'btn-dark' : 'btn-outline-dark'"
+                        (click)="paymentMethod = 'UPI'" [disabled]="isProcessingPayment">
+                        <i class="bi bi-phone me-2"></i> UPI
+                    </button>
+                </div>
+
+                <!-- Card Form -->
+                <div *ngIf="paymentMethod === 'Card'"
+                    class="bg-white p-3 rounded-4 shadow-sm border animate__animated animate__fadeIn">
+                    <div class="mb-3">
+                        <label class="form-label xs fw-bold text-muted uppercase ls-1">Card Number</label>
+                        <input type="text" class="form-control form-control-lg fw-bold rounded-3 bg-light border-0"
+                            [(ngModel)]="paymentDetails.cardNumber" placeholder="0000 0000 0000 0000" maxlength="19"
+                            [disabled]="isProcessingPayment">
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <label class="form-label xs fw-bold text-muted uppercase ls-1">Expiry</label>
+                            <input type="text" class="form-control form-control-lg fw-bold rounded-3 bg-light border-0"
+                                [(ngModel)]="paymentDetails.cardExpiry" placeholder="MM/YY" maxlength="5"
+                                [disabled]="isProcessingPayment">
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label xs fw-bold text-muted uppercase ls-1">CVV</label>
+                            <input type="password"
+                                class="form-control form-control-lg fw-bold rounded-3 bg-light border-0"
+                                [(ngModel)]="paymentDetails.cardCvv" placeholder="•••" maxlength="4"
+                                [disabled]="isProcessingPayment">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- UPI Form -->
+                <div *ngIf="paymentMethod === 'UPI'"
+                    class="bg-white p-3 rounded-4 shadow-sm border text-center animate__animated animate__fadeIn">
+                    <img src="assets/upi-logo.svg" alt="UPI" style="height: 30px;" class="mb-3 opacity-50"
+                        (error)="hideImage($event)">
+                    <div class="mb-2">
+                        <label class="form-label xs fw-bold text-muted uppercase ls-1 text-start d-block">Enter UPI
+                            ID</label>
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text bg-light border-0 fw-bold text-muted">&#64;</span>
+                            <input type="text" class="form-control fw-bold bg-light border-0"
+                                [(ngModel)]="paymentDetails.upiId" placeholder="username@bank"
+                                [disabled]="isProcessingPayment">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="modal-footer border-0 p-4 pt-0 bg-light d-flex justify-content-between">
+                <div class="d-flex align-items-center gap-2 text-muted xs fw-bold">
+                    <i class="bi bi-shield-lock-fill text-success fs-5"></i> Secure Payment Mock
+                </div>
+                <button class="btn btn-dark btn-lg fw-black px-5 rounded-3 border-0 transition-all"
+                    style="background: var(--theme-accent-orange);" (click)="submitPayment()"
+                    [disabled]="isProcessingPayment">
+                    <span *ngIf="!isProcessingPayment">PAY NOW</span>
+                    <span *ngIf="isProcessingPayment" class="spinner-border spinner-border-sm me-2"></span>
+                    <span *ngIf="isProcessingPayment">PROCESSING...</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

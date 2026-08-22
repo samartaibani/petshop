@@ -1,0 +1,86 @@
+# Data Flow Diagram (DFD) Analysis
+
+This document outlines how information moves through the **Fean Pet Shop** system, from initial user interaction to database updates and final order fulfillment.
+
+## 1. Context Diagram (Level 0)
+The Context Diagram shows the system as a single process and its interactions with external entities.
+
+```mermaid
+graph LR
+    U[User / Customer] -- Registration / Login --> S(Fean Pet Shop System)
+    U -- Product Search --> S
+    U -- Cart & Order Request --> S
+    S -- Order Confirmation --> U
+    S -- Search Results / Product List --> U
+
+    A[Admin] -- Inventory Updates --> S
+    A -- User Management --> S
+    S -- Order Alerts / Sales Stats --> A
+
+    P[Payment Gateway / UPI] -- Payment Token/Success --> S
+    S -- Transaction Details --> P
+```
+
+---
+
+## 2. Level 1 DFD: Functional Decomposition
+The Level 1 diagram breaks the system down into core processes and data stores.
+
+```mermaid
+flowchart TD
+    %% Entities
+    User((User/Customer))
+    Admin((Administrator))
+
+    %% Processes
+    P1[1.0 Auth & Profile Management]
+    P2[2.0 Product & Search Engine]
+    P3[3.0 Cart & Order Processing]
+    P4[4.0 Admin Dashboard & Analytics]
+    P5[5.0 Communication & Feedback]
+
+    %% Data Stores
+    D1[(Users Collection)]
+    D2[(Products Collection)]
+    D3[(Orders & Payments)]
+    D4[(Ratings & Contacts)]
+
+    %% Connections
+    User -->|Credentials| P1
+    P1 <-->|Read/Write User Data| D1
+    
+    User -->|Search Queries| P2
+    P2 <-->|Fetch Products| D2
+    
+    User -->|Checkout Details| P3
+    P3 <-->|Update Stock / Save Order| D2 & D3
+    
+    Admin -->|Manage Inventory| P4
+    P4 <-->|Update Collections| D2 & D1
+    
+    User -->|Ratings / Messages| P5
+    P5 <-->|Save Feedback| D4
+```
+
+---
+
+## 3. Data Flow Descriptions
+
+| Flow Name | Source | Destination | Description |
+| :--- | :--- | :--- | :--- |
+| **Search Query** | User | Product Engine | Keywords, filters, and categories. |
+| **Product Data** | Database | User UI | Product names, prices, pet breeds, and images. |
+| **Order Request** | Cart | Order Process | List of items, quantities, and delivery address. |
+| **Inventory Update**| Admin | Product DB | New stock levels, price changes, or animal availability. |
+| **Payment Status** | Payment System| Order Process | Confirmation of successful transaction. |
+
+---
+
+## 4. Presentation Guidance
+
+I have also generated a **high-level DFD mockup** for your presentation. You can save this image and include it in your slides for a more visual, professional look.
+
+![Data Flow Diagram Mockup](/C:/Users/Samar Taibani/.gemini/antigravity/brain/e2480804-a4ec-48c1-9976-385d3e77b2d0/data_flow_diagram_fean_pet_shop_1772720920694.png)
+
+> [!NOTE]
+> This diagram focuses on the **functional logic**—how data moves from a user's action to a database storage event.

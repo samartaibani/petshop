@@ -1,0 +1,336 @@
+﻿Initial chunk files   | Names         |  Raw size | Estimated transfer size
+main-63JGY63E.js      | main          | 931.22 kB |               236.24 kB
+styles-NWREMF6Q.css   | styles        | 308.56 kB |                32.42 kB
+chunk-BYPGBJQR.js     | -             | 198.35 kB |                37.64 kB
+scripts-E6RXA3PM.js   | scripts       |  78.78 kB |                21.13 kB
+polyfills-FFHMD2TL.js | polyfills     |  33.71 kB |                11.02 kB
+chunk-5G567QLT.js     | -             |   1.30 kB |               585 bytes
+
+                      | Initial total |   1.52 MB |               339.01 kB
+
+Lazy chunk files      | Names         |  Raw size | Estimated transfer size
+chunk-IH7GJ2VF.js     | index-es      | 155.13 kB |                45.76 kB
+chunk-KWE7TO5D.js     | purify-es     |  21.84 kB |                 7.57 kB
+chunk-GK2R5F73.js     | html2canvas   |  83 bytes |                83 bytes
+
+Application bundle generation failed. [17.388 seconds]
+
+node.exe : Γû▓ [WARNING] 
+bundle initial exceeded 
+maximum budget. Budget 
+500.00 kB was not met by 
+1.03 MB with a total of 1.52 
+MB.
+At C:\Program 
+Files\nodejs\npx.ps1:29 
+char:3
++   & $NODE_EXE $NPX_CLI_JS 
+$args
++   
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo           
+   : NotSpecified: (Γû▓ [WA  
+  RNING] b...tal of 1.52 M   
+ B.:String) [], RemoteExc    
+eption
+    + FullyQualifiedErrorId  
+   : NativeCommandError
+ 
+
+
+Γû▓ [WARNING] src/app/pages/h
+ome/home.component.css 
+exceeded maximum budget. 
+Budget 2.00 kB was not met 
+by 452 bytes with a total of 
+2.44 kB.
+
+
+Γû▓ [WARNING] src/app/pages/c
+art/cart.component.css 
+exceeded maximum budget. 
+Budget 2.00 kB was not met 
+by 705 bytes with a total of 
+2.69 kB.
+
+
+Γû▓ [WARNING] src/app/pages/p
+roduct-list/product-list.comp
+onent.css exceeded maximum 
+budget. Budget 2.00 kB was 
+not met by 1.30 kB with a 
+total of 3.30 kB.
+
+
+Γû▓ [WARNING] src/app/pages/p
+roduct-detail/product-detail.
+component.css exceeded 
+maximum budget. Budget 2.00 
+kB was not met by 945 bytes 
+with a total of 2.92 kB.
+
+
+Γû▓ [WARNING] src/app/compone
+nts/navbar/navbar.component.c
+ss exceeded maximum budget. 
+Budget 2.00 kB was not met 
+by 807 bytes with a total of 
+2.79 kB.
+
+
+Γû▓ [WARNING] Module 'core-js
+/modules/es.promise.js' used 
+by 'node_modules/canvg/lib/in
+dex.es.js' is not ESM
+
+  CommonJS or AMD 
+dependencies can cause 
+optimization bailouts.
+  For more information see: h
+ttps://angular.io/guide/build
+#configuring-commonjs-depende
+ncies
+
+
+Γû▓ [WARNING] Module 'core-js
+/modules/es.string.match.js' 
+used by 'node_modules/canvg/l
+ib/index.es.js' is not ESM
+
+  CommonJS or AMD 
+dependencies can cause 
+optimization bailouts.
+  For more information see: h
+ttps://angular.io/guide/build
+#configuring-commonjs-depende
+ncies
+
+
+Γû▓ [WARNING] Module 'core-js
+/modules/es.string.replace.js
+' used by 'node_modules/canvg
+/lib/index.es.js' is not ESM
+
+  CommonJS or AMD 
+dependencies can cause 
+optimization bailouts.
+  For more information see: h
+ttps://angular.io/guide/build
+#configuring-commonjs-depende
+ncies
+
+
+Γû▓ [WARNING] Module 'core-js
+/modules/es.string.starts-wit
+h.js' used by 'node_modules/c
+anvg/lib/index.es.js' is not 
+ESM
+
+  CommonJS or AMD 
+dependencies can cause 
+optimization bailouts.
+  For more information see: h
+ttps://angular.io/guide/build
+#configuring-commonjs-depende
+ncies
+
+
+Γû▓ [WARNING] Module 'core-js
+/modules/es.array.iterator.js
+' used by 'node_modules/canvg
+/lib/index.es.js' is not ESM
+
+  CommonJS or AMD 
+dependencies can cause 
+optimization bailouts.
+  For more information see: h
+ttps://angular.io/guide/build
+#configuring-commonjs-depende
+ncies
+
+
+Γû▓ [WARNING] Module 'core-js
+/modules/web.dom-collections.
+iterator.js' used by 'node_mo
+dules/canvg/lib/index.es.js' 
+is not ESM
+
+  CommonJS or AMD 
+dependencies can cause 
+optimization bailouts.
+  For more information see: h
+ttps://angular.io/guide/build
+#configuring-commonjs-depende
+ncies
+
+
+Γû▓ [WARNING] Module 'core-js
+/modules/es.array.reduce.js' 
+used by 'node_modules/canvg/l
+ib/index.es.js' is not ESM
+
+  CommonJS or AMD 
+dependencies can cause 
+optimization bailouts.
+  For more information see: h
+ttps://angular.io/guide/build
+#configuring-commonjs-depende
+ncies
+
+
+Γû▓ [WARNING] Module 'core-js
+/modules/es.string.ends-with.
+js' used by 'node_modules/can
+vg/lib/index.es.js' is not 
+ESM
+
+  CommonJS or AMD 
+dependencies can cause 
+optimization bailouts.
+  For more information see: h
+ttps://angular.io/guide/build
+#configuring-commonjs-depende
+ncies
+
+
+Γû▓ [WARNING] Module 'core-js
+/modules/es.string.split.js' 
+used by 'node_modules/canvg/l
+ib/index.es.js' is not ESM
+
+  CommonJS or AMD 
+dependencies can cause 
+optimization bailouts.
+  For more information see: h
+ttps://angular.io/guide/build
+#configuring-commonjs-depende
+ncies
+
+
+Γû▓ [WARNING] Module 'raf' 
+used by 'node_modules/canvg/l
+ib/index.es.js' is not ESM
+
+  CommonJS or AMD 
+dependencies can cause 
+optimization bailouts.
+  For more information see: h
+ttps://angular.io/guide/build
+#configuring-commonjs-depende
+ncies
+
+
+Γû▓ [WARNING] Module 'core-js
+/modules/es.string.trim.js' 
+used by 'node_modules/canvg/l
+ib/index.es.js' is not ESM
+
+  CommonJS or AMD 
+dependencies can cause 
+optimization bailouts.
+  For more information see: h
+ttps://angular.io/guide/build
+#configuring-commonjs-depende
+ncies
+
+
+Γû▓ [WARNING] Module 
+'rgbcolor' used by 'node_modu
+les/canvg/lib/index.es.js' 
+is not ESM
+
+  CommonJS or AMD 
+dependencies can cause 
+optimization bailouts.
+  For more information see: h
+ttps://angular.io/guide/build
+#configuring-commonjs-depende
+ncies
+
+
+Γû▓ [WARNING] Module 'core-js
+/modules/es.array.index-of.js
+' used by 'node_modules/canvg
+/lib/index.es.js' is not ESM
+
+  CommonJS or AMD 
+dependencies can cause 
+optimization bailouts.
+  For more information see: h
+ttps://angular.io/guide/build
+#configuring-commonjs-depende
+ncies
+
+
+Γû▓ [WARNING] Module 'core-js
+/modules/es.string.includes.j
+s' used by 'node_modules/canv
+g/lib/index.es.js' is not ESM
+
+  CommonJS or AMD 
+dependencies can cause 
+optimization bailouts.
+  For more information see: h
+ttps://angular.io/guide/build
+#configuring-commonjs-depende
+ncies
+
+
+Γû▓ [WARNING] Module 'core-js
+/modules/es.array.reverse.js'
+ used by 'node_modules/canvg/
+lib/index.es.js' is not ESM
+
+  CommonJS or AMD 
+dependencies can cause 
+optimization bailouts.
+  For more information see: h
+ttps://angular.io/guide/build
+#configuring-commonjs-depende
+ncies
+
+
+Γû▓ [WARNING] Module 'core-js
+/modules/es.regexp.to-string.
+js' used by 'node_modules/can
+vg/lib/index.es.js' is not 
+ESM
+
+  CommonJS or AMD 
+dependencies can cause 
+optimization bailouts.
+  For more information see: h
+ttps://angular.io/guide/build
+#configuring-commonjs-depende
+ncies
+
+
+Γû▓ [WARNING] Module 
+'html2canvas' used by 'src/ap
+p/services/pdf.service.ts' 
+is not ESM
+
+  CommonJS or AMD 
+dependencies can cause 
+optimization bailouts.
+  For more information see: h
+ttps://angular.io/guide/build
+#configuring-commonjs-depende
+ncies
+
+
+Γû▓ [WARNING] 1 rules 
+skipped due to selector 
+errors:
+  .form-floating>~label -> 
+Did not expect successive 
+traversals.
+
+
+X [ERROR] bundle initial 
+exceeded maximum budget. 
+Budget 1.00 MB was not met 
+by 527.92 kB with a total of 
+1.52 MB.
+
+

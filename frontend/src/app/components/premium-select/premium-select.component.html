@@ -1,0 +1,22 @@
+<div class="premium-select-container" [class.open]="isOpen" [ngClass]="customClass">
+    <label *ngIf="label" class="premium-label">{{ label }}</label>
+    
+    <div class="premium-select-trigger" (click)="toggleDropdown()">
+        <span [class.placeholder]="!selectedLabel">{{ selectedLabel || placeholder }}</span>
+        <i class="bi bi-chevron-down chevron"></i>
+    </div>
+
+    <div class="premium-select-dropdown" *ngIf="isOpen">
+        <ul class="premium-select-list custom-scrollbar">
+            <li *ngFor="let option of options" 
+                (click)="selectOption(option)"
+                [class.selected]="option.value === selectedValue">
+                {{ option.label }}
+                <i *ngIf="option.value === selectedValue" class="bi bi-check2 ms-auto"></i>
+            </li>
+            <li *ngIf="options.length === 0" class="no-options">
+                No options available
+            </li>
+        </ul>
+    </div>
+</div>

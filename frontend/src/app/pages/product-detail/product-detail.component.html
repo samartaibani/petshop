@@ -1,0 +1,365 @@
+<div class="container py-5 mt-5 animate__animated animate__fadeIn" *ngIf="product">
+    <div class="row g-5">
+        <!-- Left: Gallery & Story -->
+        <div class="col-lg-7 animate__animated animate__fadeInLeft animate__delay-1s">
+            <div class="glass-card detail-gallery-box p-4 h-100">
+                <div class="d-flex gap-4 gallery-wrapper-premium">
+                    <!-- Vertical Thumbnails -->
+                    <div class="thumbnail-stack-premium d-none d-md-flex" *ngIf="product.images?.length > 0">
+                        <div *ngFor="let img of product.images" class="thumb-item-premium"
+                            [class.active]="selectedImage === img" (click)="changeImage(img)">
+                            <img [src]="img" class="img-fluid">
+                        </div>
+                    </div>
+
+                    <!-- Main Showcase -->
+                    <div class="main-showcase-premium shadow-premium-lg">
+                        <img [src]="selectedImage || product.imageUrl || 'assets/placeholder-lg.png'"
+                            class="img-fluid showcase-img-floating" alt="{{ product.name }}">
+
+                        <div class="showcase-badge-premium" [class.food]="product.type !== 'pet'"
+                            [class.pet]="product.type === 'pet'">
+                            <span class="ls-2 uppercase xs fw-black">
+                                {{ product.type === 'pet' ? 'LIVING COMPANION' : 'PET SUPPLY' }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Descriptive Story -->
+                <div class="mt-5 pt-5 border-top border-dark border-opacity-05">
+                    <div class="d-flex align-items-center gap-3 mb-4">
+                        <div class="accent-line"></div>
+                        <h6 class="text-accent fw-black ls-3 uppercase xs mb-0">DESCRIPTION & HISTORY</h6>
+                    </div>
+                    <p class="text-muted lh-lg lead-premium">
+                        {{ product.description }}
+                    </p>
+
+                    <!-- Pet Specific Details -->
+                    <div class="row mt-5 g-4" *ngIf="product.type === 'pet'">
+                        <div class="col-md-6">
+                            <div class="glass-card p-3 border-dark border-opacity-05 h-100">
+                                <h6 class="xs fw-black ls-2 uppercase text-accent mb-3"><i
+                                        class="bi bi-heart-pulse me-2"></i>HEALTH & STATUS</h6>
+                                <div class="badge-status-premium in-stock shadow-sm d-inline-block mb-2">{{
+                                    product.healthStatus || 'Excellent' }}</div>
+                                <p class="small text-dark mb-1"><strong>Neutered/Spayed:</strong> {{ product.neutered || 'Yes' }}</p>
+                                <p class="xs text-muted mt-2 mb-0 uppercase fw-bold ls-1">Last Vet Check: {{
+                                    product.birthDate ? (product.birthDate | date) : 'Recent' }}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="glass-card p-3 border-dark border-opacity-05 h-100">
+                                <h6 class="xs fw-black ls-2 uppercase text-accent mb-3"><i
+                                        class="bi bi-journal-text me-2"></i>DOCUMENTATION</h6>
+                                <p class="small text-dark mb-0 fw-bold">{{ product.documentation || 'Available upon
+                                    request' }}</p>
+                            </div>
+                        </div>
+
+                        <!-- Behavioral Section -->
+                        <div class="col-12">
+                            <div class="glass-card p-4 border-dark border-opacity-05 bg-light-soft">
+                                <div class="row g-4">
+                                    <div class="col-md-6">
+                                        <h6 class="xs fw-black ls-2 uppercase text-accent mb-3"><i
+                                                class="bi bi-stars me-2"></i>BEHAVIOR & TRAINING</h6>
+                                        <p class="small text-dark mb-2"><strong>Temperament:</strong> {{ product.temperament || 'Friendly' }}</p>
+                                        <p class="small text-dark mb-2"><strong>Training:</strong> {{ product.training || 'Basic' }}</p>
+                                        <p class="small text-dark mb-0"><strong>Energy Level:</strong> {{ product.energyLevel || 'Medium' }}</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6 class="xs fw-black ls-2 uppercase text-accent mb-3"><i
+                                                class="bi bi-people me-2"></i>COMPATIBILITY</h6>
+                                        <p class="small text-dark mb-0"><strong>Good With:</strong> {{ product.goodWith || 'All' }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="glass-card p-4 border-dark border-opacity-05 bg-light-soft">
+                                <h6 class="xs fw-black ls-2 uppercase text-accent mb-3"><i
+                                        class="bi bi-clipboard2-check me-2"></i>DAILY NEEDS & CARE PROTOCOL</h6>
+                                <p class="text-muted mb-0 lh-lg lead-premium fs-6">{{ product.dailyNeeds || 'Standard
+                                    companion care required.' }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Food Specific Details: Feeding Instructions -->
+                    <div class="row mt-5 g-4" *ngIf="product.type !== 'pet' && product.dailyNeeds">
+                        <div class="col-12">
+                            <div class="glass-card p-4 border-dark border-opacity-05 bg-light-soft">
+                                <h6 class="xs fw-black ls-2 uppercase text-accent mb-3"><i
+                                        class="bi bi-info-circle me-2"></i>FEEDING INSTRUCTIONS</h6>
+                                <p class="text-muted mb-0 lh-lg lead-premium fs-6">{{ product.dailyNeeds }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right: Specifications & Acquisition -->
+        <div class="col-lg-5 animate__animated animate__fadeInRight animate__delay-1s">
+            <div class="acquisition-panel-premium">
+                <nav aria-label="breadcrumb" class="mb-4">
+                    <ol class="breadcrumb premium-breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a [routerLink]="product.type === 'pet' ? '/adopt' : '/products'"
+                                class="text-muted text-decoration-none xs fw-black ls-1">{{ product.type === 'pet' ?
+                                'ADOPT' : 'PRODUCTS' }}</a></li>
+                        <li class="breadcrumb-item active text-dark xs fw-black ls-1" aria-current="page">
+                            {{ (product.breedName || product.categoryName || 'Sought') | uppercase }}
+                        </li>
+                    </ol>
+                </nav>
+
+                <h1 class="display-3 fw-black text-dark mb-3 ls-n1">{{ product.name }}</h1>
+
+                <!-- Premium Rating -->
+                <div class="d-flex align-items-center gap-3 mb-5">
+                    <div class="rating-display-premium">
+                        <i class="bi bi-star-fill text-warning me-2"></i>
+                        <span class="text-dark fw-black">{{ product.averageRating || 5.0 | number:'1.1-1' }}</span>
+                    </div>
+                    <div class="divider-v-lg"></div>
+                    <span class="text-muted xs fw-black ls-2 uppercase">{{ product.ratingCount || 0 }} RECENT
+                        OBSERVATIONS</span>
+                </div>
+
+                <!-- Dynamic Specs Grid -->
+                <!-- For Products (Food/Supplies) -->
+                 <div class="specs-grid-premium mb-5" *ngIf="product.type !== 'pet'">
+                    <div class="spec-card-premium">
+                        <span class="spec-label-premium">BRAND</span>
+                        <span class="spec-value-premium">{{ product.companyName || 'N/A' }}</span>
+                    </div>
+                    <div class="spec-card-premium">
+                        <span class="spec-label-premium">CATEGORY</span>
+                        <span class="spec-value-premium">{{ product.categoryName || 'General Supply' }}</span>
+                    </div>
+                    <div class="spec-card-premium">
+                        <span class="spec-label-premium">DIETARY</span>
+                        <span class="spec-value-premium d-flex align-items-center gap-2">
+                            <i class="bi bi-check-circle-fill" [style.color]="product.dietary === 'Veg' ? '#27ae60' : '#e67e22'" *ngIf="product.dietary"></i>
+                            {{ product.dietary || 'Standard' }}
+                        </span>
+                    </div>
+                    <div class="spec-card-premium">
+                        <span class="spec-label-premium">FOOD TYPE</span>
+                        <span class="spec-value-premium">{{ product.foodType || 'General' }}</span>
+                    </div>
+                    <div class="spec-card-premium">
+                        <span class="spec-label-premium">WEIGHT / VOL</span>
+                        <span class="spec-value-premium">{{ product.weight || 'N/A' }}</span>
+                    </div>
+                    <div class="spec-card-premium">
+                        <span class="spec-label-premium">FLAVOR</span>
+                        <span class="spec-value-premium">{{ product.flavor || 'Original' }}</span>
+                    </div>
+                    <div class="spec-card-premium full">
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="bi bi-calendar-check text-accent fs-4"></i>
+                            <div>
+                                <span class="spec-label-premium d-block">EXPIRY DATE</span>
+                                <span class="spec-value-premium text-dark">{{ product.expiryDate || 'N/A' }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="spec-card-premium full mt-2">
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="bi bi-shield-check text-accent fs-4"></i>
+                            <div>
+                                <span class="spec-label-premium d-block">DOCUMENTATION</span>
+                                <span class="spec-value-premium text-dark">{{ product.documentation || 'Quality Certified' }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- For Pets -->
+                <div class="specs-grid-premium mb-5" *ngIf="product.type === 'pet'">
+                    <div class="spec-card-premium">
+                        <span class="spec-label-premium">BREED / SPECIES</span>
+                        <span class="spec-value-premium">{{ product.breedName || 'Rare' }}</span>
+                    </div>
+                    <div class="spec-card-premium">
+                        <span class="spec-label-premium">APPROX. AGE</span>
+                        <span class="spec-value-premium">{{ product.age || 'Juvenile' }}</span>
+                    </div>
+                    <div class="spec-card-premium">
+                        <span class="spec-label-premium">SEX</span>
+                        <span class="spec-value-premium">{{ product.sex || 'Male' }}</span>
+                    </div>
+                    <div class="spec-card-premium full">
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="bi bi-shield-check text-accent fs-4"></i>
+                            <div>
+                                <span class="spec-label-premium d-block">DISPOSITION</span>
+                                <span class="spec-value-premium text-dark">Friendly & Evaluated</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Price & Acquisition -->
+                <div class="purchase-box-premium glass-card p-4 pb-5">
+                    <div class="d-flex justify-content-between align-items-start mb-5">
+                        <div class="price-stack-premium">
+                            <span class="text-muted xs fw-black ls-2 uppercase d-block mb-1">
+                                {{ product.type === 'pet' ? 'ADOPTION CONTRIBUTION' : 'ACQUISITION VALUE' }}
+                            </span>
+                            <h2 class="display-4 fw-black text-dark mb-0">₹{{ product.price | number }}</h2>
+                        </div>
+                        <div class="status-indicator">
+                            <span class="badge-status-premium" [class.in-stock]="product.status !== 'Adopted'">
+                                {{ product.status === 'Adopted' ? 'ALREADY ADOPTED' : 'READY FOR LOVE' }}
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Quantity (Only for non-pets) -->
+                    <div class="quantity-section-premium mb-5" *ngIf="product.type !== 'pet' && product.stock > 0">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="text-muted xs fw-black ls-2 uppercase">SELECT ALLOCATION</span>
+                            <span class="text-accent xs fw-bold">{{ product.stock }} UNITS IN VAULT</span>
+                        </div>
+                        <div class="stepper-premium">
+                            <button class="step-btn" (click)="quantity > 1 ? quantity = quantity - 1 : null">
+                                <i class="bi bi-dash-lg"></i>
+                            </button>
+                            <input type="number" class="step-input" [(ngModel)]="quantity" readonly>
+                            <button class="step-btn"
+                                (click)="quantity < product.stock ? quantity = quantity + 1 : null">
+                                <i class="bi bi-plus-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-3">
+                        <!-- Add to Vault (Food) -->
+                        <button *ngIf="product.type !== 'pet'" class="btn-premium w-100 py-3 shadow-accent-glow"
+                            (click)="addToCart()" [disabled]="product.stock <= 0">
+                            <i class="bi bi-lightning-charge-fill me-2"></i>
+                            ADD TO VAULT
+                        </button>
+
+                        <!-- Request Adoption (Pet) -->
+                        <button *ngIf="product.type === 'pet'" class="btn-premium w-100 py-3 shadow-accent-glow bg-dark"
+                            (click)="openAdoptForm(product)" [disabled]="product.status === 'Adopted'">
+                            <i class="bi bi-balloon-heart-fill me-2"></i>
+                            {{ masterForm ? 'SUBMIT REQUEST' : 'FILL FORM' }}
+                        </button>
+
+                        <button class="btn-icon-glass py-3 px-4" (click)="toggleWishlist(product, $event)">
+                            <i class="bi bi-heart fs-5"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feedback Section -->
+    <div class="row mt-5 pt-5 animate__animated animate__fadeInUp animate__delay-2s">
+        <div class="col-lg-12">
+            <div
+                class="d-flex align-items-center justify-content-between mb-5 border-bottom border-dark border-opacity-10 pb-4">
+                <div>
+                    <h6 class="text-accent fw-black ls-3 uppercase xs mb-2">EXPERIENCE</h6>
+                    <h3 class="text-dark display-6 fw-black">Collector Feedback</h3>
+                </div>
+                <div class="rating-summary-premium d-none d-md-flex gap-4">
+                    <div class="text-end">
+                        <div class="text-dark fw-black lead">Masterpiece Quality</div>
+                        <div class="text-muted xs">CONSENSUS BASED ON {{ ratings.length }} EVALUATIONS</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-5">
+                <!-- Write Review -->
+                <div class="col-md-5">
+                    <div class="glass-card p-4 shadow-premium sticky-sidebar-premium">
+                        <h5 class="text-dark fw-black ls-n1 mb-4">Record Your Appraisal</h5>
+
+                        <div *ngIf="auth.isAuthenticated()">
+                            <div class="mb-4">
+                                <label class="text-muted xs fw-black ls-2 uppercase mb-3 d-block">YOUR
+                                    EVALUATION</label>
+                                <div class="rating-input-premium">
+                                    <i *ngFor="let star of [1, 2, 3, 4, 5]" class="bi fs-3 star-btn"
+                                        [ngClass]="star <= newRatingValue ? 'bi-star-fill text-warning' : 'bi-star text-muted opacity-25'"
+                                        (click)="newRatingValue = star">
+                                    </i>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="text-muted xs fw-black ls-2 uppercase mb-3 d-block">DETAILED
+                                    REMARKS</label>
+                                <textarea class="premium-textarea-glass" rows="4"
+                                    placeholder="Describe the aesthetic and your overall satisfaction..."
+                                    [(ngModel)]="newRatingMessage"></textarea>
+                            </div>
+
+                            <button class="btn-premium w-100 py-3" (click)="submitRating()"
+                                [disabled]="!newRatingMessage">
+                                SUBMIT OFFICIAL FEEDBACK
+                            </button>
+                        </div>
+
+                        <div class="text-center py-5" *ngIf="!auth.isAuthenticated()">
+                            <div class="auth-lock-icon mx-auto mb-4">
+                                <i class="bi bi-shield-lock"></i>
+                            </div>
+                            <h5 class="text-dark fw-bold mb-3">Protected Archive</h5>
+                            <p class="text-muted small mb-4 px-3 lh-lg">Authentic reviews are reserved for verified
+                                accounts to ensure platform integrity.</p>
+                            <a routerLink="/login" class="btn btn-outline-dark-glass w-100 py-2">INFILTRATE / SIGN
+                                IN</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review List -->
+                <div class="col-md-7">
+                    <div *ngIf="ratings.length === 0" class="glass-card-empty p-5 text-center">
+                        <i class="bi bi-chat-dots text-muted opacity-25 display-4 mb-3 d-block"></i>
+                        <p class="text-muted mb-0 ls-1 uppercase small">NO EVALUATIONS RECORDED YET</p>
+                    </div>
+
+                    <div class="review-card-premium mb-4 animate__animated animate__fadeInUp"
+                        *ngFor="let r of ratings; let i = index" [style.animation-delay]="(i * 0.1) + 's'">
+                        <div class="glass-card p-4">
+                            <div class="d-flex justify-content-between mb-4">
+                                <div class="reviewer-meta-premium d-flex align-items-center gap-3">
+                                    <div class="avatar-wrapper-premium">
+                                        <img [src]="r.userImageUrl || 'assets/default-avatar.png'" class="reviewer-img">
+                                    </div>
+                                    <div>
+                                        <div class="text-dark fw-black ls-1 uppercase xs mb-1">{{ r.userName }}</div>
+                                        <div class="rating-box-sm">
+                                            <i class="bi bi-star-fill text-warning" *ngFor="let s of [1,2,3,4,5]"
+                                                [style.opacity]="s <= r.rating ? 1 : 0.1"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-muted xs fw-black ls-1 mt-1">{{ r.createdAt | date:'mediumDate' |
+                                    uppercase }}</div>
+                            </div>
+                            <div class="review-content-premium">
+                                <i class="bi bi-quote text-accent opacity-20 fs-4 d-block mb-1"></i>
+                                <p class="text-muted mb-0 lh-lg lead-premium fs-6 px-3">
+                                    "{{ r.message }}"
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

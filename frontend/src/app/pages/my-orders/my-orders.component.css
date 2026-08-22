@@ -1,0 +1,204 @@
+/* Premium Modern My Orders Styles - Light Theme */
+:host {
+    display: block;
+}
+
+.glass-card-table {
+    background: #ffffff;
+    border: 1px solid #f1f3f5;
+    border-radius: 30px;
+}
+
+.premium-table-vault {
+    width: 100%;
+    background-color: transparent !important;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.premium-table-vault thead th {
+    background: #f8f9fa;
+    color: var(--theme-text-muted);
+    font-size: 0.65rem;
+    font-weight: 950;
+    letter-spacing: 2.5px;
+    padding: 25px 20px;
+    border-bottom: 1px solid #e9ecef;
+    text-transform: uppercase;
+}
+
+.premium-table-vault tbody tr {
+    transition: all 0.3s ease;
+    border-bottom: 1px solid #f1f3f5;
+}
+
+.premium-table-vault tbody td {
+    padding: 25px 20px;
+    vertical-align: middle;
+    border: none !important;
+    color: var(--theme-text-dark);
+    background: transparent !important;
+}
+
+.premium-table-vault tbody tr:hover {
+    background-color: #fffaf7 !important;
+}
+
+/* Status Indicators */
+.status-indicator-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #f8f9fa;
+    padding: 6px 16px;
+    border-radius: 10px;
+    border: 1px solid #e9ecef;
+}
+
+.status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 2px;
+    background: var(--theme-text-muted);
+}
+
+.status-indicator-box.pending .status-dot {
+    background: #ffb703;
+    box-shadow: 0 0 10px rgba(255, 183, 3, 0.4);
+}
+
+.status-indicator-box.shipped .status-dot {
+    background: #0070f3;
+    box-shadow: 0 0 10px rgba(0, 112, 243, 0.4);
+}
+
+.status-indicator-box.delivered .status-dot,
+.status-indicator-box.collected .status-dot {
+    background: #2fb344;
+    box-shadow: 0 0 10px rgba(47, 179, 68, 0.4);
+}
+
+.status-indicator-box.cancelled .status-dot {
+    background: #ff4d6d;
+    box-shadow: 0 0 10px rgba(255, 77, 109, 0.4);
+}
+
+/* Payment Badges */
+.payment-badge-vault {
+    padding: 6px 14px;
+    border-radius: 10px;
+    background: #f1f3f5;
+    color: var(--theme-text-muted);
+    font-size: 0.65rem;
+    font-weight: 800;
+}
+
+.payment-badge-vault.paid {
+    background: #ebfbee;
+    color: #2fb344;
+}
+
+/* Action Icons */
+.btn-action-glass {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: #ffffff;
+    border: 1px solid #e9ecef;
+    color: var(--theme-text-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.btn-action-glass:hover {
+    background: #f8f9fa;
+    border-color: var(--theme-accent-orange);
+    color: var(--theme-accent-orange);
+    transform: translateY(-3px);
+}
+
+.btn-action-glass.danger:hover {
+    background: #fff5f5;
+    border-color: #ff4d6d;
+    color: #ff4d6d;
+}
+
+/* Empty State */
+.empty-icon-box-sm {
+    width: 80px;
+    height: 80px;
+    background: #f8f9fa;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    color: var(--theme-text-muted);
+    opacity: 0.3;
+}
+
+/* Typography & Utilities */
+.fw-black {
+    font-weight: 950;
+}
+
+.ls-3 {
+    letter-spacing: 3px;
+}
+
+.ls-2 {
+    letter-spacing: 2px;
+}
+
+.ls-1 {
+    letter-spacing: 1px;
+}
+
+.ls-n1 {
+    letter-spacing: -1.5px;
+}
+
+.xs {
+    font-size: 0.68rem;
+}
+
+.fs-xs {
+    font-size: 0.75rem;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+@media (max-width: 991px) {
+    .premium-table-vault thead {
+        display: none;
+    }
+
+    .premium-table-vault tr {
+        display: block;
+        padding: 20px;
+        border-bottom: 1px solid #f1f3f5;
+    }
+
+    .premium-table-vault td {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0 !important;
+        border: none !important;
+    }
+
+    .premium-table-vault td::before {
+        content: attr(data-label);
+        font-weight: 950;
+        text-transform: uppercase;
+        font-size: 0.6rem;
+        letter-spacing: 1.5px;
+        color: var(--theme-text-muted);
+        opacity: 0.5;
+    }
+}

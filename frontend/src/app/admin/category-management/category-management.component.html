@@ -1,0 +1,151 @@
+<div class="container py-5">
+    <div class="row mb-5 border-bottom border-dark border-opacity-10 pb-4">
+        <div class="col-12 d-flex justify-content-between align-items-center">
+            <div>
+                <h6 class="text-accent fw-black ls-3 uppercase xs mb-2">ADMIN</h6>
+                <h1 class="display-5 fw-black text-dark mb-0 ls-n1">
+                    {{ activeView === 'categories' ? 'Category' : 'Breed/Sub-Category' }} <span
+                        class="text-accent">Management</span>
+                </h1>
+            </div>
+            <div class="d-flex gap-3">
+                <div class="btn-group glass-card p-1">
+                    <button class="btn btn-sm" [class.btn-dark]="activeView === 'categories'"
+                        (click)="setView('categories')">CATEGORIES</button>
+                    <button class="btn btn-sm" [class.btn-dark]="activeView === 'subcategories'"
+                        (click)="setView('subcategories')">BREEDS (SUB-CAT)</button>
+                </div>
+                <div *ngIf="activeView === 'subcategories'" class="min-w-200">
+                    <app-premium-select
+                        [options]="categoryOptions"
+                        [(ngModel)]="selectedCategoryId"
+                        placeholder="Filter by Category...">
+                    </app-premium-select>
+                </div>
+                <button class="btn-premium px-4 py-2 shadow-accent-glow"
+                    (click)="activeView === 'categories' ? toggleForm() : toggleSubForm()"
+                    *ngIf="!showForm && !showSubForm">
+                    <i class="bi bi-plus-lg me-2"></i> ADD {{ activeView === 'categories' ? 'CATEGORY' : 'BREED' }}
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <!-- CATEGORY FORM SECTION -->
+        <div class="col-md-4" *ngIf="showForm">
+            <div class="glass-card p-4 border-dark border-opacity-05 animate__animated animate__fadeInLeft">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h5 class="fw-black text-dark mb-0 ls-n1">{{ isEditMode ? 'Edit' : 'Add' }} Category</h5>
+                    <button type="button" class="btn-icon-glass" (click)="toggleForm()"><i
+                            class="bi bi-x-lg"></i></button>
+                </div>
+                <div *ngIf="errorMsg" class="alert-premium error mb-3">{{ errorMsg }}</div>
+                <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+                    <div class="mb-4">
+                        <label class="premium-label">CATEGORY NAME</label>
+                        <input type="text" class="premium-input" formControlName="name"
+                            placeholder="Dog, Cat, Food, etc.">
+                    </div>
+                    <button type="submit" class="btn-premium w-100 py-3 mb-2" [disabled]="categoryForm.invalid">
+                        {{ isEditMode ? 'UPDATE RECORD' : 'SAVE CATEGORY' }}
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- SUBCATEGORY FORM SECTION -->
+        <div class="col-md-4" *ngIf="showSubForm">
+            <div class="glass-card p-4 border-dark border-opacity-05 animate__animated animate__fadeInLeft">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h5 class="fw-black text-dark mb-0 ls-n1">{{ isSubEditMode ? 'Edit' : 'Add' }} Breed</h5>
+                    <button type="button" class="btn-icon-glass" (click)="toggleSubForm()"><i
+                            class="bi bi-x-lg"></i></button>
+                </div>
+                <div *ngIf="errorMsg" class="alert-premium error mb-3">{{ errorMsg }}</div>
+                <form [formGroup]="subCategoryForm" (ngSubmit)="onSubmitSub()">
+                    <div class="mb-3">
+                        <label class="premium-label">PARENT CATEGORY</label>
+                        <app-premium-select
+                            [options]="categoryOptions"
+                            formControlName="categoryId"
+                            placeholder="Select Category...">
+                        </app-premium-select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="premium-label">BREED / SUB-CAT NAME</label>
+                        <input type="text" class="premium-input" formControlName="name"
+                            placeholder="Golden Retriever, Persian, etc.">
+                    </div>
+                    <button type="submit" class="btn-premium w-100 py-3 mb-2" [disabled]="subCategoryForm.invalid">
+                        {{ isSubEditMode ? 'UPDATE RECORD' : 'SAVE BREED' }}
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- LIST SECTION -->
+        <div [class]="(showForm || showSubForm) ? 'col-md-8' : 'col-md-12'">
+            <div class="glass-card p-0 overflow-hidden border-dark border-opacity-05 animate__animated animate__fadeIn">
+                <div class="table-responsive">
+                    <table class="premium-table-vault mb-0">
+                        <thead>
+                            <tr>
+                                <th class="ps-4">NAME</th>
+                                <th *ngIf="activeView === 'subcategories'">PARENT CATEGORY</th>
+                                <th>STATUS</th>
+                                <th class="text-end pe-4">ACTIONS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Category Rows -->
+                            <ng-container *ngIf="activeView === 'categories'">
+                                <tr *ngFor="let cat of categories">
+                                    <td class="ps-4 text-dark fw-black ls-1">{{ cat.name }}</td>
+                                    <td>
+                                        <div class="badge-status-premium in-stock">ACTIVE</div>
+                                    </td>
+                                    <td class="text-end pe-4">
+                                        <div class="d-flex justify-content-end gap-2">
+                                            <button class="btn-icon-glass" (click)="edit(cat)"><i
+                                                    class="bi bi-pencil-square"></i></button>
+                                            <button class="btn-icon-glass danger-hover" (click)="delete(cat.id)"><i
+                                                    class="bi bi-trash3"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr *ngIf="categories.length === 0">
+                                    <td colspan="3" class="text-center py-5 text-muted small opacity-50 uppercase ls-2">
+                                        No Categories Found</td>
+                                </tr>
+                            </ng-container>
+
+                            <!-- SubCategory Rows -->
+                            <ng-container *ngIf="activeView === 'subcategories'">
+                                <tr *ngFor="let sub of filteredSubCategories">
+                                    <td class="ps-4 text-dark fw-black ls-1">{{ sub.name }}</td>
+                                    <td class="text-muted fw-bold">{{ getCategoryName(sub.categoryId) }}</td>
+                                    <td>
+                                        <div class="badge-status-premium in-stock">ACTIVE</div>
+                                    </td>
+                                    <td class="text-end pe-4">
+                                        <div class="d-flex justify-content-end gap-2">
+                                            <button class="btn-icon-glass" (click)="editSub(sub)"><i
+                                                    class="bi bi-pencil-square"></i></button>
+                                            <button class="btn-icon-glass danger-hover" (click)="deleteSub(sub.id)"><i
+                                                    class="bi bi-trash3"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr *ngIf="subCategories.length === 0">
+                                    <td colspan="4" class="text-center py-5 text-muted small opacity-50 uppercase ls-2">
+                                        No Breeds Registered</td>
+                                </tr>
+                            </ng-container>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

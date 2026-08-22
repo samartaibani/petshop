@@ -1,0 +1,57 @@
+<!-- Admin Dashboard Architecture -->
+<ng-container *ngIf="isAdmin$ | async; else userLayout">
+  <div class="admin-layout-system">
+    <aside class="admin-sidebar shadow-sm">
+      <app-admin-navbar></app-admin-navbar>
+    </aside>
+
+    <main class="admin-canvas">
+      <header class="admin-topbar p-4">
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="breadcrumb-vault">
+            <span class="xs fw-black ls-2 text-muted uppercase">SYSTEM / DASHBOARD</span>
+          </div>
+          <div class="admin-profile-trigger d-flex align-items-center gap-3">
+            <div class="xs fw-black ls-1 text-dark uppercase">ADMINISTRATOR</div>
+            <div class="profile-dot-accent"></div>
+          </div>
+        </div>
+      </header>
+
+      <div class="admin-viewport p-4 animate__animated animate__fadeIn">
+        <router-outlet></router-outlet>
+      </div>
+    </main>
+  </div>
+</ng-container>
+
+<!-- User Immersive Layout -->
+<ng-template #userLayout>
+  <div class="user-layout-system">
+    <ng-container *ngIf="!(isAuthPage$ | async)">
+      <app-navbar></app-navbar>
+    </ng-container>
+
+    <main class="user-main-content">
+      <router-outlet></router-outlet>
+    </main>
+
+    <ng-container *ngIf="!(isAuthPage$ | async)">
+      <app-footer></app-footer>
+    </ng-container>
+  </div>
+</ng-template>
+
+<!-- Global Adoption Form Modal -->
+<app-adoption-form *ngIf="adoptionModalService.isVisible$ | async" [pet]="adoptionModalService.selectedPet$ | async"
+  (close)="adoptionModalService.closeForm()" (success)="onAdoptionSuccess()">
+</app-adoption-form>
+
+<!-- Global Success Notification -->
+<app-success-notification></app-success-notification>
+
+<!-- Global Error Notification -->
+<app-error-notification></app-error-notification>
+
+<!-- Global Confirm Dialog -->
+<app-confirm-dialog></app-confirm-dialog>

@@ -1,0 +1,137 @@
+/* Premium Modern Footer */
+:host {
+    display: block;
+    margin-top: 5rem;
+}
+
+.premium-footer {
+    background: #ffffff;
+    border-top: 1px solid #f1f3f5;
+    position: relative;
+    overflow: hidden;
+}
+
+.premium-brand {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--theme-text-dark);
+    text-decoration: none;
+    letter-spacing: -1px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.brand-f,
+.brand-berry {
+    color: var(--theme-accent-orange);
+}
+
+.brand-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--theme-accent-orange);
+    border-radius: 2px;
+    margin-left: 4px;
+    box-shadow: 0 0 10px var(--theme-accent-glow);
+}
+
+.footer-section-title {
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--theme-text-dark);
+    letter-spacing: 1.5px;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+}
+
+.footer-nav-list {
+    list-style: none;
+}
+
+.footer-nav-list li {
+    margin-bottom: 12px;
+}
+
+.footer-nav-list a {
+    color: var(--theme-text-muted);
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+}
+
+.footer-nav-list a:hover {
+    color: var(--theme-accent-orange);
+    letter-spacing: 1px;
+}
+
+/* Social Grid */
+.social-grid {
+    display: flex;
+    gap: 12px;
+}
+
+.social-icon-btn {
+    width: 45px;
+    height: 45px;
+    background: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--theme-text-muted);
+    font-size: 1.2rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-decoration: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.social-icon-btn:hover {
+    background: var(--theme-accent-orange);
+    color: white;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(255, 107, 0, 0.25);
+    border-color: transparent;
+}
+
+/* Contact Items */
+.footer-contact-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.contact-icon-mini {
+    color: var(--theme-accent-orange);
+    font-size: 1rem;
+}
+
+.contact-text-mini {
+    color: var(--theme-text-muted);
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.text-white-30 {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.payment-methods {
+    font-size: 1.5rem;
+    color: var(--theme-text-dark);
+}
+
+.xs {
+    font-size: 0.7rem;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+.text-white-10 {
+    color: rgba(255, 255, 255, 0.1);
+}

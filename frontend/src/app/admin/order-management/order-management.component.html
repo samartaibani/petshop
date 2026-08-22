@@ -1,0 +1,87 @@
+<div class="executive-node py-5 px-lg-5 animate__animated animate__fadeIn">
+    <!-- Sleek Top Bar -->
+    <div class="d-flex align-items-center justify-content-between mb-5 border-bottom border-dark border-opacity-10 pb-4">
+        <div>
+            <h6 class="text-accent fw-black ls-3 uppercase xs mb-2">ADMIN COMMAND</h6>
+            <h1 class="display-5 fw-black text-dark mb-0 ls-n1">Order <span class="text-accent">Management</span></h1>
+            <div class="border-accent-sm mt-3" style="width: 60px; height: 4px;"></div>
+        </div>
+        <div class="admin-session-badge px-4 py-2">
+            <span class="xs fw-black ls-1 uppercase text-dark">SECURE LOGISTICS ACTIVE</span>
+        </div>
+    </div>
+
+    <!-- Executive Order Table -->
+    <div class="hub-ledger-card">
+        <div class="table-responsive" style="overflow: visible !important;">
+            <table class="premium-executive-table align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th class="ps-4">ORDER #</th>
+                        <th>CUSTOMER</th>
+                        <th class="text-center">VALUATION</th>
+                        <th class="text-center">METHOD</th>
+                        <th class="text-center">PAYMENT</th>
+                        <th class="text-center">STATUS</th>
+                        <th class="text-center" style="min-width: 160px;">COMMAND</th>
+                        <th class="text-end pe-4">ACTION</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let order of orders; let i = index">
+                        <td class="ps-4">
+                            <span class="text-muted xs fw-black ls-1">#{{ i + 101 }}</span>
+                        </td>
+                        <td>
+                            <div class="fw-black text-dark ls-1 uppercase mb-0">{{ getUserName(order.userId) }}</div>
+                            <div class="text-muted xs fw-bold ls-1 opacity-75">VERIFIED OPERATIVE</div>
+                        </td>
+                        <td class="text-center">
+                            <span class="text-accent fw-black fs-6 ls-n1">₹{{ order.totalAmount | number }}</span>
+                        </td>
+                        <td class="text-center">
+                            <span class="xs fw-black text-muted ls-1 uppercase">{{ order.paymentMethod || 'COD' }}</span>
+                        </td>
+                        <td class="text-center">
+                            <span class="badge-status-premium" [class.in-stock]="order.paymentStatus === 'Paid' || order.paymentStatus === 'Success'">
+                                {{ (order.paymentStatus || 'PENDING') | uppercase }}
+                            </span>
+                        </td>
+                        <td class="text-center">
+                            <span class="badge-status-premium" [ngClass]="{
+                                'in-stock': order.status === 'Delivered',
+                                'danger': order.status === 'Cancelled'
+                            }">
+                                {{ order.status | uppercase }}
+                            </span>
+                        </td>
+                        <td class="text-center">
+                            <app-premium-select
+                                [options]="statusOptionsMapped"
+                                [ngModel]="order.status"
+                                (ngModelChange)="updateStatus(order.id, $event)"
+                                [disabled]="isLocked(order)"
+                                customClass="xs text-center"
+                                style="width: 150px; display: inline-block;">
+                            </app-premium-select>
+                        </td>
+                        <td class="text-end pe-4">
+                            <button class="btn-executive-icon text-danger danger-hover" [disabled]="isLocked(order)"
+                                (click)="deleteOrder(order.id)" title="Purge Record">
+                                <i class="bi bi-trash3"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr *ngIf="orders.length === 0">
+                        <td colspan="8" class="text-center py-5">
+                            <div class="p-5">
+                                <i class="bi bi-slash-circle fs-1 text-muted opacity-25"></i>
+                                <p class="text-muted small fw-bold mt-3 mb-0 uppercase ls-1">No active logistics streams detected.</p>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

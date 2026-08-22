@@ -1,0 +1,23 @@
+.text-orange {
+    color: var(--theme-accent-orange, #ff6b00);
+}
+
+.search-input-wrapper,
+.category-filter-wrapper select {
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.search-input-wrapper:focus-within,
+.category-filter-wrapper select:focus {
+    border-color: var(--theme-accent-orange, #ff6b00) !important;
+    box-shadow: 0 10px 25px rgba(255, 107, 0, 0.1) !important;
+}
+
+.pointer-events-none {
+    pointer-events: none;
+}
+
+.form-select {
+    background-image: none !important;
+    /* Hide default arrow */
+}

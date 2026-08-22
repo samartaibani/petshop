@@ -1,0 +1,94 @@
+/* Admin - Category Management - Light Theme */
+
+/* Glass Card */
+.glass-card {
+    background: #ffffff;
+    border: 1px solid #f1f3f5;
+    border-radius: 28px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
+}
+
+/* Table Architecture */
+.premium-table-vault {
+    width: 100%;
+    background-color: transparent !important;
+}
+
+.premium-table-vault thead th {
+    background-color: #f8f9fa !important;
+    color: var(--theme-text-muted) !important;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 0.65rem;
+    letter-spacing: 1.5px;
+    padding: 1.25rem 1rem;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.premium-table-vault tbody td {
+    padding: 1.5rem 1rem;
+    vertical-align: middle;
+    color: var(--theme-text-dark);
+    border-bottom: 1px solid #f1f3f5;
+}
+
+.premium-table-vault tbody tr:hover td {
+    background-color: #fffaf7;
+}
+
+/* Status Badges */
+.badge-status-premium {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 12px;
+    background: #ebfbee;
+    color: #2fb344;
+    font-size: 0.65rem;
+    font-weight: 800;
+}
+
+/* Action Icons */
+.btn-icon-glass {
+    background: #ffffff;
+    border: 1px solid #e9ecef;
+    color: var(--theme-text-dark);
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    cursor: pointer;
+}
+
+.btn-icon-glass:hover {
+    background: #f8f9fa;
+    border-color: var(--theme-accent-orange);
+    color: var(--theme-accent-orange);
+    transform: translateY(-2px);
+}
+
+.btn-icon-glass.text-danger:hover {
+    background: #fff5f5;
+    border-color: #ff4d6d;
+    color: #ff4d6d;
+}
+
+/* Typography & Utilities */
+.xs {
+    font-size: 0.65rem;
+}
+
+.ls-1 {
+    letter-spacing: 1px;
+}
+
+.fw-black {
+    font-weight: 800;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}

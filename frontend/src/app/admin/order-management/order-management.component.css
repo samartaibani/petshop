@@ -1,0 +1,124 @@
+.executive-node {
+    background: #fff;
+    min-height: 100vh;
+}
+
+.admin-session-badge {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+}
+
+.hub-ledger-card {
+    background: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.03);
+    position: relative;
+    overflow: visible !important;
+}
+
+.table-responsive {
+    overflow: visible !important;
+}
+
+.premium-executive-table {
+    width: 100%;
+}
+
+.premium-executive-table thead th {
+    background: #fbfbfb !important;
+    color: #888 !important;
+    font-weight: 900;
+    font-size: 0.65rem;
+    letter-spacing: 1.5px;
+    padding: 1.5rem 1rem;
+    border-bottom: 1px solid #eee;
+    text-transform: uppercase;
+}
+
+.premium-executive-table tbody td {
+    padding: 1.5rem 1rem;
+    border-bottom: 1px solid #f8f8f8;
+    transition: all 0.2s ease;
+}
+
+.premium-executive-table tbody tr:hover td {
+    background: #fafafa;
+}
+
+.premium-executive-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Status Badge - Premium Executive Style */
+.badge-status-premium {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 16px;
+    border-radius: 8px;
+    font-size: 0.65rem;
+    font-weight: 900;
+    letter-spacing: 1px;
+    background: #f1f3f5;
+    color: #495057;
+    text-transform: uppercase;
+}
+
+.badge-status-premium.in-stock {
+    background: #ebfbee;
+    color: #2fb344;
+}
+
+.badge-status-premium.danger {
+    background: #fff5f5;
+    color: #ff4d6d;
+}
+
+/* Executive Icon Button */
+.btn-executive-icon {
+    background: #ffffff;
+    border: 1px solid #e9ecef;
+    color: #212529;
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.btn-executive-icon:hover:not(:disabled) {
+    border-color: #000;
+    color: #000;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.btn-executive-icon.text-danger:hover:not(:disabled) {
+    border-color: #ff4d6d;
+    color: #ff4d6d;
+    background: #fff5f5;
+}
+
+.btn-executive-icon:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+/* Typography & Helpers */
+.xs { font-size: 0.65rem; }
+.ls-1 { letter-spacing: 1px; }
+.ls-3 { letter-spacing: 3px; }
+.ls-n1 { letter-spacing: -1px; }
+.fw-black { font-weight: 900; }
+.uppercase { text-transform: uppercase; }
+.text-accent { color: var(--theme-accent-orange) !important; }
+.bg-faint { background: #fbfbfb; }
+
+.border-accent-sm {
+    background: var(--theme-accent-orange);
+}

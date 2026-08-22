@@ -1,0 +1,60 @@
+<div class="container py-5">
+    <div class="row mb-5 border-bottom border-dark border-opacity-10 pb-4">
+        <div class="col-12 d-flex justify-content-between align-items-center">
+            <div>
+                <h6 class="text-accent fw-black ls-3 uppercase xs mb-2">ADMIN</h6>
+                <h1 class="display-5 fw-black text-dark mb-0 ls-n1">User <span class="text-accent">Management</span>
+                </h1>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Card -->
+    <div class="glass-card p-0 overflow-hidden border-dark border-opacity-05">
+        <div class="p-0">
+            <div class="table-responsive">
+                <table class="premium-table-vault align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th class="ps-4">NAME</th>
+                            <th>EMAIL</th>
+                            <th>ROLE</th>
+                            <th>JOINED</th>
+                            <th class="text-end pe-4">ACTION</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let u of users">
+                            <td class="ps-4">
+                                <div class="text-dark fw-black ls-1 uppercase">{{ u.name }}</div>
+                            </td>
+                            <td>
+                                <div class="text-muted small">{{ u.email }}</div>
+                            </td>
+                            <td>
+                                <div class="badge-status-premium" [class.in-stock]="u.role === 1">
+                                    {{ u.role === 1 ? 'ADMIN' : 'USER' }}
+                                </div>
+                            </td>
+                            <td class="text-muted xs ls-1">{{ u.createdAt | date:'longDate' | uppercase }}</td>
+                            <td class="text-end pe-4">
+                                <button class="btn-icon-glass text-danger danger-hover" (click)="deleteUser(u.uid)"
+                                    *ngIf="u.role !== 1" title="Purge Record">
+                                    <i class="bi bi-trash3"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr *ngIf="users.length === 0">
+                            <td colspan="5" class="text-center py-5 text-muted">
+                                <div class="empty-icon-box-sm mx-auto mb-3">
+                                    <i class="bi bi-people text-muted opacity-25 fs-2"></i>
+                                </div>
+                                <p class="mb-0 ls-1 uppercase small">NO IDENTIFIED USERS IN THIS SECTOR</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

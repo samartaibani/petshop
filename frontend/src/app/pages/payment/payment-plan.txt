@@ -1,0 +1,9 @@
+<h1>Payment Page Implementation</h1>
+- Uses `useLocation` or `router.getCurrentNavigation().extras.state` to get Address.
+- Displays COD and Card options.
+- <b>Dummy Card</b> logic implemented here.
+- Calls `api.createOrder` on success.
+
+<h2>File Structure</h2>
+- `payment.component.html`: Layout for payment selection.
+- `payment.component.ts`: Logic.

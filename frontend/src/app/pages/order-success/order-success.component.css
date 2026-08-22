@@ -1,0 +1,122 @@
+/* Premium Modern Order Success Redesign - Light Theme */
+:host {
+    display: block;
+    background: var(--theme-bg-gradient) fixed;
+    min-height: 100vh;
+}
+
+.success-viewport {
+    min-height: 100vh;
+}
+
+.success-vault-card {
+    max-width: 800px;
+    width: 100%;
+}
+
+/* Iconic Success Animation */
+.success-icon-wrapper {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.success-glow {
+    position: absolute;
+    width: 150%;
+    height: 150%;
+    background: radial-gradient(circle, var(--theme-accent-glow) 0%, transparent 70%);
+    animation: pulseGlow 4s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+
+    0%,
+    100% {
+        transform: scale(0.8);
+        opacity: 0.5;
+    }
+
+    50% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+}
+
+.success-circle-outer {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: rotateCircle 12s linear infinite;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.02);
+}
+
+@keyframes rotateCircle {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.success-circle-inner {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 1px solid var(--theme-accent-orange);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: rotate(-360deg);
+    box-shadow: 0 15px 45px var(--theme-accent-glow);
+}
+
+/* Message / Content */
+.max-w-600 {
+    max-width: 600px;
+}
+
+.order-id-badge {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    padding: 12px 24px;
+    display: inline-flex;
+    align-items: center;
+}
+
+/* Utilities */
+.fw-black {
+    font-weight: 950;
+}
+
+.ls-3 {
+    letter-spacing: 3px;
+}
+
+.ls-2 {
+    letter-spacing: 2px;
+}
+
+.ls-n1 {
+    letter-spacing: -1.5px;
+}
+
+.xs {
+    font-size: 0.75rem;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}

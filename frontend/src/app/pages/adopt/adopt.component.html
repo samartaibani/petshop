@@ -1,0 +1,104 @@
+<div class="container-fluid py-5 px-lg-5 animate__animated animate__fadeIn" style="min-height: 80vh;">
+    <!-- Header -->
+    <div class="text-center mb-5 pb-3">
+        <h6 class="text-accent fw-black ls-3 uppercase xs mb-2">ADOPTION CENTER</h6>
+        <h1 class="display-4 fw-black text-dark mb-4 ls-n1">Find Your Best Friend</h1>
+        <p class="text-muted w-50 mx-auto">Browse our curated selection of verified artisanal pets awaiting a forever
+            home. Each companion comes with our Elite Promise of health and pedigree validation.</p>
+    </div>
+
+    <!-- Search Area -->
+    <div class="row justify-content-center gap-3 mb-5 pt-2 px-lg-5">
+        <!-- Search -->
+        <div class="col-md-7">
+            <div
+                class="search-input-wrapper d-flex align-items-center rounded-pill px-4 py-3 bg-white shadow-sm border border-dark border-opacity-10">
+                <i class="bi bi-search fs-5 me-3 text-orange"></i>
+                <input type="text" class="border-0 w-100 bg-transparent fw-bold"
+                    style="outline: none; font-size: 0.95rem; color: #111;" placeholder="Search by Breed or Name..."
+                    [(ngModel)]="searchQuery" (input)="applyFilter()">
+            </div>
+        </div>
+
+        <!-- Category Filter -->
+        <div class="col-md-4">
+            <div class="category-filter-wrapper position-relative">
+                <app-premium-select
+                    [options]="categoryOptions"
+                    [(ngModel)]="selectedCategoryId"
+                    (change)="applyFilter()"
+                    placeholder="Filter by Category">
+                </app-premium-select>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pet Grid -->
+    <div class="row g-4">
+        <div class="col-xl-3 col-lg-4 col-md-6 animate__animated animate__fadeInUp"
+            *ngFor="let p of filteredPets; let i = index" [style.animation-delay]="(i % 6 * 0.1) + 's'">
+            <div class="card border-0 rounded-4 overflow-hidden h-100 shadow-sm"
+                style="transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: pointer;"
+                onmouseover="this.style.transform='translateY(-10px)'; this.style.boxShadow='0 15px 35px rgba(255,107,0,0.1)';"
+                onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 .125rem .25rem rgba(0,0,0,.075)';">
+
+                <!-- Badges -->
+                <div class="position-absolute top-0 start-0 m-3 z-3">
+                    <span class="badge rounded-pill"
+                        style="background: var(--theme-accent-red); padding: 8px 15px; font-weight: 900; letter-spacing: 1px; font-size: 0.65rem;">LIVE
+                        PET</span>
+                </div>
+
+                <!-- Image -->
+                <div class="position-relative overflow-hidden bg-light"
+                    style="height: 240px; display: flex; align-items: center; justify-content: center;"
+                    [routerLink]="['/adopt', p.id || p._id]">
+                    <img [src]="p.imageUrl || 'assets/placeholder.png'" alt="{{ p.name }}"
+                        style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+
+                <!-- Content -->
+                <div class="card-body p-4 d-flex flex-column bg-white">
+                    <h6 class="fw-black text-uppercase mb-1"
+                        style="font-size: 0.75rem; color: var(--theme-accent-orange); letter-spacing: 1.5px;">
+                        {{ p.breedName || p.breed || 'Mixed Breed' }}
+                    </h6>
+                    <h5 class="fw-black text-dark mb-4 text-truncate" style="font-size: 1.25rem; cursor: pointer;"
+                        [routerLink]="['/adopt', p.id || p._id]">{{ p.name }}</h5>
+
+                    <div class="mt-auto">
+                        <div class="d-flex justify-content-between mb-4 border-top pt-3 border-opacity-10 border-dark">
+                            <div>
+                                <span class="text-muted d-block text-uppercase fw-bold mb-1"
+                                    style="font-size: 0.65rem; letter-spacing: 1px;">Age</span>
+                                <span class="text-dark fw-bold" style="font-size: 0.9rem;">{{ p.age || 'Unknown'
+                                    }}</span>
+                            </div>
+                            <div class="text-end">
+                                <span class="text-muted d-block text-uppercase fw-bold mb-1"
+                                    style="font-size: 0.65rem; letter-spacing: 1px;">Fee</span>
+                                <span class="fw-black" style="color: var(--theme-accent-orange); font-size: 1.1rem;">₹{{
+                                    p.price | number }}</span>
+                            </div>
+                        </div>
+
+                        <button class="btn w-100 fw-black text-white text-uppercase py-3 rounded-3"
+                            style="background: #111; letter-spacing: 1px; font-size: 0.85rem; transition: background 0.3s;"
+                            onmouseover="this.style.background='var(--theme-accent-orange)';"
+                            onmouseout="this.style.background='#111';" (click)="openAdoptForm(p)">
+                            {{ masterForm ? 'SUBMIT REQUEST' : 'FILL FORM' }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="filteredPets.length === 0" class="text-center py-5 mt-5">
+        <i class="bi bi-search display-3 text-muted mb-4 d-block opacity-25"></i>
+        <h3 class="text-dark fw-black mb-3">No Companions Found</h3>
+        <p class="text-muted w-50 mx-auto">We could not match your search with our current residents. Please adjust your
+            criteria or check back soon.</p>
+    </div>
+</div>

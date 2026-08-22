@@ -1,0 +1,127 @@
+/* Modal Overlay for Register New Pet */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    z-index: 1050;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.modal-content-premium {
+    background: var(--color-white);
+    border-radius: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    max-height: 90vh;
+    /* Keep it within the screen */
+    width: 100%;
+    max-width: 850px;
+}
+
+/* Ensure modal body scrolls individually */
+.modal-body-scroll {
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+/* Scrollbar Styling for Modal */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.02);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+/* Premium Pill Tabs */
+.premium-tabs {
+    background: rgba(0, 0, 0, 0.03);
+    padding: 0.35rem;
+    border-radius: 50px;
+    display: flex;
+    gap: 0.25rem;
+}
+
+.premium-tab-btn {
+    border: none;
+    background: transparent;
+    border-radius: 50px;
+    padding: 0.6rem 1.5rem;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: var(--color-dark);
+    opacity: 0.6;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.premium-tab-btn:hover {
+    opacity: 1;
+}
+
+.premium-tab-btn.active {
+    background: var(--color-dark);
+    color: var(--color-white);
+    opacity: 1;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Empty State Image Fallback */
+.fallback-img-container {
+    background: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+/* User Application Details Form */
+.detail-label {
+    display: block;
+    font-size: 0.65rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--color-dark);
+    opacity: 0.5;
+    margin-bottom: 0.25rem;
+}
+
+.detail-value {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-dark);
+    letter-spacing: 0.5px;
+    word-break: break-word;
+}
+/* Fix for dropdown clipping in tables */
+.table-responsive {
+    overflow: visible !important;
+    padding-bottom: 100px;
+    margin-bottom: -100px;
+    position: relative;
+    z-index: 5;
+}
+
+.premium-table-vault, .premium-table-vault td {
+    overflow: visible !important;
+}

@@ -1,0 +1,345 @@
+/* Premium Modern Product List Styles */
+:host {
+    display: block;
+}
+
+.sticky-sidebar {
+    position: sticky;
+    top: 110px;
+    z-index: 10;
+}
+
+/* Search Group */
+.premium-search-group {
+    position: relative;
+    background: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.premium-search-group:focus-within {
+    background: #ffffff;
+    border-color: var(--theme-accent-orange);
+    box-shadow: 0 0 0 4px var(--theme-accent-glow);
+}
+
+.premium-search-input {
+    background: transparent;
+    border: none;
+    color: var(--theme-text-dark);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    width: 100%;
+    outline: none;
+}
+
+.search-icon-box {
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 0.9rem;
+}
+
+/* Category Menu */
+.category-menu-premium {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.cat-item-premium {
+    background: transparent;
+    border: 1px solid transparent;
+    padding: 12px 18px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--theme-text-muted);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    width: 100%;
+}
+
+.cat-item-premium:hover {
+    background: #fffaf7;
+    color: var(--theme-accent-orange);
+    padding-left: 24px;
+}
+
+.cat-item-premium.active {
+    background: #fff5eb;
+    border-color: rgba(255, 107, 0, 0.15);
+    color: var(--theme-accent-orange);
+}
+
+.cat-main {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.cat-dot {
+    width: 6px;
+    height: 6px;
+    background: currentColor;
+    border-radius: 2px;
+    opacity: 0.5;
+}
+
+.cat-name {
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.cat-val {
+    font-size: 0.7rem;
+    font-weight: 700;
+    opacity: 0.5;
+}
+
+/* Premium Product Card */
+.premium-product-card {
+    background: #ffffff;
+    border: 1px solid #f1f3f5;
+    border-radius: 30px;
+    overflow: hidden;
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    height: 100%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+}
+
+.premium-product-card:hover {
+    transform: translateY(-12px);
+    border-color: var(--theme-accent-orange);
+    box-shadow: 0 20px 40px rgba(255, 107, 0, 0.1);
+}
+
+.card-badges-top {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 5;
+}
+
+.badge-premium-sm {
+    font-size: 0.6rem;
+    font-weight: 950;
+    padding: 6px 14px;
+    border-radius: 8px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.badge-premium-sm.pet {
+    background: var(--theme-accent-red);
+    color: white;
+}
+
+.badge-premium-sm.food {
+    background: var(--theme-accent-orange);
+    color: white;
+}
+
+.wishlist-btn-glass {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 5;
+    width: 40px;
+    height: 40px;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.wishlist-btn-glass.active {
+    background: #ff4d6d;
+    /* Preserving red for heart as allowed */
+}
+
+/* Visual Area */
+.visual-container {
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+    background: #f8f9fa;
+}
+
+.visual-main {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.8s cubic-bezier(0, 0, 0.2, 1);
+}
+
+.visual-glass-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(255, 255, 255, 0.8), transparent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: all 0.4s ease;
+}
+
+.premium-product-card:hover .visual-main {
+    transform: scale(1.15);
+}
+
+.premium-product-card:hover .visual-glass-overlay {
+    opacity: 1;
+}
+
+.view-btn-premium {
+    padding: 10px 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    color: white;
+    transform: translateY(20px);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.premium-product-card:hover .view-btn-premium {
+    transform: translateY(0);
+}
+
+/* Info Box */
+.product-title-premium {
+    font-size: 1.1rem;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+}
+
+.rating-box-premium {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 4px 10px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.divider-v {
+    width: 1px;
+    height: 15px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.price-box-premium {
+    display: flex;
+    flex-direction: column;
+}
+
+.old-price-sm {
+    font-size: 0.75rem;
+    text-decoration: line-through;
+    color: rgba(255, 255, 255, 0.2);
+    font-weight: 700;
+}
+
+.price-main-lg {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--theme-text-dark);
+    letter-spacing: -0.5px;
+}
+
+.btn-action-premium {
+    width: 50px;
+    height: 50px;
+    border-radius: 18px;
+    background: var(--theme-accent-orange);
+    color: white;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 20px var(--theme-accent-glow);
+}
+
+.btn-action-premium:hover {
+    transform: scale(1.1) rotate(5deg);
+    background: var(--theme-accent-orange-hover);
+    box-shadow: 0 12px 25px rgba(255, 107, 0, 0.3);
+}
+
+.btn-action-premium:disabled {
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.2);
+    box-shadow: none;
+}
+
+/* Empty State */
+.glass-card-empty {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px dashed rgba(255, 255, 255, 0.1);
+    border-radius: 40px;
+}
+
+.empty-icon-box {
+    width: 100px;
+    height: 100px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    color: rgba(255, 255, 255, 0.2);
+}
+
+/* Utilities */
+.fw-black {
+    font-weight: 950;
+}
+
+.ls-3 {
+    letter-spacing: 3px;
+}
+
+.ls-2 {
+    letter-spacing: 2px;
+}
+
+.ls-n1 {
+    letter-spacing: -1.5px;
+}
+
+.xs {
+    font-size: 0.7rem;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+.text-white-30 {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+@media (max-width: 991px) {
+    .sticky-sidebar {
+        position: static;
+        margin-bottom: 3rem;
+    }
+}

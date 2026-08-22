@@ -1,0 +1,232 @@
+<div class="container py-4">
+    <div class="row mb-5 border-bottom border-dark border-opacity-05 pb-4">
+        <div class="col-12 d-flex justify-content-between align-items-center">
+            <div>
+                <h6 class="text-accent fw-black ls-3 uppercase xs mb-2">ADMIN</h6>
+                <h1 class="display-5 fw-black text-dark mb-0 ls-n1">Product <span class="text-accent">Management</span>
+                </h1>
+            </div>
+            <button class="btn-premium px-4 py-2" (click)="toggleForm()" *ngIf="!showForm">
+                <i class="bi bi-plus-lg me-2"></i> Add New Product
+            </button>
+        </div>
+    </div>
+
+    <!-- Add/Edit Product Card -->
+    <div class="glass-card mb-5 p-0 overflow-hidden border-dark border-opacity-05" *ngIf="showForm">
+        <div class="p-4 border-bottom border-dark border-opacity-05 d-flex justify-content-between align-items-center">
+            <h5 class="mb-0 fw-black text-dark ls-n1">{{ isEditMode ? 'Edit Product' : 'Add New Product' }}</h5>
+            <button class="btn-icon-glass" (click)="toggleForm()"><i class="bi bi-x-lg"></i></button>
+        </div>
+        <div class="p-4">
+            <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+
+                <!-- Shared Information -->
+                <div class="row g-3 mb-3">
+                    <div class="col-md-6">
+                        <label class="premium-label">Product Name</label>
+                        <input type="text" class="premium-input" formControlName="name">
+                        <div *ngIf="productForm.get('name')?.touched && productForm.get('name')?.invalid"
+                            class="text-danger small mt-1">Name is required</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="premium-label">Price (₹)</label>
+                        <input type="number" class="premium-input" formControlName="price">
+                    </div>
+                </div>
+
+                <div class="row g-3 mb-3">
+                    <div class="col-md-6">
+                        <label class="premium-label">Category</label>
+                        <app-premium-select
+                            [options]="categoryOptions"
+                            formControlName="categoryId"
+                            placeholder="Select Category...">
+                        </app-premium-select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="premium-label">Quantity / Weight (kg)</label>
+                        <input type="text" class="premium-input" formControlName="weight" placeholder="e.g. 5kg">
+                    </div>
+                </div>
+
+                <!-- Shared Stock -->
+                <div class="mb-3">
+                    <label class="premium-label">Stock Quantity</label>
+                    <input type="number" class="premium-input" formControlName="stock">
+                </div>
+
+                <!-- Shared Description -->
+                <div class="mb-3">
+                    <label class="premium-label">Description</label>
+                    <textarea class="premium-input" formControlName="description" rows="3"></textarea>
+                </div>
+
+                <!-- PRODUCT DETAILS SECTION -->
+                <h6 class="premium-label mt-5 mb-3 border-bottom border-dark border-opacity-05 pb-2">Product Details
+                </h6>
+                <div class="row g-3 mb-3">
+                    <div class="col-md-6">
+                        <label class="premium-label">Brand</label>
+                        <input type="text" class="premium-input" formControlName="companyName"
+                            placeholder="e.g. Pedigree">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="premium-label">Expiry Date</label>
+                        <input type="text" class="premium-input" formControlName="expiryDate"
+                            placeholder="e.g. Dec 2025">
+                    </div>
+                </div>
+
+                <div class="row g-3 mb-3">
+                    <div class="col-md-6">
+                        <label class="premium-label">Dietary (Veg/Non-Veg)</label>
+                        <app-premium-select
+                            [options]="dietaryOptions"
+                            formControlName="dietary"
+                            placeholder="Select Dietary...">
+                        </app-premium-select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="premium-label">Food Type</label>
+                        <app-premium-select
+                            [options]="foodTypeOptions"
+                            formControlName="foodType"
+                            placeholder="Select Type...">
+                        </app-premium-select>
+                    </div>
+                </div>
+
+                <div class="row g-3 mb-3">
+                    <div class="col-md-6">
+                        <label class="premium-label">Flavor / Variant</label>
+                        <input type="text" class="premium-input" formControlName="flavor" placeholder="e.g. Chicken & Rice">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="premium-label">Documentation</label>
+                        <input type="text" class="premium-input" formControlName="documentation" placeholder="e.g. ISO Certified">
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="premium-label">Feeding Instructions / Daily Needs</label>
+                    <textarea class="premium-input" formControlName="dailyNeeds" rows="2" placeholder="e.g. 2 scoops per day"></textarea>
+                </div>
+
+                <div class="mb-4 mt-5 pt-3 border-top border-dark border-opacity-05">
+                    <label class="premium-label text-accent fw-black">Product Images</label>
+                    <input type="file" class="premium-input" (change)="onFileSelected($event)" multiple
+                        accept="image/*">
+                    <div class="text-muted xs mt-2 ls-1 uppercase">Hold Ctrl/Cmd to select multiple files</div>
+                </div>
+
+                <!-- Actions -->
+                <div class="d-flex gap-3 mt-5">
+                    <button type="submit" class="btn-premium px-5 py-3 shadow-accent-glow"
+                        [disabled]="productForm.invalid">
+                        {{ isEditMode ? 'Update Product' : 'Add Product' }}
+                    </button>
+                    <button type="button" class="btn-outline-dark-glass px-5 py-3" (click)="resetForm()">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Product Table Card -->
+    <div class="glass-card p-0 overflow-hidden border-dark border-opacity-05">
+        <div class="p-4 border-bottom border-dark border-opacity-05 d-flex justify-content-between align-items-center">
+            <h5 class="mb-0 fw-black text-dark ls-n1">Current Listing</h5>
+            <div class="d-flex gap-2 align-items-center">
+                <div class="position-relative" style="width: 250px;">
+                    <i class="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
+                    <input type="text" class="premium-input py-2 ps-5 shadow-none" placeholder="Search by name..." [(ngModel)]="searchQuery">
+                </div>
+                <app-premium-select
+                    [options]="filterCategoryOptions"
+                    [(ngModel)]="filterCategoryId"
+                    placeholder="All Categories"
+                    customClass="xs py-0"
+                    style="width: 200px;">
+                </app-premium-select>
+            </div>
+        </div>
+        <div class="p-0">
+            <div class="table-responsive">
+                <table class="premium-table-vault align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th class="ps-4">IMAGE</th>
+                            <th>NAME / TYPE</th>
+                            <th>CATEGORY</th>
+                            <th>DIET</th>
+                            <th>TYPE</th>
+                            <th>ATTRIBUTES</th>
+                            <th>PRICE</th>
+                            <th>STOCK</th>
+                            <th class="text-end pe-4">ACTIONS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let p of visibleProducts">
+                            <td class="ps-4">
+                                <div class="p-1 glass-card d-inline-block rounded-3" style="padding: 4px !important;">
+                                    <img [src]="p.imageUrl || 'assets/placeholder.png'" class="rounded-2" width="45"
+                                        height="45" style="object-fit: cover;">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="text-dark fw-black ls-1">{{ p.name }}</div>
+                                <span class="badge-premium-sm food">
+                                    SUPPLY
+                                </span>
+                            </td>
+                            <td class="text-muted small">{{ getCategoryName(p.categoryId) }}</td>
+                             <td>
+                                <div class="badge-status-premium" [class.in-stock]="p.dietary === 'Veg'" [class.unavailable]="p.dietary === 'Non-Veg'">
+                                    {{ p.dietary || 'N/A' }}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="text-muted xs ls-1 uppercase">
+                                    {{ p.foodType || 'GENERAL' }}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="text-dark fw-bold xs ls-1">
+                                    {{ p.weight || 'N/A' }} | {{ p.flavor || 'STANDARD' }}
+                                </div>
+                            </td>
+                            <td class="text-accent fw-black fs-6 ls-n1">₹{{ p.price | number }}</td>
+                            <td>
+                                <div class="badge-status-premium" [class.in-stock]="p.stock > 0">
+                                    {{ p.stock }} UNITS
+                                </div>
+                            </td>
+                            <td class="text-end pe-4">
+                                <div class="d-flex justify-content-end gap-2">
+                                    <button class="btn-icon-glass" (click)="edit(p)" title="Modify Record">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </button>
+                                    <button class="btn-icon-glass text-danger danger-hover" (click)="delete(p.id)"
+                                        title="Purge Record">
+                                        <i class="bi bi-trash3"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr *ngIf="visibleProducts.length === 0">
+                            <td colspan="7" class="text-center py-5 text-muted">
+                                <div class="empty-icon-box-sm mx-auto mb-3">
+                                    <i class="bi bi-box-seam text-muted opacity-25 fs-2"></i>
+                                </div>
+                                <p class="mb-0 ls-1 uppercase small">NO PRODUCTS FOUND</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

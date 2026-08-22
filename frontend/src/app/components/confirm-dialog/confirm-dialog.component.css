@@ -1,0 +1,104 @@
+.dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+.dialog-container {
+    background: #111;
+    border: 1px solid rgba(255, 140, 0, 0.2);
+    border-radius: 20px;
+    width: 90%;
+    max-width: 450px;
+    padding: 2rem;
+    position: relative;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.dialog-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.icon-orb {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #FF8C00, #FF4500);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    font-size: 2rem;
+    color: white;
+    box-shadow: 0 0 20px rgba(255, 140, 0, 0.3);
+}
+
+.dialog-title {
+    color: #fff;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: -0.5px;
+}
+
+.dialog-body {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.dialog-message {
+    color: rgba(255, 255, 255, 0.7);
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.dialog-footer {
+    display: flex;
+    gap: 1rem;
+}
+
+.btn-cancel, .btn-confirm {
+    flex: 1;
+    padding: 1rem;
+    border-radius: 12px;
+    border: none;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-cancel {
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-cancel:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.btn-confirm {
+    background: #FF8C00;
+    color: #000;
+}
+
+.btn-confirm:hover {
+    background: #FF4500;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(255, 69, 0, 0.2);
+}

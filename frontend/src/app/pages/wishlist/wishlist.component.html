@@ -1,0 +1,99 @@
+<div class="container-fluid py-5 px-lg-5 animate__animated animate__fadeIn">
+    <!-- Header Section -->
+    <div class="row mb-5 animate__animated animate__fadeInDown">
+        <div
+            class="col-12 d-flex justify-content-between align-items-end border-bottom border-white border-opacity-10 pb-4">
+            <div>
+                <h6 class="text-accent fw-black ls-3 uppercase xs mb-2">MY WISHLIST</h6>
+                <h1 class="display-4 fw-black text-dark mb-0 ls-n1">Your <span class="text-accent">Wishlist</span></h1>
+            </div>
+            <div class="text-muted xs fw-black ls-2 uppercase pb-2">{{ wishlistItems.length }} ITEMS SAVED
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="loading" class="text-center py-5 my-5">
+        <div class="spinner-premium-lg mb-4"></div>
+        <p class="text-muted fw-black ls-3 uppercase xs animate__animated animate__pulse animate__infinite">
+            Loading Wishlist...</p>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="!loading && wishlistItems.length === 0"
+        class="glass-card-empty p-5 text-center my-5 animate__animated animate__zoomIn">
+        <div class="py-5">
+            <div class="empty-icon-box mx-auto mb-4">
+                <i class="bi bi-heart-break"></i>
+            </div>
+            <h2 class="text-dark fw-black ls-n1 mb-3">Your wishlist is empty</h2>
+            <p class="text-muted mb-5 max-w-500 mx-auto lh-lg">Find something you love? Save it to
+                your <br> wishlist for later.</p>
+            <a routerLink="/products" class="btn-premium px-5 py-3 shadow-accent-glow">SHOP NOW</a>
+        </div>
+    </div>
+
+    <!-- Products Grid -->
+    <div class="row g-4" *ngIf="!loading && wishlistItems.length > 0">
+        <div class="col-xl-3 col-lg-4 col-md-6 animate__animated animate__fadeInUp"
+            *ngFor="let item of wishlistItems; let i = index" [style.animation-delay]="(i * 0.1) + 's'">
+
+            <div class="premium-product-card shadow-premium">
+                <!-- Badges -->
+                <div class="card-badges-top">
+                    <span class="badge-premium-sm" [ngClass]="item.product?.type === 'pet' ? 'pet' : 'food'">
+                        {{ item.product?.type === 'pet' ? 'LIVE PET' : 'PET FOOD' }}
+                    </span>
+                </div>
+
+                <!-- Remove Trigger -->
+                <div class="wishlist-btn-glass active" (click)="removeFromWishlist(item)" title="Remove from wishlist">
+                    <i class="bi bi-trash3-fill"></i>
+                </div>
+
+                <!-- Image Area -->
+                <div class="visual-container" (click)="goToDetail(item.product)" style="cursor: pointer;">
+                    <img [src]="item.product?.imageUrl || 'assets/placeholder.png'" class="visual-main"
+                        alt="{{ item.product?.name }}">
+                    <div class="visual-glass-overlay">
+                        <div class="view-btn-premium">
+                            <span class="fw-black ls-2 xs uppercase">VIEW DETAILS</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content Area -->
+                <div class="product-info-box p-4">
+                    <h6 class="text-accent fw-black ls-2 xs uppercase mb-2">{{ item.product?.categoryName || 'GENERAL'
+                        }}</h6>
+                    <h5 class="product-title-premium text-dark mb-3 text-truncate" (click)="goToDetail(item.product)"
+                        style="cursor: pointer;">
+                        {{ item.product?.name }}
+                    </h5>
+
+                    <!-- Stats Row -->
+                    <div class="d-flex align-items-center gap-3 mb-4">
+                        <div class="rating-box-premium">
+                            <i class="bi bi-star-fill text-warning me-1 xs"></i>
+                            <span class="text-dark fw-black xs">{{ item.product?.averageRating || '5.0' }}</span>
+                        </div>
+                        <div class="divider-v"></div>
+                        <span class="text-muted xs fw-bold uppercase">{{ item.product?.ratingCount || 0 }}
+                            REVIEWS</span>
+                    </div>
+
+                    <div
+                        class="d-flex justify-content-between align-items-center pt-3 border-top border-white border-opacity-05">
+                        <div class="price-box-premium">
+                            <span class="price-main-lg">₹{{ item.product?.price | number }}</span>
+                        </div>
+                        <button class="btn-action-premium" (click)="addToCart(item)"
+                            [disabled]="(item.product?.stock || 0) <= 0">
+                            <i class="bi bi-bag-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

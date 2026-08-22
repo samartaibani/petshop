@@ -1,0 +1,144 @@
+<div class="container-fluid py-5 px-lg-5 animate__animated animate__fadeIn">
+    <div class="row g-5">
+        <div class="col-lg-3 col-xl-2 animate__animated animate__fadeInLeft animate__delay-1s">
+            <div class="glass-card p-4 sticky-sidebar border border-dark border-opacity-10 rounded-4">
+                <h5 class="text-dark fw-black ls-n1 mb-4">Filters</h5>
+
+                <div class="mb-4">
+                    <label class="xs fw-black uppercase text-muted mb-2">Search</label>
+                    <div class="premium-search-group">
+                        <input type="text" class="premium-search-input" placeholder="Search..."
+                            [(ngModel)]="draftSearchQuery">
+                        <div class="search-icon-box" style="color: var(--theme-accent-orange);"><i
+                                class="bi bi-search"></i></div>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="xs fw-black uppercase text-muted mb-2">Sort By</label>
+                    <app-premium-select 
+                        [options]="sortOptions"
+                        [(ngModel)]="draftSortBy"
+                        placeholder="Sorting Options">
+                    </app-premium-select>
+                </div>
+
+                <label class="xs fw-black uppercase text-muted mb-2">Category</label>
+                <div class="category-menu-premium mb-4">
+                    <button class="cat-item-premium" [class.active]="draftCategory === 'All'"
+                        (click)="filterCategory('All')">
+                        <div class="cat-main">
+                            <span class="cat-dot"></span>
+                            <span class="cat-name">ALL PRODUCTS</span>
+                        </div>
+                    </button>
+
+                    <button *ngFor="let cat of categories; let i = index" class="cat-item-premium"
+                        [class.active]="draftCategory === cat.id" (click)="filterCategory(cat.id)">
+                        <div class="cat-main">
+                            <span class="cat-dot"></span>
+                            <span class="cat-name">{{ cat.name | uppercase }}</span>
+                        </div>
+                    </button>
+                </div>
+
+                <button class="btn btn-dark w-100 fw-black uppercase ls-1 py-3 sidebar-apply-btn"
+                    style="border-radius: 12px; background: var(--theme-accent-orange); border: none;"
+                    (click)="submitFilters()">
+                    APPLY FILTERS
+                </button>
+            </div>
+        </div>
+
+        <!-- Products Area -->
+        <div class="col-lg-9 col-xl-10 animate__animated animate__fadeInRight animate__delay-1s">
+            <!-- Header & Sorting -->
+            <div
+                class="d-flex flex-column flex-md-row justify-content-between align-items-end mb-5 pb-4 border-bottom border-dark border-opacity-10">
+                <div>
+                    <h2 class="display-5 fw-black text-dark mb-1 ls-n1">
+                        {{ selectedCategory === 'All' ? 'Curated Collection' : getCategoryName(selectedCategory) }}
+                    </h2>
+                    <p class="text-muted mb-0 ls-2 uppercase xs fw-black">SHOWING: {{ filteredProducts.length
+                        }} ITEMS</p>
+                </div>
+            </div>
+
+            <!-- Products Grid -->
+            <div class="row g-4">
+                <div class="col-xl-3 col-lg-4 col-md-6 animate__animated animate__fadeInUp"
+                    *ngFor="let p of filteredProducts; let i = index" [style.animation-delay]="(i % 6 * 0.1) + 's'">
+
+                    <div class="premium-product-card shadow-premium" (click)="goToDetail(p)">
+                        <!-- Indicators -->
+                        <div class="card-badges-top">
+                            <span class="badge-premium-sm" [ngClass]="p.type === 'pet' ? 'pet' : 'food'">
+                                {{ p.type === 'pet' ? 'LIVE PET' : 'PET FOOD' }}
+                            </span>
+                            <span class="badge-premium-sm ms-2" *ngIf="p.type !== 'pet' && p.dietary" [ngStyle]="{'background': p.dietary === 'Veg' ? '#27ae60' : '#e67e22'}">
+                                {{ p.dietary === 'Veg' ? 'VEG' : 'NON-VEG' }}
+                            </span>
+                        </div>
+
+                        <div class="wishlist-btn-glass" (click)="toggleWishlist(p, $event)"
+                            [class.active]="isInWishlist(p.id || p._id)">
+                            <i class="bi" [ngClass]="isInWishlist(p.id || p._id) ? 'bi-heart-fill' : 'bi-heart'"></i>
+                        </div>
+
+                        <!-- Image Area -->
+                        <div class="visual-container">
+                            <img [src]="p.imageUrl || 'assets/placeholder.png'" class="visual-main" alt="{{ p.name }}">
+                            <div class="visual-glass-overlay">
+                                <div class="view-btn-premium">
+                                    <span class="fw-black ls-2 xs uppercase">VIEW DETAILS</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Content Area -->
+                        <div class="product-info-box p-4">
+                            <h6 class="text-accent fw-black ls-2 xs uppercase mb-2">{{ getCategoryName(p.categoryId) }}
+                            </h6>
+                            <h5 class="product-title-premium text-dark mb-3"
+                                style="font-size: 1rem; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 2.8rem;">
+                                {{ p.name }}</h5>
+
+                            <!-- Stats Row -->
+                            <div class="d-flex align-items-center gap-3 mb-4">
+                                <div class="rating-box-premium">
+                                    <i class="bi bi-star-fill text-warning me-1 xs"></i>
+                                    <span class="text-dark fw-black xs">{{ p.averageRating || '5.0' }}</span>
+                                </div>
+                                <div class="divider-v"></div>
+                                <span class="text-muted xs fw-bold uppercase">{{ p.ratingCount || 0 }} REVIEWS</span>
+                            </div>
+
+                            <div
+                                class="d-flex justify-content-between align-items-center pt-3 border-top border-dark border-opacity-05">
+                                <div class="price-box-premium">
+                                    <span class="old-price-sm">₹{{ p.price * 1.2 | number:'1.0-0' }}</span>
+                                    <span class="price-main-lg">₹{{ p.price | number }}</span>
+                                </div>
+                                <button class="btn-action-premium" (click)="$event.stopPropagation(); addToCart(p)"
+                                    [disabled]="p.stock <= 0">
+                                    <i class="bi bi-plus-lg"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Empty State -->
+            <div *ngIf="filteredProducts.length === 0"
+                class="text-center py-5 glass-card-empty mt-5 animate__animated animate__zoomIn">
+                <div class="empty-icon-box mx-auto mb-4">
+                    <i class="bi bi-search"></i>
+                </div>
+                <h4 class="text-dark fw-black ls-n1">Archive Not Found</h4>
+                <p class="text-muted mb-0 px-4 lh-lg">Our curations could not find a masterpiece matching your search
+                    criteria. <br> Please re-calibrate your filters or contact our concierge.</p>
+            </div>
+        </div>
+    </div>
+</div>

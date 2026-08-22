@@ -1,0 +1,72 @@
+<nav class="premium-navbar animate__animated animate__fadeInDown">
+  <div class="container d-flex align-items-center justify-content-between">
+    <!-- Brand: Restored Blackberry Identity -->
+    <a class="premium-brand" routerLink="/">
+      <span class="brand-f">B</span>LACK<span class="brand-berry">BERRY</span>
+      <span class="brand-dot"></span>
+    </a>
+
+    <!-- Navigation Paths -->
+    <div class="nav-links-wrapper">
+      <a class="premium-nav-item" routerLink="/home" routerLinkActive="active">HOME</a>
+      <a class="premium-nav-item" routerLink="/products" routerLinkActive="active">FOOD</a>
+      <a class="premium-nav-item" routerLink="/adopt" routerLinkActive="active">ADOPT</a>
+      <a class="premium-nav-item" routerLink="/about" routerLinkActive="active">OUR STORY</a>
+      <a class="premium-nav-item" routerLink="/contact" routerLinkActive="active">CONTACT</a>
+    </div>
+
+    <!-- Actions -->
+    <div class="nav-actions">
+      <!-- Wishlist -->
+      <a class="action-btn d-none d-lg-flex" routerLink="/wishlist" *ngIf="isLoggedIn && !isAdmin" title="Wishlist">
+        <i class="bi bi-heart"></i>
+      </a>
+
+      <!-- Cart -->
+      <a class="action-btn position-relative" routerLink="/cart" *ngIf="!isAdmin" title="Cart">
+        <i class="bi bi-handbag"></i>
+        <span class="badge-elite" *ngIf="cartCount > 0">{{ cartCount }}</span>
+      </a>
+
+      <!-- Auth System -->
+      <div class="auth-group d-flex align-items-center gap-2" *ngIf="!isLoggedIn">
+        <a class="action-btn fs-6 fw-bold px-3 w-auto" routerLink="/login">SIGN IN</a>
+        <a class="btn-premium btn-premium-sm" routerLink="/register">JOIN CIRCLE</a>
+      </div>
+
+      <!-- User Profile -->
+      <div class="user-session" *ngIf="isLoggedIn">
+        <button class="user-trigger" (click)="toggleUser($event)">
+          <i class="bi bi-person-circle fs-5"></i>
+          <span class="d-none d-md-inline ms-2">EXECUTIVE</span>
+          <i class="bi bi-chevron-down ms-2 xs"></i>
+        </button>
+        <div class="dropdown-panel user-panel animate__animated animate__fadeIn" *ngIf="isUserMenuOpen"
+          (click)="$event.stopPropagation()">
+          <div class="panel-inner shadow-premium-lg">
+            <div class="user-header p-3 mb-2 border-bottom border-dark border-opacity-05">
+              <div class="xs fw-black ls-1 text-muted uppercase">Certified Member</div>
+              <div class="text-dark fw-bold">User Identity</div>
+            </div>
+            <a class="panel-link" *ngIf="isAdmin" routerLink="/admin/dashboard" (click)="closeMenus()">
+              <i class="bi bi-grid-1x2 text-accent"></i> COMMAND CENTER
+            </a>
+            <a class="panel-link" *ngIf="!isAdmin" routerLink="/my-orders" (click)="closeMenus()">
+              <i class="bi bi-clock-history text-accent"></i> MY ORDERS
+            </a>
+            <a class="panel-link" *ngIf="!isAdmin" routerLink="/my-adoptions" (click)="closeMenus()">
+              <i class="bi bi-heart-fill text-accent"></i> MY ADOPTIONS
+            </a>
+            <a class="panel-link" routerLink="/profile" (click)="closeMenus()">
+              <i class="bi bi-person-lines-fill text-accent"></i> PROFILE settings
+            </a>
+            <div class="panel-divider my-2"></div>
+            <a class="panel-link text-danger" (click)="logout()">
+              <i class="bi bi-power"></i> LOGOUT
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

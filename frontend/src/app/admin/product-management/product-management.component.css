@@ -1,0 +1,163 @@
+/* Admin - Product Management - Light Theme */
+
+/* Global Premium Utilities for Admin */
+.glass-card {
+    background: #ffffff;
+    border: 1px solid #f1f3f5;
+    border-radius: 28px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
+    color: var(--theme-text-dark);
+}
+
+.premium-label {
+    font-weight: 800;
+    color: var(--theme-text-muted);
+    margin-bottom: 0.75rem;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    display: block;
+}
+
+.premium-input {
+    background: #ffffff !important;
+    border: 1px solid #e9ecef !important;
+    border-radius: 12px;
+    color: var(--theme-text-dark) !important;
+    padding: 0.75rem 1.25rem;
+    width: 100%;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.premium-input:focus {
+    background: #ffffff !important;
+    border-color: var(--theme-accent-orange) !important;
+    box-shadow: 0 0 0 4px var(--theme-accent-glow) !important;
+    outline: none;
+}
+
+.premium-input::placeholder {
+    color: #ced4da;
+}
+
+/* Table Architecture */
+.premium-table-vault {
+    background-color: transparent !important;
+    width: 100%;
+}
+
+.premium-table-vault thead th {
+    background-color: #f8f9fa !important;
+    color: var(--theme-text-muted) !important;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 0.65rem;
+    letter-spacing: 1.5px;
+    padding: 1.25rem 1rem;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.premium-table-vault tbody tr {
+    transition: all 0.3s ease;
+    border-bottom: 1px solid #f1f3f5;
+    background-color: transparent !important;
+}
+
+.premium-table-vault tbody tr:hover {
+    background-color: #fffaf7 !important;
+}
+
+.premium-table-vault tbody td {
+    padding: 1.5rem 1rem;
+    background-color: transparent !important;
+    color: var(--theme-text-dark);
+}
+
+/* Status & Badges */
+.badge-premium-sm {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.6rem;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.badge-premium-sm.food {
+    background: #fff5eb;
+    color: var(--theme-accent-orange);
+}
+
+.badge-status-premium {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 12px;
+    background: #fff5f5;
+    color: #ff3b3b;
+    font-size: 0.65rem;
+    font-weight: 800;
+}
+
+.badge-status-premium.in-stock {
+    background: #ebfbee;
+    color: #2fb344;
+}
+
+/* Icon Buttons */
+.btn-icon-glass {
+    background: #ffffff;
+    border: 1px solid #e9ecef;
+    color: var(--theme-text-dark);
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    cursor: pointer;
+}
+
+.btn-icon-glass:hover {
+    background: #f8f9fa;
+    border-color: var(--theme-accent-orange);
+    color: var(--theme-accent-orange);
+    transform: translateY(-2px);
+}
+
+.btn-icon-glass.text-danger:hover {
+    background: #fff5f5;
+    border-color: #ff4d6d;
+    color: #ff4d6d;
+}
+
+/* Typography utilities */
+.text-accent {
+    color: var(--theme-accent-orange) !important;
+}
+
+.ls-n1 {
+    letter-spacing: -1px;
+}
+
+.ls-1 {
+    letter-spacing: 1px;
+}
+
+.ls-3 {
+    letter-spacing: 3px;
+}
+
+.xs {
+    font-size: 0.65rem;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+.fw-black {
+    font-weight: 800;
+}

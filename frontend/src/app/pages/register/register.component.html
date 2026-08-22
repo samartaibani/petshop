@@ -1,0 +1,79 @@
+<div class="auth-split-wrapper">
+    <!-- Form Side -->
+    <div class="auth-form-side">
+        <div class="auth-card-vault animate__animated animate__fadeInLeft">
+            <!-- Brand Header -->
+            <div class="mb-5">
+                <h1 class="display-5 fw-black text-dark mb-1 ls-n1 uppercase">CREATE <span
+                        class="text-accent">ACCOUNT</span></h1>
+                <p class="text-muted xs fw-bold ls-2 uppercase">JOIN OUR COMMUNITY</p>
+            </div>
+
+            <!-- Messages -->
+            <div *ngIf="errorMsg" class="alert-premium error">
+                <i class="bi bi-shield-exclamation fs-4"></i>
+                <div class="fw-bold">{{ errorMsg }}</div>
+            </div>
+
+            <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                <!-- Name -->
+                <div class="premium-input-group mb-4">
+                    <label class="premium-label ls-1">Name</label>
+                    <div class="position-relative">
+                        <i class="bi bi-person position-absolute top-50 translate-middle-y ms-3 text-muted"></i>
+                        <input type="text" class="premium-input ps-5" formControlName="name"
+                            placeholder="Enter your name">
+                    </div>
+                </div>
+
+                <!-- Email -->
+                <div class="premium-input-group mb-4">
+                    <label class="premium-label ls-1">Email</label>
+                    <div class="position-relative">
+                        <i class="bi bi-envelope position-absolute top-50 translate-middle-y ms-3 text-muted"></i>
+                        <input type="email" class="premium-input ps-5" formControlName="email"
+                            placeholder="your@email.com">
+                    </div>
+                </div>
+
+                <!-- Password -->
+                <div class="premium-input-group mb-5">
+                    <label class="premium-label ls-1">Password</label>
+                    <div class="position-relative">
+                        <i class="bi bi-shield-lock position-absolute top-50 translate-middle-y ms-3 text-muted"></i>
+                        <input type="password" class="premium-input ps-5" formControlName="password"
+                            placeholder="••••••••">
+                    </div>
+                </div>
+
+                <!-- Submit Action -->
+                <button type="submit" class="btn-premium w-100 py-3 shadow-accent-glow"
+                    [disabled]="registerForm.invalid">
+                    SIGN UP <i class="bi bi-chevron-right ms-2 small"></i>
+                </button>
+
+                <!-- Footer Link -->
+                <div class="auth-footer text-center mt-4">
+                    <p class="text-muted xs fw-bold mb-0">
+                        ALREADY REGISTERED?
+                        <a routerLink="/login"
+                            class="text-dark ms-2 text-decoration-none border-bottom border-dark border-opacity-25 pb-1 uppercase">SIGN
+                            IN</a>
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Visual Side (Desktop) -->
+    <div class="auth-visual-side animate__animated animate__fadeIn">
+        <div class="visual-illustration-container">
+            <img src="/assets/auth-illustration.png" alt="Registration Illustration">
+        </div>
+        <div class="visual-text">
+            <h2>Artisanal Care for Your Companions</h2>
+            <p>We provide more than just food—we provide a lifestyle for your pets. Track your orders, manage
+                preferences, and explore our elite catalog.</p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,237 @@
+/* Executive Elite Home Page Redesign */
+:host {
+    display: block;
+}
+
+/* --- HERO SECTION --- */
+.hero-executive-wrapper {
+    min-height: calc(100vh - 90px);
+    background: #ffffff;
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.hero-main-content {
+    position: relative;
+    z-index: 10;
+    padding: 100px 0;
+}
+
+.hero-title-elite {
+    font-size: 5.5rem;
+    font-weight: 950;
+    line-height: 0.9;
+    color: #000000;
+    margin-bottom: 2rem;
+    letter-spacing: -4px;
+}
+
+@media (max-width: 991px) {
+    .hero-title-elite {
+        font-size: 3.5rem;
+        letter-spacing: -2px;
+    }
+}
+
+.hero-subtext-elite {
+    font-size: 1.1rem;
+    color: #475569;
+    line-height: 1.8;
+    margin-bottom: 3.5rem;
+    max-width: 600px;
+    font-weight: 500;
+}
+
+.hero-visual-pane {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    z-index: 5;
+}
+
+.hero-visual-pane img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-bottom-left-radius: 150px;
+}
+
+@media (max-width: 991px) {
+    .hero-visual-pane {
+        display: none;
+    }
+
+    .hero-main-content {
+        text-align: center;
+    }
+}
+
+/* --- STATS STRIP --- */
+.executive-stats-bar {
+    background: #000000;
+    color: #ffffff;
+    padding: 50px 0;
+    margin-top: -50px;
+    position: relative;
+    z-index: 20;
+    border-radius: 30px;
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.2);
+}
+
+.stat-block {
+    text-align: center;
+}
+
+.stat-val {
+    font-size: 2.2rem;
+    font-weight: 950;
+    color: var(--theme-accent-orange);
+    margin-bottom: 5px;
+    display: block;
+}
+
+.stat-txt {
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.6;
+}
+
+/* --- CONTENT SECTIONS --- */
+.content-section {
+    padding: 150px 0;
+    background: #ffffff;
+}
+
+.section-tag {
+    color: var(--theme-accent-orange);
+    font-weight: 950;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    margin-bottom: 1.5rem;
+    display: inline-block;
+}
+
+.section-head {
+    font-size: 3.5rem;
+    font-weight: 950;
+    line-height: 1;
+    color: #000000;
+    margin-bottom: 2.5rem;
+    letter-spacing: -2px;
+}
+
+.section-para {
+    font-size: 1.1rem;
+    color: #64748b;
+    line-height: 1.8;
+    margin-bottom: 3rem;
+}
+
+.feature-img-wrapper {
+    position: relative;
+    border-radius: 40px;
+    overflow: hidden;
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.1);
+}
+
+.feature-img-wrapper img {
+    width: 100%;
+    height: auto;
+    transition: transform 0.8s ease;
+}
+
+.feature-img-wrapper:hover img {
+    transform: scale(1.05);
+}
+
+/* --- REVERSE LAYOUT --- */
+.bg-executive-alt {
+    background: #fdfdfd;
+}
+
+/* --- LIFESTYLE GRID (Real Images) --- */
+.lifestyle-grid {
+    padding-bottom: 150px;
+}
+
+.lifestyle-card {
+    border-radius: 30px;
+    overflow: hidden;
+    height: 350px;
+    position: relative;
+}
+
+.lifestyle-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* --- NEWSLETTER --- */
+.newsletter-executive-box {
+    background: #000000;
+    padding: 120px 80px;
+    border-radius: 50px;
+    color: #ffffff;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.news-accent-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, rgba(255, 107, 0, 0.05) 0%, transparent 70%);
+}
+
+.news-title {
+    font-size: 3rem;
+    font-weight: 950;
+    letter-spacing: -1.5px;
+    margin-bottom: 1.5rem;
+}
+
+.news-form-elite {
+    max-width: 600px;
+    margin: 50px auto 0;
+    display: flex;
+    gap: 15px;
+}
+
+.news-input-elite {
+    flex-grow: 1;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 20px 30px;
+    color: #ffffff;
+    outline: none;
+}
+
+.news-btn-elite {
+    background: var(--theme-accent-orange);
+    color: #ffffff;
+    border: none;
+    padding: 0 40px;
+    border-radius: 15px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.news-btn-elite:hover {
+    background: #ffffff;
+    color: #000000;
+}

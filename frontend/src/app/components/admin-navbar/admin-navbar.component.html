@@ -1,0 +1,57 @@
+<div class="navbar-brand px-4 py-5 mb-3">
+    <a routerLink="/admin/dashboard" class="premium-brand text-decoration-none">
+        <span class="brand-f text-accent">B</span>LACK<span class="brand-berry text-accent">BERRY</span> <span
+            class="badge-premium-sm ms-2 food">CORE</span>
+    </a>
+</div>
+
+<div class="nav-links-vertical px-3">
+    <div class="xs fw-black ls-2 text-muted uppercase mb-4 ps-3">CONTROL PANEL</div>
+
+    <a routerLink="/admin/dashboard" routerLinkActive="active" class="admin-nav-item">
+        <i class="bi bi-speedometer2"></i>
+        <span>Dashboard</span>
+        <div class="active-indicator"></div>
+    </a>
+
+    <a routerLink="/admin/products" routerLinkActive="active" class="admin-nav-item">
+        <i class="bi bi-box-seam"></i>
+        <span>Supplies</span>
+        <div class="active-indicator"></div>
+    </a>
+
+    <a routerLink="/admin/adoptions" routerLinkActive="active" class="admin-nav-item">
+        <i class="bi bi-balloon-heart"></i>
+        <span>Adoptions</span>
+        <div class="active-indicator"></div>
+    </a>
+
+    <a routerLink="/admin/categories" routerLinkActive="active" class="admin-nav-item">
+        <i class="bi bi-tags"></i>
+        <span>Categories</span>
+        <div class="active-indicator"></div>
+    </a>
+
+    <a routerLink="/admin/orders" routerLinkActive="active" class="admin-nav-item">
+        <i class="bi bi-cart-check"></i>
+        <span>Deployments</span>
+        <div class="active-indicator"></div>
+    </a>
+
+    <a routerLink="/admin/users" routerLinkActive="active" class="admin-nav-item">
+        <i class="bi bi-people"></i>
+        <span>Operatives</span>
+        <div class="active-indicator"></div>
+    </a>
+
+    <!-- System Spacer -->
+    <div class="mt-auto pt-5">
+        <div class="px-3">
+            <div class="border-top border-dark border-opacity-05 my-4"></div>
+            <a href="#" (click)="logout()" class="admin-nav-item text-danger border-0">
+                <i class="bi bi-power"></i>
+                <span class="fw-black">Disconnect</span>
+            </a>
+        </div>
+    </div>
+</div>

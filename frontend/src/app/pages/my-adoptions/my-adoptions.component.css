@@ -1,0 +1,190 @@
+/* My Adoptions Premium Styles */
+:root {
+    --theme-accent-orange: #ff6b00;
+}
+
+.container {
+    max-width: 1200px;
+}
+
+/* Master Form Hero Section */
+.profile-card {
+    background: #ffffff;
+    border-radius: 30px;
+    padding: 3rem;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.04);
+}
+
+.profile-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(255, 107, 0, 0.03) 0%, transparent 70%);
+    z-index: 0;
+}
+
+.profile-card .z-1 {
+    position: relative;
+    z-index: 1;
+}
+
+.avatar-wrapper {
+    width: 100px;
+    height: 100px;
+    border-radius: 25px;
+    overflow: hidden;
+    background: #f8f9fa;
+    border: 3px solid #fff;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.avatar-wrapper:hover {
+    transform: scale(1.05) rotate(2deg);
+}
+
+.profile-info h4 {
+    letter-spacing: -0.5px;
+}
+
+/* Adoption Request Cards */
+.request-card {
+    background: #ffffff;
+    border-radius: 24px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    position: relative;
+}
+
+.request-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.08);
+    border-color: rgba(255, 107, 0, 0.15);
+}
+
+.pet-img-container {
+    width: 120px;
+    height: 120px;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #fdfdfd;
+}
+
+.pet-img-container img {
+    transition: transform 0.6s ease;
+}
+
+.request-card:hover .pet-img-container img {
+    transform: scale(1.1);
+}
+
+/* Badge Enhancements */
+.badge {
+    padding: 8px 16px !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+    border-radius: 12px !important;
+    font-size: 0.65rem !important;
+}
+
+.bg-warning {
+    background-color: #fffbeb !important;
+    color: #d97706 !important;
+    border: 1px solid rgba(217, 119, 6, 0.1);
+}
+
+.bg-success {
+    background-color: #ecfdf5 !important;
+    color: #059669 !important;
+    border: 1px solid rgba(5, 150, 105, 0.1);
+}
+
+.bg-danger {
+    background-color: #fef2f2 !important;
+    color: #dc2626 !important;
+    border: 1px solid rgba(220, 38, 38, 0.1);
+}
+
+/* Logistics Section */
+.logistics-banner {
+    background: #fafafa !important;
+    border: 2px dashed #eee !important;
+    border-radius: 24px !important;
+    padding: 2rem !important;
+}
+
+.logistics-banner.status-paid {
+    background: linear-gradient(to right, #fffdfa, #ffffff) !important;
+    border-color: rgba(255, 107, 0, 0.1) !important;
+}
+
+.handover-card {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    border-radius: 20px;
+    padding: 1.5rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.02);
+}
+
+/* Button Refinement */
+.btn-action {
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 0 20px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.btn-light-premium {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    color: #444;
+}
+
+.btn-light-premium:hover {
+    background: #eee;
+    color: #000;
+}
+
+.btn-outline-danger-premium {
+    background: #fff;
+    border: 1.5px solid #ffeded;
+    color: #ff4d4d;
+}
+
+.btn-outline-danger-premium:hover {
+    background: #ff4d4d;
+    color: #fff;
+    border-color: #ff4d4d;
+}
+
+/* Typography LS */
+.ls-2 {
+    letter-spacing: 2px;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+/* Loading State */
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
+    border-width: 0.25em;
+    color: var(--theme-accent-orange) !important;
+}

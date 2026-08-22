@@ -1,0 +1,260 @@
+/* Premium Modern Wishlist Styles */
+:host {
+    display: block;
+}
+
+/* Loading State */
+.spinner-premium-lg {
+    width: 60px;
+    height: 60px;
+    border: 3px solid var(--theme-accent-glow);
+    border-top: 3px solid var(--theme-accent-orange);
+    border-radius: 50%;
+    margin: 0 auto;
+    animation: spinDetail 1s linear infinite;
+    box-shadow: 0 0 15px var(--theme-accent-glow);
+}
+
+@keyframes spinDetail {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Empty State */
+.glass-card-empty {
+    background: #ffffff;
+    border: 1px dashed #e9ecef;
+    border-radius: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+}
+
+.empty-icon-box {
+    width: 100px;
+    height: 100px;
+    background: #fff5eb;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    color: var(--theme-accent-orange);
+}
+
+/* Premium Product Card (Reused from Product List) */
+.premium-product-card {
+    background: #ffffff;
+    border: 1px solid #f1f3f5;
+    border-radius: 30px;
+    overflow: hidden;
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    height: 100%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.02);
+}
+
+.premium-product-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--theme-accent-orange);
+    box-shadow: 0 15px 35px rgba(255, 107, 0, 0.08);
+}
+
+.card-badges-top {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 5;
+}
+
+.badge-premium-sm {
+    font-size: 0.6rem;
+    font-weight: 950;
+    padding: 6px 14px;
+    border-radius: 8px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.badge-premium-sm.pet {
+    background: var(--theme-accent-red);
+    color: white;
+}
+
+.badge-premium-sm.food {
+    background: var(--theme-accent-orange);
+    color: white;
+}
+
+.wishlist-btn-glass {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 5;
+    width: 40px;
+    height: 40px;
+    background: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--theme-text-dark);
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.wishlist-btn-glass:hover {
+    background: #ff0000;
+    transform: scale(1.1);
+}
+
+.wishlist-btn-glass.active {
+    background: rgba(255, 77, 109, 0.2);
+    border: 1px solid #ff4d6d;
+    color: #ff4d6d;
+}
+
+/* Visual Area */
+.visual-container {
+    height: 240px;
+    position: relative;
+    overflow: hidden;
+    background: #f8f9fa;
+}
+
+.visual-main {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.8s cubic-bezier(0, 0, 0.2, 1);
+}
+
+.visual-glass-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(255, 255, 255, 0.8), transparent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: all 0.4s ease;
+}
+
+.premium-product-card:hover .visual-main {
+    transform: scale(1.15);
+}
+
+.premium-product-card:hover .visual-glass-overlay {
+    opacity: 1;
+}
+
+.view-btn-premium {
+    padding: 10px 20px;
+    border: 1px solid #e9ecef;
+    border-radius: 30px;
+    background: #ffffff;
+    color: var(--theme-text-dark);
+    transform: translateY(20px);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.premium-product-card:hover .view-btn-premium {
+    transform: translateY(0);
+}
+
+/* Info Box */
+.product-title-premium {
+    font-size: 1.1rem;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+}
+
+.rating-box-premium {
+    background: #f8f9fa;
+    padding: 4px 10px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.divider-v {
+    width: 1px;
+    height: 15px;
+    background: #e9ecef;
+}
+
+.price-box-premium {
+    display: flex;
+    flex-direction: column;
+}
+
+.price-main-lg {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--theme-text-dark);
+    letter-spacing: -0.5px;
+}
+
+.btn-action-premium {
+    width: 50px;
+    height: 50px;
+    border-radius: 18px;
+    background: var(--theme-accent-orange);
+    color: white;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 20px var(--theme-accent-glow);
+}
+
+.btn-action-premium:hover {
+    transform: scale(1.1) rotate(90deg);
+    background: var(--theme-accent-red-hover);
+    box-shadow: 0 15px 30px rgba(157, 78, 221, 0.3);
+}
+
+.btn-action-premium:disabled {
+    background: #f8f9fa;
+    color: #dee2e6;
+    box-shadow: none;
+}
+
+/* Utilities */
+.fw-black {
+    font-weight: 800;
+}
+
+.ls-3 {
+    letter-spacing: 3px;
+}
+
+.ls-2 {
+    letter-spacing: 2px;
+}
+
+.ls-n1 {
+    letter-spacing: -1.5px;
+}
+
+.xs {
+    font-size: 0.7rem;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+/* Removed local redefinitions to allow global light-theme classes from styles.css to take effect */

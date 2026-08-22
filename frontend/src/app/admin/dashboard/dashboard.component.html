@@ -1,0 +1,158 @@
+<div class="executive-node py-5 px-lg-5 animate__animated animate__fadeIn">
+    <!-- Sleek Top Bar -->
+    <div class="d-flex align-items-center justify-content-between mb-5">
+        <div>
+            <h6 class="text-accent fw-black ls-3 uppercase xs mb-2">ADMIN COMMAND</h6>
+            <h1 class="display-5 fw-black text-dark mb-0 ls-n1">System <span class="text-accent">Insight</span></h1>
+            <div class="border-accent-sm mt-3" style="width: 60px; height: 4px;"></div>
+        </div>
+        <div class="d-flex gap-2">
+            <button class="btn-executive-icon" (click)="ngOnInit()" title="Refresh Intelligence">
+                <i class="bi bi-arrow-clockwise"></i>
+            </button>
+            <div class="admin-session-badge px-4 py-2">
+                <span class="xs fw-black ls-1 uppercase text-dark">SECURE NODE ACTIVE</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Core Metrics Command -->
+    <div class="row g-4 mb-5">
+        <!-- Revenue -->
+        <div class="col-md-6 col-xl-3 animate__animated animate__fadeInUp">
+            <div class="metric-command-card p-4">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div class="metric-icon-box bg-accent-soft"><i class="bi bi-currency-rupee text-accent"></i></div>
+                    <span class="xs fw-black ls-1 text-muted uppercase">Gross Revenue</span>
+                </div>
+                <h2 class="fw-black text-dark mb-0 ls-n1">₹{{ totalRevenue | number }}</h2>
+                <p class="text-muted xs mt-2 mb-0 fw-bold uppercase ls-1">Consolidated Value</p>
+            </div>
+        </div>
+
+        <!-- Orders -->
+        <div class="col-md-6 col-xl-3 animate__animated animate__fadeInUp animate__delay-1s">
+            <div class="metric-command-card p-4 border-primary-glow">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div class="metric-icon-box bg-primary-soft"><i class="bi bi-bag-check text-primary"></i></div>
+                    <span class="xs fw-black ls-1 text-muted uppercase">Sales Volume</span>
+                </div>
+                <h2 class="fw-black text-dark mb-0 ls-n1">{{ totalOrders }}</h2>
+                <p class="text-muted xs mt-2 mb-0 fw-bold uppercase ls-1">Completed Deployments</p>
+            </div>
+        </div>
+
+        <!-- Adoptions -->
+        <div class="col-md-6 col-xl-3 animate__animated animate__fadeInUp animate__delay-2s">
+            <div class="metric-command-card p-4 border-heart-glow">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div class="metric-icon-box bg-danger-soft"><i class="bi bi-heart-pulse text-danger"></i></div>
+                    <span class="xs fw-black ls-1 text-muted uppercase">Elite Adoptions</span>
+                </div>
+                <h2 class="fw-black text-dark mb-0 ls-n1">{{ totalAdoptions }}</h2>
+                <p class="text-muted xs mt-2 mb-0 fw-bold uppercase ls-1">Successful Applications</p>
+            </div>
+        </div>
+
+        <!-- Users -->
+        <div class="col-md-6 col-xl-3 animate__animated animate__fadeInUp animate__delay-3s">
+            <div class="metric-command-card p-4 border-dark-glow">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div class="metric-icon-box bg-dark-soft"><i class="bi bi-people text-dark"></i></div>
+                    <span class="xs fw-black ls-1 text-muted uppercase">Total Captives</span>
+                </div>
+                <h2 class="fw-black text-dark mb-0 ls-n1">{{ totalUsers }}</h2>
+                <p class="text-muted xs mt-2 mb-0 fw-bold uppercase ls-1">Registered Operatives</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Active Management Hub -->
+    <div class="row g-5">
+        <!-- Activity Ledger Left -->
+        <div class="col-lg-8">
+            <div class="hub-ledger-card h-100">
+                <div class="p-4 border-bottom d-flex align-items-center justify-content-between bg-faint">
+                    <h5 class="fw-black mb-0 ls-n1 uppercase xs text-dark">ECOSYSTEM ACTIVITY LEDGER</h5>
+                    <div class="d-flex gap-2">
+                        <span class="badge-dot active"></span>
+                        <span class="xs fw-black ls-1 text-dark uppercase">LIVE STREAM</span>
+                    </div>
+                </div>
+                
+                <div class="ledger-scroll-area">
+                    <!-- Adoption Activity -->
+                    <div class="ledger-row d-flex align-items-center justify-content-between p-4 border-bottom" *ngFor="let adopt of recentAdoptions">
+                        <div>
+                            <h6 class="fw-black mb-1 text-dark ls-1">{{ adopt.formData?.fullName || 'Anonymous' }}</h6>
+                            <p class="text-accent xs fw-black mb-0 uppercase ls-1">{{ adopt.petData?.name || 'General Interest' }}</p>
+                        </div>
+                        <div class="text-end">
+                            <span class="badge-status-premium" [class.in-stock]="adopt.status === 'Approved'">{{ adopt.status }}</span>
+                        </div>
+                    </div>
+
+                    <!-- Order Activity -->
+                    <div class="ledger-row d-flex align-items-center justify-content-between p-4 border-bottom" *ngFor="let order of recentOrders">
+                        <div>
+                            <h6 class="fw-black mb-1 text-dark ls-1">#{{ order.id.slice(-6) | uppercase }}</h6>
+                            <p class="text-accent xs fw-black mb-0 uppercase ls-1">₹{{ order.totalAmount | number }}</p>
+                        </div>
+                        <div class="text-end">
+                            <span class="badge-status-premium in-stock">PAID</span>
+                        </div>
+                    </div>
+
+                    <div *ngIf="recentAdoptions.length === 0 && recentOrders.length === 0" class="p-5 text-center">
+                        <i class="bi bi-slash-circle fs-1 text-muted opacity-25"></i>
+                        <p class="text-muted small fw-bold mt-3 mb-0 uppercase ls-1">No active data streams detected.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar Command Grid -->
+        <div class="col-lg-4">
+            <!-- Tier Management -->
+            <div class="hub-ledger-card mb-4 p-4">
+                <h6 class="fw-black text-dark mb-4 ls-1 uppercase xs">CORE TIERS</h6>
+                <div class="d-flex flex-wrap gap-2">
+                    <span class="badge-tier px-3 py-2" *ngFor="let cat of categories">
+                        {{ cat.name | uppercase }}
+                    </span>
+                </div>
+            </div>
+
+            <!-- Quick Action Command -->
+            <div class="hub-ledger-card p-4">
+                <h6 class="fw-black text-dark mb-4 ls-1 uppercase xs">COMMAND CONTROLS</h6>
+                <div class="row g-3">
+                    <div class="col-6">
+                        <a routerLink="/admin/products" class="btn-executive-command w-100">
+                            <i class="bi bi-box-seam-fill mb-2"></i>
+                            <span>SUPPLIES</span>
+                        </a>
+                    </div>
+                    <div class="col-6">
+                        <a routerLink="/admin/adoptions" class="btn-executive-command w-100">
+                            <i class="bi bi-heart-fill mb-2"></i>
+                            <span>ADOPTIONS</span>
+                        </a>
+                    </div>
+                    <div class="col-6">
+                        <a routerLink="/admin/orders" class="btn-executive-command w-100">
+                            <i class="bi bi-truck mb-2"></i>
+                            <span>LOGISTICS</span>
+                        </a>
+                    </div>
+                    <div class="col-6">
+                        <a routerLink="/admin/users" class="btn-executive-command w-100">
+                            <i class="bi bi-people-fill mb-2"></i>
+                            <span>USERS</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

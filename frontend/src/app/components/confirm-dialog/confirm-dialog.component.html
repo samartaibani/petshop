@@ -1,0 +1,23 @@
+<div class="dialog-overlay" *ngIf="data" @overlayFade (click)="onCancel()">
+  <div class="dialog-container" @modalSlide (click)="$event.stopPropagation()">
+    <div class="dialog-header">
+      <div class="icon-orb">
+        <i class="bi bi-question-lg"></i>
+      </div>
+      <h3 class="dialog-title">{{ data.title }}</h3>
+    </div>
+    
+    <div class="dialog-body">
+      <p class="dialog-message">{{ data.message }}</p>
+    </div>
+
+    <div class="dialog-footer">
+      <button class="btn-cancel" (click)="onCancel()">
+        {{ data.cancelText || 'Cancel' }}
+      </button>
+      <button class="btn-confirm" (click)="onConfirm()">
+        {{ data.confirmText || 'Confirm' }}
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,135 @@
+/* Premium Split-Pane Auth Styles */
+:host {
+    display: block;
+}
+
+.auth-split-wrapper {
+    min-height: 100vh;
+    display: flex;
+    background: #ffffff;
+}
+
+.auth-form-side {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    background: #ffffff;
+}
+
+.auth-visual-side {
+    flex: 1.1;
+    background-color: #fef9f1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 60px;
+    display: none;
+}
+
+@media (min-width: 992px) {
+    .auth-visual-side {
+        display: flex;
+    }
+}
+
+.visual-illustration-container {
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 40px;
+}
+
+.visual-illustration-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 40px;
+    mix-blend-mode: multiply;
+}
+
+.visual-text {
+    text-align: left;
+    max-width: 500px;
+}
+
+.visual-text h2 {
+    font-size: 2.5rem;
+    font-weight: 950;
+    color: var(--theme-text-dark);
+    margin-bottom: 1rem;
+    line-height: 1.1;
+}
+
+.visual-text p {
+    color: #4a5568;
+    line-height: 1.6;
+}
+
+.auth-card-vault {
+    width: 100%;
+    max-width: 480px;
+}
+
+/* Form Styles */
+.auth-header-vault h1 {
+    font-size: 2rem;
+    font-weight: 950;
+    color: var(--theme-text-dark);
+    margin-bottom: 8px;
+}
+
+.auth-header-vault p {
+    color: var(--theme-text-muted);
+    margin-bottom: 30px;
+}
+
+/* Alerts */
+.alert-premium {
+    padding: 1rem 1.25rem;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 2rem;
+    border: 1px solid transparent;
+}
+
+.alert-premium.error {
+    background: #fff5f6;
+    border-color: #fee2e4;
+    color: #ef4444;
+}
+
+/* Utilities */
+.xs {
+    font-size: 0.75rem;
+}
+
+.fw-black {
+    font-weight: 950;
+}
+
+.ls-2 {
+    letter-spacing: 2.5px;
+}
+
+.ls-n1 {
+    letter-spacing: -2px;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+.hover-underline:hover {
+    text-decoration: underline !important;
+}
+
+/* Custom Overrides for this layout */
+.auth-footer {
+    padding-top: 2rem;
+    border-top: 1px solid #f1f3f5;
+}

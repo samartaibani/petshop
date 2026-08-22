@@ -1,0 +1,321 @@
+<div class="checkout-layout">
+    <div class="checkout-header">
+        <h1>Checkout</h1>
+        <span class="subtotal-header-text">Order subtotal ({{ cartItems.length }} items): ₹{{ subtotal | number
+            }}</span>
+    </div>
+
+    <div class="checkout-body row g-5">
+
+        <!-- LEFT COLUMN: Steps -->
+        <div class="col-lg-7 position-relative">
+
+            <!-- STEP 1: Shipping address -->
+            <div class="step-container">
+                <div class="step-indicator" [class.active]="currentStep === 1" [class.completed]="currentStep > 1">
+                    <span *ngIf="currentStep <= 1">1</span>
+                    <i *ngIf="currentStep > 1" class="bi bi-check" style="font-size: 1.5rem;"></i>
+                </div>
+                <div class="step-content-box" [class.active-box]="currentStep === 1">
+                    <div class="step-header d-flex justify-content-between align-items-center"
+                        (click)="currentStep > 1 ? goToStep(1) : null">
+                        <h2>Shipping address</h2>
+                        <span *ngIf="currentStep > 1" class="text-muted small">{{ checkoutForm.value.address1 }}, {{
+                            checkoutForm.value.city }}</span>
+                    </div>
+
+                    <div class="step-body" *ngIf="currentStep === 1">
+                        <ng-container *ngIf="addresses.length > 0; else noAddresses">
+                            <p class="text-muted mb-4 small">Select a previously saved address for your order dispatch.
+                            </p>
+
+                            <div class="row g-3">
+                                <div class="col-12" *ngFor="let addr of addresses; let i = index">
+                                    <div class="payment-radio-group" [class.active]="selectedAddressIndex === i"
+                                        (click)="selectAddress(i)">
+                                        <div class="d-flex align-items-center">
+                                            <input type="radio" [checked]="selectedAddressIndex === i">
+                                            <div class="ms-3 w-100">
+                                                <div class="d-flex justify-content-between">
+                                                    <span class="fw-bold text-dark">{{ addr.houseNumber }}, {{
+                                                        addr.buildingName }}</span>
+                                                    <span class="badge bg-dark" *ngIf="i === 0">Primary</span>
+                                                </div>
+                                                <div class="small text-muted mt-1">{{ addr.areaName }}, {{ addr.cityName
+                                                    }} - {{ addr.pincode }}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-4 pt-2">
+                                <button type="button" class="btn-continue px-5" (click)="goToStep(2)">CONFIRM DISPATCH
+                                    ADDRESS</button>
+                            </div>
+                        </ng-container>
+
+                        <ng-template #noAddresses>
+                            <div class="text-center p-5 border rounded-3 bg-light">
+                                <i class="bi bi-geo-alt display-4 text-muted mb-3 d-block"></i>
+                                <h5 class="fw-bold text-dark">No Addresses Found</h5>
+                                <p class="text-muted small mb-4">You need an address saved in your profile to checkout.
+                                </p>
+                                <a routerLink="/profile" class="btn-continue text-decoration-none">Go to Profile</a>
+                            </div>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 2: Shipping method -->
+            <div class="step-container">
+                <div class="step-indicator" [class.active]="currentStep === 2" [class.completed]="currentStep > 2">
+                    <span *ngIf="currentStep <= 2">2</span>
+                    <i *ngIf="currentStep > 2" class="bi bi-check" style="font-size: 1.5rem;"></i>
+                </div>
+                <div class="step-content-box" [class.active-box]="currentStep === 2">
+                    <div class="step-header d-flex justify-content-between align-items-center"
+                        (click)="currentStep > 2 ? goToStep(2) : null">
+                        <h2 [class.text-muted]="currentStep < 2">Shipping method</h2>
+                        <span *ngIf="currentStep > 2" class="text-muted small">Standard (FREE)</span>
+                    </div>
+                    <div class="step-body" *ngIf="currentStep === 2">
+                        <div class="mt-3">
+                            <div class="payment-radio-group" [class.active]="shippingCost === 0"
+                                (click)="selectShipping(0)">
+                                <div class="d-flex align-items-center">
+                                    <input type="radio" [checked]="shippingCost === 0">
+                                    <div class="ms-3 w-100 d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <span class="fw-bold text-dark d-block">Standard Shipping</span>
+                                            <span class="text-muted small">Estimated Delivery: 5-7 Business Days</span>
+                                        </div>
+                                        <span class="fw-bold">FREE</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="payment-radio-group" [class.active]="shippingCost === 150"
+                                (click)="selectShipping(150)">
+                                <div class="d-flex align-items-center">
+                                    <input type="radio" [checked]="shippingCost === 150">
+                                    <div class="ms-3 w-100 d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <span class="fw-bold text-dark d-block">Priority Elite Logistics</span>
+                                            <span class="text-muted small">Estimated Delivery: 1-2 Business Days</span>
+                                        </div>
+                                        <span class="fw-bold">₹150</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-2">
+                            <button type="button" class="btn-continue px-5" (click)="goToStep(3)">CONFIRM SHIPPING
+                                METHOD</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 3: Review order -->
+            <div class="step-container">
+                <div class="step-indicator" [class.active]="currentStep === 3" [class.completed]="currentStep > 3">
+                    <span *ngIf="currentStep <= 3">3</span>
+                    <i *ngIf="currentStep > 3" class="bi bi-check" style="font-size: 1.5rem;"></i>
+                </div>
+                <div class="step-content-box" [class.active-box]="currentStep === 3">
+                    <div class="step-header d-flex justify-content-between align-items-center"
+                        (click)="currentStep > 3 ? goToStep(3) : null">
+                        <h2 [class.text-muted]="currentStep < 3">Review order</h2>
+                    </div>
+                    <div class="step-body" *ngIf="currentStep === 3">
+                        <div class="review-details bg-light p-4 rounded-3 border">
+                            <p class="text-dark mb-3"><strong class="me-2 text-muted uppercase xs ls-1">SHIPPING
+                                    DESTINATION:</strong><br>
+                                {{ checkoutForm.value.address }}
+                            </p>
+
+                            <p class="text-dark mb-0"><strong class="me-2 text-muted uppercase xs ls-1">SHIPPING
+                                    SPEED:</strong><br>
+                                {{ shippingCost === 0 ? 'Standard Shipping (Free)' : 'Priority Elite Logistics (₹150)'
+                                }}
+                            </p>
+                        </div>
+
+                        <div class="mt-4 pt-2">
+                            <button type="button" class="btn-continue px-5" (click)="goToStep(4)">PROCEED TO
+                                PAYMENT</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 4: Payment -->
+            <div class="step-container">
+                <div class="step-indicator" [class.active]="currentStep === 4" [class.completed]="currentStep > 4">
+                    <span *ngIf="currentStep <= 4">4</span>
+                    <i *ngIf="currentStep > 4" class="bi bi-check" style="font-size: 1.5rem;"></i>
+                </div>
+                <div class="step-content-box" [class.active-box]="currentStep === 4">
+                    <div class="step-header">
+                        <h2 [class.text-muted]="currentStep < 4">Payment & Authorize</h2>
+                    </div>
+                    <div class="step-body" *ngIf="currentStep === 4">
+
+                        <div class="mt-3">
+                            <div class="payment-radio-group" [class.active]="paymentMethod === 'Card'"
+                                (click)="selectPayment('Card')">
+                                <div class="d-flex align-items-center">
+                                    <input type="radio" [checked]="paymentMethod === 'Card'">
+                                    <span class="ms-3 fw-bold text-dark">Credit Card</span>
+                                </div>
+                            </div>
+
+                            <div *ngIf="paymentMethod === 'Card'" class="payment-details-box">
+                                <div class="row g-3">
+                                    <div class="col-12">
+                                        <input type="text" id="cardInput" class="modern-input" placeholder="Card number"
+                                            [(ngModel)]="cardNumber" name="cardNumber">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" class="modern-input" placeholder="Expiration date (MM / YY)"
+                                            [(ngModel)]="cardExp" name="cardExp">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="password" class="modern-input" placeholder="Security code"
+                                            [(ngModel)]="cardCvv" name="cardCvv">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="payment-radio-group" [class.active]="paymentMethod === 'UPI'"
+                                (click)="selectPayment('UPI')">
+                                <div class="d-flex align-items-center">
+                                    <input type="radio" [checked]="paymentMethod === 'UPI'">
+                                    <span class="ms-3 fw-bold text-dark">UPI (GPay, PhonePe, Paytm)</span>
+                                </div>
+                            </div>
+
+                            <div *ngIf="paymentMethod === 'UPI'" class="payment-details-box">
+                                <div class="row g-3">
+                                    <div class="col-12">
+                                        <input type="text" id="upiInput" class="modern-input"
+                                            placeholder="Enter UPI ID (e.g., name@okbank)" [(ngModel)]="upiId"
+                                            name="upi">
+                                        <div class="small text-muted mt-2">You will need to open your UPI app to approve
+                                            the transaction.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="payment-radio-group" [class.active]="paymentMethod === 'COD'"
+                                (click)="selectPayment('COD')">
+                                <div class="d-flex align-items-center">
+                                    <input type="radio" [checked]="paymentMethod === 'COD'">
+                                    <span class="ms-3 fw-bold text-dark">Cash on Delivery</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 pt-2">
+                            <button type="button" class="btn-continue"
+                                style="padding: 18px 40px; font-size: 1rem; width: 100%; border-radius: 8px;"
+                                (click)="validatePaymentAndProceed()">AUTHORIZE AND PLACE ORDER</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- RIGHT COLUMN: Summary -->
+        <div class="col-lg-5">
+            <div class="summary-sidebar">
+                <h3 class="summary-title">Summary</h3>
+
+
+
+                <div class="summary-lines mb-5">
+                    <div class="summary-line">
+                        <span>Subtotal</span>
+                        <span class="fw-bold">₹{{ subtotal | number }}</span>
+                    </div>
+                    <div class="summary-line">
+                        <span>Shipping</span>
+                        <span class="fw-bold">{{ shippingCost === 0 ? 'FREE' : '₹' + shippingCost }}</span>
+                    </div>
+                    <div class="summary-line">
+                        <span>Estimated tax <i class="bi bi-info-circle text-muted ms-1"></i></span>
+                        <span class="fw-bold">₹{{ taxAmount | number }}</span>
+                    </div>
+                    <div class="summary-total">
+                        <span class="fs-5 fw-bold text-dark">Total</span>
+                        <span class="fs-5 fw-bold text-dark" style="color: var(--theme-accent-orange) !important;">₹{{
+                            grandTotal | number }}</span>
+                    </div>
+                </div>
+
+                <div class="cart-items-box">
+                    <h4 class="cart-title"><i class="bi bi-cart3 me-2"></i> Cart ({{ cartItems.length }} Items)</h4>
+
+                    <div class="cart-item-modern mt-4" *ngFor="let item of cartItems">
+                        <div class="cart-item-img border p-2 bg-white d-flex align-items-center justify-content-center">
+                            <img [src]="item.imageUrl || 'assets/placeholder.png'" alt="{{ item.name }}"
+                                class="img-fluid">
+                        </div>
+                        <div class="cart-item-details ms-3 w-100">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span class="item-name">{{ item.name }}</span>
+                                <span class="item-price text-dark">₹{{ item.price | number }}</span>
+                            </div>
+                            <p class="item-desc text-muted mb-0 small">{{ item.categoryName || 'Pet Supply' }}</p>
+                            <p class="item-desc text-muted mb-0 small">Quantity: {{ item.quantity }}</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="premium-guarantee-box mt-5 pt-4 border-top">
+                <h5 class="fw-bold mb-4 fs-6 text-dark text-uppercase" style="letter-spacing: 1px;">The Elite Promise
+                </h5>
+
+                <div class="d-flex align-items-center mb-3">
+                    <div class="icon-circle-glass me-3"
+                        style="width: 40px; height: 40px; background: rgba(255, 107, 0, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #ff6b00;">
+                        <i class="bi bi-shield-check fs-5"></i>
+                    </div>
+                    <div>
+                        <div class="fw-bold text-dark" style="font-size: 0.85rem;">Bank-Grade Security</div>
+                        <div class="text-muted" style="font-size: 0.75rem;">128-bit SSL encrypted checkout</div>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center mb-3">
+                    <div class="icon-circle-glass me-3"
+                        style="width: 40px; height: 40px; background: rgba(255, 107, 0, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #ff6b00;">
+                        <i class="bi bi-box-seam fs-5"></i>
+                    </div>
+                    <div>
+                        <div class="fw-bold text-dark" style="font-size: 0.85rem;">Pristine Packaging</div>
+                        <div class="text-muted" style="font-size: 0.75rem;">Climate-controlled transit for all items
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center">
+                    <div class="icon-circle-glass me-3"
+                        style="width: 40px; height: 40px; background: rgba(255, 107, 0, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #ff6b00;">
+                        <i class="bi bi-telephone fs-5"></i>
+                    </div>
+                    <div>
+                        <div class="fw-bold text-dark" style="font-size: 0.85rem;">24/7 VIP Concierge</div>
+                        <div class="text-muted" style="font-size: 0.75rem;">Dedicated support standing by</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>

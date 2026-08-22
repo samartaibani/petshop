@@ -1,0 +1,77 @@
+<div class="auth-split-wrapper">
+    <!-- Form Side -->
+    <div class="auth-form-side">
+        <div class="auth-card-vault animate__animated animate__fadeInLeft">
+            <!-- Brand Header -->
+            <div class="mb-5">
+                <h1 class="display-5 fw-black text-dark mb-1 ls-n1 uppercase">USER <span
+                        class="text-accent">LOGIN</span></h1>
+                <p class="text-muted xs fw-bold ls-2 uppercase opacity-75">WELCOME BACK</p>
+            </div>
+
+            <!-- Messages -->
+            <div *ngIf="errorMsg" class="alert-premium error">
+                <i class="bi bi-shield-slash fs-4"></i>
+                <div class="fw-bold">{{ errorMsg }}</div>
+            </div>
+
+            <div *ngIf="successMsg" class="alert-premium success">
+                <i class="bi bi-check-circle fs-4"></i>
+                <div class="fw-bold">{{ successMsg }}</div>
+            </div>
+
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                <!-- Email -->
+                <div class="premium-input-group mb-4">
+                    <label class="premium-label ls-1"
+                        [class.is-invalid-label]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">Email</label>
+                    <div class="position-relative">
+                        <i class="bi bi-envelope position-absolute top-50 translate-middle-y ms-3 text-muted"></i>
+                        <input type="email" class="premium-input ps-5"
+                            [class.is-invalid]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
+                            formControlName="email" placeholder="your@email.com">
+                    </div>
+                </div>
+
+                <!-- Password -->
+                <div class="premium-input-group mb-5">
+                    <label class="premium-label ls-1"
+                        [class.is-invalid-label]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">Password</label>
+                    <div class="position-relative">
+                        <i class="bi bi-shield-lock position-absolute top-50 translate-middle-y ms-3 text-muted"></i>
+                        <input type="password" class="premium-input ps-5"
+                            [class.is-invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+                            formControlName="password" placeholder="••••••••">
+                    </div>
+                </div>
+
+                <!-- Authentication Trigger -->
+                <button type="submit" class="btn-premium w-100 py-3 shadow-accent-glow">
+                    SIGN IN <i class="bi bi-chevron-right ms-2 small"></i>
+                </button>
+
+                <!-- Navigation Footer -->
+                <div class="auth-footer mt-4 text-center">
+                    <p class="text-muted xs fw-bold mb-0">
+                        NEW USER?
+                        <a routerLink="/register"
+                            class="text-dark ms-2 text-decoration-none border-bottom border-dark border-opacity-25 pb-1 uppercase">SIGN
+                            UP</a>
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Visual Side (Desktop) -->
+    <div class="auth-visual-side animate__animated animate__fadeIn">
+        <div class="visual-illustration-container">
+            <img src="/assets/auth-illustration.png" alt="Login Illustration">
+        </div>
+        <div class="visual-text">
+            <h2>Artisanal Care for Your Companions</h2>
+            <p>Our goal is to provide elite care and artisanal nutrition for your most loyal companions. Join our
+                community of dedicated pet parents today.</p>
+        </div>
+    </div>
+</div>

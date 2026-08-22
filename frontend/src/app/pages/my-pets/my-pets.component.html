@@ -1,0 +1,211 @@
+<div class="container-fluid py-5 px-lg-5 animate__animated animate__fadeIn">
+    <!-- Header -->
+    <div class="row mb-5 animate__animated animate__fadeInDown border-bottom border-dark border-opacity-05 pb-4">
+        <div class="col-12 d-flex justify-content-between align-items-end flex-wrap gap-4">
+            <div>
+                <h6 class="text-accent fw-black ls-3 uppercase xs mb-2">ADOPTION CONCIERGE</h6>
+                <h1 class="display-4 fw-black text-dark mb-0 ls-n1">My Premium <span
+                        class="text-accent">Companions</span></h1>
+                <p class="text-muted xs fw-black ls-2 uppercase mt-2">TRACK LOGISTICS & VIEW CERTIFICATES</p>
+            </div>
+            <div>
+                <a routerLink="/my-orders" class="btn btn-outline-dark fw-black px-4 py-3 rounded-pill ls-1 hover-lift">
+                    <i class="bi bi-box me-2"></i> TRACK PRODUCT ORDERS
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div *ngIf="loading" class="text-center py-5">
+        <div class="spinner-border text-accent"></div>
+    </div>
+
+    <ng-container *ngIf="!loading">
+        <div *ngIf="pets.length === 0" class="text-center py-5 glass-card shadow-sm border-dashed">
+            <i class="bi bi-heptagon display-1 text-muted opacity-25 mb-4 d-block"></i>
+            <h3 class="fw-black mb-3">No companions found</h3>
+            <p class="text-muted">You haven't completed any adoptions yet.</p>
+            <a routerLink="/adopt"
+                class="btn btn-dark fw-black px-4 py-3 rounded-pill text-white box-shadow-premium">MEET THE PETS</a>
+        </div>
+
+        <div *ngIf="pets.length > 0" class="row g-4 mb-5">
+            <div class="col-12" *ngFor="let pet of pets; let i = index" class="animate__animated animate__fadeInUp"
+                [style.animation-delay]="(i * 0.1) + 's'">
+                <div class="card border-0 rounded-4 overflow-hidden shadow-premium-lg h-100"
+                    style="background: #fff; border-left: 6px solid #ff6b00 !important;">
+                    <div class="card-body p-0">
+                        <div class="row g-0">
+                            <!-- Left: Pet Card Summary -->
+                            <div
+                                class="col-lg-3 bg-light p-4 d-flex flex-column justify-content-center align-items-center text-center border-end border-dark border-opacity-05">
+                                <div class="rounded-circle overflow-hidden shadow-sm mb-3"
+                                    style="width: 120px; height: 120px;">
+                                    <img [src]="pet.petData?.imageUrl || 'assets/placeholder.png'"
+                                        class="w-100 h-100 object-fit-cover">
+                                </div>
+                                <h4 class="fw-black text-dark mb-1">{{ pet.petData?.name }}</h4>
+                                <div class="xs text-muted fw-bold uppercase ls-2 mb-3">{{ pet.petData?.breed ||
+                                    'COMPANION' }}</div>
+                                <div class="badge bg-dark rounded-pill px-3 py-2 text-white xs uppercase ls-1 mb-3">
+                                    <i class="bi bi-check-circle-fill text-success me-1"></i> FEE PAID
+                                </div>
+                                <button
+                                    class="btn btn-outline-dark btn-sm rounded-pill fw-black px-4 w-100 ls-1 uppercase"
+                                    (click)="downloadCertificate(pet)">
+                                    <i class="bi bi-award me-1"></i> DIGITAL CERTIFICATE
+                                </button>
+                            </div>
+
+                            <!-- Right: Tracking Pipeline -->
+                            <div class="col-lg-9 p-5 d-flex flex-column justify-content-center">
+                                <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+                                    <h5 class="fw-black ls-n1 mb-0">Live Delivery Tracking</h5>
+                                    <span
+                                        class="badge radius-pill bg-light text-dark border xs fw-bold uppercase ls-1 px-3 py-2">
+                                        <i class="bi bi-geo-alt-fill text-accent me-1"></i> DESTINATION: {{
+                                        pet.destinationBranch || 'Standard Processing' }}
+                                    </span>
+                                </div>
+
+                                <!-- The Timeline UI -->
+                                <div class="tracking-pipeline position-relative mt-4 mb-5">
+                                    <!-- Background Line -->
+                                    <div class="position-absolute top-50 start-0 w-100 bg-light rounded"
+                                        style="height: 4px; transform: translateY(-50%); z-index: 0;"></div>
+
+                                    <!-- Progress Line -->
+                                    <div class="position-absolute top-50 start-0 bg-success rounded transition-all"
+                                        style="height: 4px; transform: translateY(-50%); z-index: 1;"
+                                        [style.width.%]="getTrackingStep(pet.deliveryStatus) * 25"></div>
+
+                                    <!-- Dots -->
+                                    <div class="d-flex justify-content-between position-relative" style="z-index: 2;">
+                                        <!-- Step 0: Processing -->
+                                        <div class="tracking-step text-center w-25">
+                                            <div class="tracking-dot mx-auto mb-2 rounded-circle border border-4 bg-white"
+                                                [ngClass]="getTrackingStep(pet.deliveryStatus) >= 0 ? 'border-success' : 'border-light'"
+                                                style="width: 20px; height: 20px;"></div>
+                                            <div class="xs fw-bold uppercase ls-1"
+                                                [ngClass]="getTrackingStep(pet.deliveryStatus) >= 0 ? 'text-dark fw-black' : 'text-muted'">
+                                                Processing</div>
+                                        </div>
+                                        <!-- Step 1: Out of Shelter -->
+                                        <div class="tracking-step text-center w-25">
+                                            <div class="tracking-dot mx-auto mb-2 rounded-circle border border-4 bg-white"
+                                                [ngClass]="getTrackingStep(pet.deliveryStatus) >= 1 ? 'border-success bg-success' : 'border-light'"
+                                                style="width: 20px; height: 20px;"></div>
+                                            <div class="xs fw-bold uppercase ls-1"
+                                                [ngClass]="getTrackingStep(pet.deliveryStatus) >= 1 ? 'text-dark fw-black' : 'text-muted'">
+                                                Out of Shelter</div>
+                                        </div>
+                                        <!-- Step 2: Transit -->
+                                        <div class="tracking-step text-center w-25">
+                                            <div class="tracking-dot mx-auto mb-2 rounded-circle border border-4 bg-white"
+                                                [ngClass]="getTrackingStep(pet.deliveryStatus) >= 2 ? 'border-success bg-success' : 'border-light'"
+                                                style="width: 20px; height: 20px;"></div>
+                                            <div class="xs fw-bold uppercase ls-1"
+                                                [ngClass]="getTrackingStep(pet.deliveryStatus) >= 2 ? 'text-dark fw-black' : 'text-muted'">
+                                                In Transit</div>
+                                        </div>
+                                        <!-- Step 3: Ready for Pickup -->
+                                        <div class="tracking-step text-center w-25">
+                                            <div class="tracking-dot mx-auto mb-2 rounded-circle border border-4 bg-white"
+                                                [ngClass]="getTrackingStep(pet.deliveryStatus) >= 3 ? 'border-success bg-success' : 'border-light'"
+                                                style="width: 20px; height: 20px;"></div>
+                                            <div class="xs fw-bold uppercase ls-1"
+                                                [ngClass]="getTrackingStep(pet.deliveryStatus) >= 3 ? 'text-dark fw-black' : 'text-muted'">
+                                                Ready for Pickup</div>
+                                        </div>
+                                        <!-- Step 4: Handed Over -->
+                                        <div class="tracking-step text-center w-25">
+                                            <div class="tracking-dot mx-auto mb-2 rounded-circle border border-4 bg-white"
+                                                [ngClass]="getTrackingStep(pet.deliveryStatus) >= 4 ? 'border-success bg-success' : 'border-light'"
+                                                style="width: 20px; height: 20px;"></div>
+                                            <div class="xs fw-bold uppercase ls-1"
+                                                [ngClass]="getTrackingStep(pet.deliveryStatus) >= 4 ? 'text-dark fw-black' : 'text-muted'">
+                                                Handed Over</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Pickup Deadline Box -->
+                                <div *ngIf="pet.pickupDeadline && getTrackingStep(pet.deliveryStatus) === 3"
+                                    class="alert d-flex align-items-center mb-0 border border-success"
+                                    style="background: #f4fcf6;">
+                                    <i class="bi bi-clock-history fs-3 text-success me-3"></i>
+                                    <div>
+                                        <strong class="d-block text-dark mb-1">Pickup Required</strong>
+                                        <span class="text-muted small">Please collect your pet from the branch before:
+                                            <strong>{{ pet.pickupDeadline | date:'medium' }}</strong></span>
+                                    </div>
+                                </div>
+                                <div *ngIf="getTrackingStep(pet.deliveryStatus) === 4"
+                                    class="alert d-flex align-items-center mb-0 shadow-sm border border-accent bg-white">
+                                    <i class="bi bi-house-heart fs-3 text-accent me-3"></i>
+                                    <div>
+                                        <strong class="d-block text-dark mb-1">Welcome Home!</strong>
+                                        <span class="text-muted small">The adoption is completely finalized. Enjoy your
+                                            premium companion!</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+
+    <!-- Hidden PDF Template -->
+    <div *ngIf="selectedPetForPdf" id="certificate-content" class="bg-white text-dark p-5"
+        style="position: absolute; top: -9999px; width: 1000px; font-family: 'Outfit', sans-serif;">
+        <div class="text-center mb-5 pb-4 border-bottom border-dark">
+            <h1 style="font-weight: 950; letter-spacing: -2px; font-size: 3.5rem; margin-bottom: 5px;">CERTIFICATE OF
+                ADOPTION</h1>
+            <p style="letter-spacing: 4px; font-weight: 900; color: #ff4d6d; text-transform: uppercase;">BLACKBERRY
+                ELITE COMPANIONS</p>
+        </div>
+
+        <div class="row align-items-center mb-5">
+            <div class="col-8">
+                <p style="font-size: 1.25rem; font-weight: 500; line-height: 1.8;">
+                    This highly coveted document officially certifies that the premium companion known as:<br><br>
+                    <strong style="font-size: 2.5rem; font-weight: 950; letter-spacing: -1px; display: block;">{{
+                        selectedPetForPdf.petData?.name | uppercase }}</strong>
+                </p>
+            </div>
+        </div>
+
+        <div class="row mb-5 pb-5 border-bottom border-light">
+            <div class="col-12">
+                <p style="font-size: 1.25rem; font-weight: 500;">
+                    Has been formally transferred to the care, custody, and absolute love of:<br><br>
+                    <strong
+                        style="font-size: 2rem; font-weight: 900; border-bottom: 2px dashed #000; padding-bottom: 5px;">{{
+                        selectedPetForPdf.formData?.fullName || auth.getUser()?.email | uppercase }}</strong>
+                </p>
+            </div>
+        </div>
+
+        <div class="row pt-4 text-center">
+            <div class="col-4">
+                <p
+                    style="margin-bottom: 5px; font-family: 'Courier New', Courier, monospace; font-size: 1.5rem; font-weight: 900;">
+                    {{ (selectedPetForPdf.pickupDeadline || selectedPetForPdf.createdAt) | date:'longDate' }}</p>
+                <div
+                    style="border-top: 1px solid #000; margin: 0 20px; padding-top: 5px; font-size: 0.75rem; font-weight: 800; letter-spacing: 2px;">
+                    OFFICIAL DATE</div>
+            </div>
+            <div class="col-4 offset-4">
+                <p style="margin-bottom: 5px; font-family: 'Brush Script MT', cursive; font-size: 2.5rem;">S. Taibani
+                </p>
+                <div
+                    style="border-top: 1px solid #000; margin: 0 20px; padding-top: 5px; font-size: 0.75rem; font-weight: 800; letter-spacing: 2px;">
+                    AUTHORIZED SIGNATURE</div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+# Task: Perform desktop-only performance tests for https://fean-pet-shop.web.app/
+
+## Checklist
+- [x] Perform GTmetrix test
+    - [x] Navigate to https://gtmetrix.com/
+    - [x] Enter URL and run test
+    - [x] Note GTmetrix Grade, Performance, Structure, LCP
+    - [x] Capture screenshot of summary
+- [x] Perform Pingdom test
+    - [x] Navigate to https://tools.pingdom.com/
+    - [x] Enter URL and select test location (e.g., Washington D.C.)
+    - [x] Run test and wait for results
+    - [x] Note Performance Grade, Load Time, Page Size
+    - [x] Capture screenshot of results
+- [x] Provide final summary
+
+## Findings
+- **GTmetrix:**
+    - Grade: A
+    - Performance: 95%
+    - Structure: 97%
+    - LCP: 1.3s
+- **Pingdom:**
+    - Grade: B 85
+    - Load Time: 377 ms
+    - Page Size: 374.1 KB

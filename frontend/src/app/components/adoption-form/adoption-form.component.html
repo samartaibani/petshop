@@ -1,0 +1,171 @@
+<div class="modal-overlay animate__animated animate__fadeIn" (click)="close.emit()">
+    <div class="modal-content-premium bg-white rounded-4 shadow-lg animate__animated animate__zoomIn"
+        (click)="$event.stopPropagation()">
+        <!-- Modal Header -->
+        <div class="card-header-premium p-4 border-bottom d-flex justify-content-between align-items-center">
+            <div>
+                <h3 class="fw-black text-dark mb-1 h4">
+                    {{ mode === 'MASTER_FORM' ? (isEdit ? 'Manage Your Adoption Profile' : 'Complete Your Adoption
+                    Profile') : 'Adoption Application' }}
+                </h3>
+                <p class="text-muted xs mb-0 text-uppercase ls-1">
+                    {{ mode === 'MASTER_FORM' ? 'Save your details for future adoptions' : ('Applying to adopt: ' +
+                    (pet?.name || 'General')) }}
+                </p>
+            </div>
+            <button class="btn-close shadow-none" (click)="close.emit()"></button>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="modal-body-premium p-4 custom-scrollbar">
+            <p class="alert-info-premium mb-4" *ngIf="mode === 'MASTER_FORM'">
+                <i class="bi bi-info-circle-fill me-2"></i>
+                By completing this profile, you won't have to fill these details again for future pet adoption requests.
+                Your information is securely stored.
+            </p>
+            <p class="alert-info-premium mb-4" *ngIf="mode === 'REQUEST'">
+                <i class="bi bi-info-circle-fill me-2"></i>
+                Our team meticulously reviews every application to ensure our beloved companions find the perfect match.
+                {{ formData.fullName ? 'Form auto-filled from your profile.' : '' }}
+            </p>
+
+            <div class="row g-4">
+                <!-- Profile Image Section -->
+                <div class="col-12 text-center mb-2">
+                    <div class="position-relative d-inline-block">
+                        <div class="rounded-circle border border-3 border-accent overflow-hidden shadow-sm bg-light"
+                            style="width: 120px; height: 120px; cursor: pointer;" (click)="fileInput.click()">
+                            <img *ngIf="userImage" [src]="userImage" class="w-100 h-100 object-fit-cover">
+                            <i *ngIf="!userImage" class="bi bi-person-plus display-4 text-muted mt-3 d-block"></i>
+                        </div>
+                        <div class="position-absolute bottom-0 end-0">
+                            <button class="btn btn-dark btn-sm rounded-circle px-2" (click)="fileInput.click()"><i
+                                    class="bi bi-camera"></i></button>
+                        </div>
+                    </div>
+                    <input type="file" #fileInput hidden (change)="onImageSelected($event)" accept="image/*">
+                    <p class="xs text-muted mt-2 uppercase fw-black ls-1">Your Profile Photo *</p>
+                </div>
+
+                <!-- Row 1: Basic Info -->
+                <div class="col-md-6">
+                    <label class="form-label-premium">Full Name *</label>
+                    <input type="text" class="form-control-premium" [(ngModel)]="formData.fullName"
+                        placeholder="Arun Sharma">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label-premium">Mobile Number *</label>
+                    <input type="tel" class="form-control-premium" [(ngModel)]="formData.phone"
+                        placeholder="+91 XXXXX XXXXX">
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label-premium">Family Members</label>
+                    <input type="number" class="form-control-premium" [(ngModel)]="formData.familyMembers" min="1">
+                </div>
+
+                <!-- Row 2: Contact Info -->
+                <div class="col-md-6">
+                    <label class="form-label-premium">Personal Email</label>
+                    <input type="email" class="form-control-premium" [(ngModel)]="formData.email"
+                        placeholder="arun@example.com">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label-premium">Current Occupation</label>
+                    <input type="text" class="form-control-premium" [(ngModel)]="formData.occupation"
+                        placeholder="Senior Project Manager">
+                </div>
+
+                <!-- Row 3: Address -->
+                <div class="col-12">
+                    <label class="form-label-premium">Current Residence Address *</label>
+                    <input type="text" class="form-control-premium" [(ngModel)]="formData.address"
+                        placeholder="123 Elite Towers, Marine Drive, Mumbai">
+                </div>
+
+                <div class="col-md-12">
+                    <label class="form-label-premium">City *</label>
+                    <input type="text" class="form-control-premium" [(ngModel)]="formData.city"
+                        placeholder="Mumbai, Bangalore, etc.">
+                </div>
+
+                <!-- Divider -->
+                <div class="col-12 my-3">
+                    <hr class="opacity-05">
+                </div>
+
+                <!-- Row 4: Living Environment -->
+                <div class="col-md-4">
+                    <label class="form-label-premium">House Type</label>
+                    <app-premium-select
+                        [options]="houseTypeOptions"
+                        [(ngModel)]="formData.houseType"
+                        placeholder="Select House Type...">
+                    </app-premium-select>
+                </div>
+                <div class="col-md-4">
+                    <div class="d-flex align-items-center h-100 mt-4">
+                        <input type="checkbox" id="hasYard" class="form-check-input-premium me-2"
+                            [(ngModel)]="formData.hasYard">
+                        <label for="hasYard" class="xs fw-bold text-dark text-uppercase pointer">Has Garden/Yard</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="d-flex align-items-center h-100 mt-4">
+                        <input type="checkbox" id="hasChildren" class="form-check-input-premium me-2"
+                            [(ngModel)]="formData.childrenInHome">
+                        <label for="hasChildren" class="xs fw-bold text-dark text-uppercase pointer">Children in
+                            Home</label>
+                    </div>
+                </div>
+
+                <!-- Row 5: Experience & Reason -->
+                <div class="col-12">
+                    <label class="form-label-premium">Prior Pet Experience</label>
+                    <textarea class="form-control-premium" rows="2" [(ngModel)]="formData.experience"
+                        placeholder="Tell us about the pets you've cared for in the past..."></textarea>
+                </div>
+
+                <div class="col-12" *ngIf="mode === 'REQUEST'">
+                    <label class="form-label-premium">Why do you want to adopt {{ pet?.name || 'this pet' }}? *</label>
+                    <textarea class="form-control-premium" rows="3" [(ngModel)]="formData.reason"
+                        placeholder="Explain your motivation for this life-changing decision..."></textarea>
+                </div>
+
+                <div class="col-12">
+                    <label class="form-label-premium">Daily Routine (With a Pet)</label>
+                    <textarea class="form-control-premium" rows="2" [(ngModel)]="formData.dailyRoutine"
+                        placeholder="How will you incorporate a pet into your daily life?"></textarea>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label-premium">Time Dedication (Hours/Day)</label>
+                    <input type="text" class="form-control-premium" [(ngModel)]="formData.timeForPet"
+                        placeholder="e.g., 4-6 hours active engagement">
+                </div>
+
+                <div class="col-md-6">
+                    <div class="d-flex align-items-center h-100 mt-4">
+                        <input type="checkbox" id="canAfford" class="form-check-input-premium me-2"
+                            [(ngModel)]="formData.canAffordVets">
+                        <label for="canAfford" class="xs fw-bold text-dark text-uppercase pointer">Can Commit to
+                            Vet Bills</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="modal-footer-premium p-4 border-top d-flex gap-3 justify-content-end bg-light-soft">
+            <button class="btn btn-outline-dark fw-black px-4 py-2 rounded-3 text-uppercase xs"
+                (click)="close.emit()">Cancel</button>
+            <button class="btn-premium px-5 py-2" (click)="submit()" [disabled]="submitting">
+                <span *ngIf="!submitting">
+                    {{ mode === 'MASTER_FORM' ? (isEdit ? 'SAVE CHANGES' : 'CREATE FORM PROFILE') : (isEdit ? 'UPDATE
+                    REQUEST' : 'SUBMIT APPLICATION') }}
+                </span>
+                <span *ngIf="submitting" class="spinner-border spinner-border-sm me-2"></span>
+                <span *ngIf="submitting">Processing...</span>
+            </button>
+        </div>
+    </div>
+</div>

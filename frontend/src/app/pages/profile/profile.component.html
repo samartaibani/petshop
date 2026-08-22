@@ -1,0 +1,231 @@
+<div class="container py-5 mt-4">
+    <div class="row g-5">
+        <!-- Profile Main Area -->
+        <div class="col-lg-10 mx-auto animate__animated animate__fadeInUp">
+            <div class="glass-card overflow-hidden">
+                <!-- Profile Header -->
+                <div class="profile-premium-header p-5 text-center position-relative">
+                    <div class="profile-avatar-wrapper mx-auto mb-4">
+                        <img [src]="profileImage || 'https://api.dicebear.com/7.x/initials/svg?seed=' + profileForm.get('name')?.value"
+                            class="profile-avatar-img shadow-premium">
+                        <label for="profileUpload" class="avatar-edit-trigger">
+                            <i class="bi bi-camera-fill"></i>
+                        </label>
+                        <input id="profileUpload" type="file" class="d-none" accept="image/*"
+                            (change)="onFileSelected($event)">
+                    </div>
+                    <h2 class="display-5 fw-black text-dark mb-1 ls-n1">{{ profileForm.get('name')?.value | uppercase
+                        }}</h2>
+                    <p class="text-muted small fw-bold ls-2 uppercase">VERIFIED ACCOUNT</p>
+                </div>
+
+                <div class="p-5">
+                    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+                        <!-- Core Info Grid -->
+                        <div class="row g-4 mb-5">
+                            <div class="col-12">
+                                <h4 class="section-title mb-4">Profile Details</h4>
+                            </div>
+                            <!-- Username -->
+                            <div class="col-md-6">
+                                <div class="premium-input-group">
+                                    <label class="premium-label">FULL NAME</label>
+                                    <input type="text" class="premium-input" formControlName="name"
+                                        placeholder="Enter your name">
+                                    <div class="text-danger small mt-2"
+                                        *ngIf="profileForm.get('name')?.invalid && profileForm.get('name')?.touched">
+                                        <i class="bi bi-exclamation-circle me-1"></i> Name is required.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Mobile -->
+                            <div class="col-md-6">
+                                <div class="premium-input-group">
+                                    <label class="premium-label">PHONE NUMBER</label>
+                                    <input type="tel" class="premium-input" formControlName="phone"
+                                        placeholder="10-digit mobile number" maxlength="10">
+                                    <div class="text-danger small mt-2"
+                                        *ngIf="profileForm.get('phone')?.invalid && profileForm.get('phone')?.touched">
+                                        <i class="bi bi-exclamation-circle me-1"></i> Valid phone required.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Email (Read-only) -->
+                            <div class="col-12">
+                                <div class="premium-input-group disabled">
+                                    <label class="premium-label">EMAIL ADDRESS</label>
+                                    <input type="email" class="premium-input" [value]="profileForm.get('email')?.value"
+                                        disabled>
+                                    <div class="text-muted xs mt-2"><i class="bi bi-lock-fill me-1"></i>Email origin
+                                        cannot be altered.</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div *ngIf="msg" class="alert-premium mb-4 animate__animated animate__headShake">
+                            <i class="bi bi-check2-all fs-4"></i>
+                            <div class="fw-bold">{{ msg }}</div>
+                        </div>
+
+                        <!-- Action Bar -->
+                        <div class="d-flex justify-content-end mb-5">
+                            <button type="submit" class="btn-premium px-5 py-3"
+                                [disabled]="profileForm.invalid || isUploading">
+                                <span *ngIf="!isUploading"><i class="bi bi-shield-check me-2"></i>SAVE CHANGES</span>
+                                <span *ngIf="isUploading" class="d-flex align-items-center">
+                                    <span class="spinner-border spinner-border-sm me-2"></span>
+                                    SAVING...
+                                </span>
+                            </button>
+                        </div>
+
+                        <hr class="border-dark border-opacity-10 my-5">
+
+                        <!-- Address Logic -->
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+                            <div>
+                                <h4 class="section-title mb-1">My Addresses</h4>
+                                <p class="text-muted small fw-bold">SAVED DELIVERY LOCATIONS</p>
+                            </div>
+                            <button type="button" class="btn-outline-dark-glass xs px-4" data-bs-toggle="modal"
+                                data-bs-target="#addressModal" (click)="addressForm.reset()"
+                                [disabled]="addresses.length >= 5">
+                                <i class="bi bi-plus-lg me-2"></i>ADD NEW ADDRESS ({{addresses.length}}/5)
+                            </button>
+                        </div>
+
+                        <div class="row g-4 mb-5">
+                            <div class="col-md-6" *ngFor="let addr of addresses; let i = index">
+                                <div class="glass-card address-card p-4 h-100 position-relative">
+                                    <button type="button"
+                                        class="btn-icon-glass text-danger position-absolute top-0 end-0 m-3"
+                                        (click)="deleteAddress(i)">
+                                        <i class="bi bi-trash3"></i>
+                                    </button>
+                                    <div class="text-accent small fw-black mb-3">ADDRESS #{{ i + 1 }}</div>
+                                    <p class="text-dark small lh-lg mb-0">
+                                        <span class="fw-black">{{ addr.houseNumber }}</span>, {{ addr.buildingName
+                                        }}<br>
+                                        {{ addr.areaName }}, {{ addr.cityName }}<br>
+                                        <span class="text-muted fw-bold mt-2 d-block">SIG: {{ addr.pincode }}</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div *ngIf="addresses.length === 0" class="col-12">
+                                <div class="glass-card p-5 text-center">
+                                    <p class="text-muted mb-0 fst-italic">No saved addresses found.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="border-dark border-opacity-10 my-5">
+
+                        <!-- Security Block -->
+                        <div class="glass-card security-banner p-4 d-flex align-items-center justify-content-between">
+                            <div class="d-flex align-items-center gap-4">
+                                <div class="security-icon-wrapper">
+                                    <i class="bi bi-shield-lock-fill text-accent"></i>
+                                </div>
+                                <div>
+                                    <h5 class="text-dark fw-bold mb-1">Security Details</h5>
+                                    <p class="text-muted small mb-0">Update your password regularly for better
+                                        account security.</p>
+                                </div>
+                            </div>
+                            <button type="button" class="btn-outline-dark-glass px-4" data-bs-toggle="modal"
+                                data-bs-target="#changePasswordModal">
+                                <i class="bi bi-key-fill me-2"></i>UPDATE CREDENTIALS
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Change Password Modal -->
+<div class="modal fade" id="changePasswordModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content premium-modal">
+            <div class="modal-header border-0 p-4">
+                <h5 class="text-dark fw-bold mb-0">Update Credentials</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4">
+                <div *ngIf="pwdMsg" class="alert-premium mb-4">
+                    <i class="bi bi-info-circle fs-5"></i>
+                    <div class="small fw-bold">{{ pwdMsg }}</div>
+                </div>
+
+                <form [formGroup]="changePasswordForm" (ngSubmit)="changePassword()">
+                    <div class="mb-4">
+                        <label class="premium-label">NEW ACCESS CODE</label>
+                        <input type="password" class="premium-input" formControlName="newPassword"
+                            placeholder="Min. 8 characters">
+                    </div>
+                    <div class="mb-4">
+                        <label class="premium-label">VERIFY ACCESS CODE</label>
+                        <input type="password" class="premium-input" formControlName="confirmPassword"
+                            placeholder="Repeat Credentials">
+                        <div class="text-danger small mt-2"
+                            *ngIf="changePasswordForm.errors?.['mismatch'] && changePasswordForm.get('confirmPassword')?.touched">
+                            <i class="bi bi-x-circle me-1"></i> Credentials do not align.
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-premium w-100 py-3"
+                        [disabled]="changePasswordForm.invalid || isPwdLoading">
+                        <span *ngIf="!isPwdLoading">AUTHORIZE UPDATE</span>
+                        <span *ngIf="isPwdLoading" class="spinner-border spinner-border-sm"></span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Address Modal -->
+<div class="modal fade" id="addressModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content premium-modal">
+            <div class="modal-header border-0 p-4">
+                <h5 class="text-dark fw-black mb-0 uppercase ls-1">Map New Coordinate</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4">
+                <form [formGroup]="addressForm" (ngSubmit)="saveAddress()">
+                    <div class="mb-3">
+                        <label class="premium-label">UNIT / HOUSE NO.</label>
+                        <input type="text" class="premium-input" formControlName="houseNumber" placeholder="e.g., Suite 204">
+                    </div>
+                    <div class="mb-3">
+                        <label class="premium-label">STRUCTURE / BUILDING</label>
+                        <input type="text" class="premium-input" formControlName="buildingName" placeholder="e.g., Regency Towers">
+                    </div>
+                    <div class="mb-3">
+                        <label class="premium-label">SECTOR / AREA</label>
+                        <input type="text" class="premium-input" formControlName="areaName" placeholder="e.g., Marine Drive">
+                    </div>
+                    <div class="row">
+                        <div class="col-6 mb-4">
+                            <label class="premium-label">DISTRICT / CITY</label>
+                            <input type="text" class="premium-input" formControlName="cityName" placeholder="Mumbai">
+                        </div>
+                        <div class="col-6 mb-4">
+                            <label class="premium-label">SIG / PINCODE</label>
+                            <input type="text" class="premium-input" formControlName="pincode" maxlength="6" placeholder="400001">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-premium w-100 py-3 d-flex align-items-center justify-content-center gap-2" 
+                        [disabled]="addressForm.invalid || isSavingAddress">
+                        <span *ngIf="!isSavingAddress">ESTABLISH COORDINATE</span>
+                        <div *ngIf="isSavingAddress" class="spinner-border spinner-border-sm"></div>
+                        <span *ngIf="isSavingAddress">MAPPING...</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

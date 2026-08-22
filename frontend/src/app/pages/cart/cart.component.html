@@ -1,0 +1,135 @@
+<div class="container-fluid py-5 px-lg-5 animate__animated animate__fadeIn">
+    <div class="row mb-5 animate__animated animate__fadeInDown border-bottom border-dark border-opacity-10 pb-4">
+        <div class="col-12">
+            <h6 class="text-accent fw-black ls-3 uppercase xs mb-2">MY CART</h6>
+            <h1 class="display-4 fw-black text-dark mb-0 ls-n1">Your <span class="text-accent">Shopping Cart</span>
+            </h1>
+            <p class="text-muted xs fst-italic mt-2 uppercase ls-2">ITEMS IN YOUR CART ({{
+                items.length }})</p>
+        </div>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="items.length === 0" class="glass-card-empty p-5 text-center my-5 animate__animated animate__zoomIn">
+        <div class="py-5">
+            <div class="empty-icon-box mx-auto mb-4">
+                <i class="bi bi-cart-x"></i>
+            </div>
+            <h2 class="text-dark fw-black ls-n1 mb-3">Your cart is empty</h2>
+            <p class="text-muted mb-5 max-w-500 mx-auto lh-lg">Browse our shop to find the best supplies and quality
+                essentials.</p>
+            <a routerLink="/products" class="btn-premium px-5 py-3 shadow-accent-glow">SHOP NOW</a>
+        </div>
+    </div>
+
+    <!-- Active Cart -->
+    <div *ngIf="items.length > 0">
+        <div class="row g-5">
+            <!-- Items Column -->
+            <div class="col-lg-8 animate__animated animate__fadeInLeft">
+                <div class="cart-item-premium mb-4 shadow-premium" *ngFor="let item of items; let i = index"
+                    [style.animation-delay]="(i * 0.1) + 's'">
+                    <div class="p-4">
+                        <div class="row align-items-center g-4">
+                            <!-- Image -->
+                            <div class="col-md-3">
+                                <div class="cart-img-vault">
+                                    <img [src]="item.imageUrl || 'assets/placeholder.png'"
+                                        class="img-fluid rounded-4 shadow-accent-glow">
+                                </div>
+                            </div>
+
+                            <!-- Product Details -->
+                            <div class="col-md-5">
+                                <div class="d-flex align-items-center gap-2 mb-2">
+                                    <span class="badge-premium-xs food">
+                                        PET SUPPLY
+                                    </span>
+                                </div>
+                                <h4 class="text-dark fw-black mb-1 ls-n1">{{ item.name }}</h4>
+                                <div class="text-muted xs ls-2 fw-black mb-3">#{{ item.productId.substring(0,8) |
+                                    uppercase }}</div>
+                                <div class="d-flex align-items-center gap-2">
+                                    <span class="text-muted xs fw-bold ls-1 uppercase">IN STOCK</span>
+                                </div>
+                            </div>
+
+                            <!-- Qty and Price -->
+                            <div class="col-md-4">
+                                <div class="d-flex flex-column align-items-md-end gap-3 text-start text-md-end">
+                                    <div class="price-stack-vault">
+                                        <div class="text-muted xs fw-black ls-1 uppercase mb-1">UNIT VALUE</div>
+                                        <div class="text-dark fw-black fs-4 ls-n1">₹{{ item.price | number }}</div>
+                                    </div>
+
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="stepper-premium-sm">
+                                            <button (click)="decrease(item.productId, item.quantity)"
+                                                class="step-btn-sm">
+                                                <i class="bi bi-dash"></i>
+                                            </button>
+                                            <input type="number" [value]="item.quantity" readonly class="step-input-sm">
+                                            <button (click)="increase(item.productId, item.quantity)"
+                                                class="step-btn-sm">
+                                                <i class="bi bi-plus"></i>
+                                            </button>
+                                        </div>
+                                        <button class="btn-action-glass danger-hover" (click)="remove(item.productId)"
+                                            title="Purge Item">
+                                            <i class="bi bi-trash3"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary Column -->
+            <div class="col-lg-4 animate__animated animate__fadeInRight">
+                <div class="glass-card order-summary-premium p-4 shadow-premium-lg sticky-summary">
+                    <div
+                        class="d-flex align-items-center justify-content-between mb-4 pb-3 border-bottom border-dark border-opacity-05">
+                        <h4 class="section-title-premium m-0">VALUATIONS</h4>
+                        <i class="bi bi-safe-fill text-accent fs-5"></i>
+                    </div>
+
+                    <div class="pricing-rows mb-5">
+                        <div class="price-row-premium">
+                            <span class="label">BASE ALLOCATION</span>
+                            <span class="value">₹{{ total | number }}</span>
+                        </div>
+
+                        <div class="price-row-premium">
+                            <span class="label">LOGISTICS</span>
+                            <span class="value text-success">COMPLIMENTARY</span>
+                        </div>
+                    </div>
+
+                    <div class="total-box-premium mb-5">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <span class="xs fw-black ls-2 uppercase text-muted d-block mb-1">AGGREGATE
+                                    VALUE</span>
+                                <h2 class="display-6 text-dark fw-black mb-0 ls-n1">₹{{ total | number }}</h2>
+                            </div>
+                            <div class="currency-badge">INR</div>
+                        </div>
+                    </div>
+
+                    <button class="btn-premium w-100 py-3 mb-4 shadow-accent-glow" routerLink="/checkout">
+                        Checkout <i class="bi bi-lightning-charge-fill ms-2"></i>
+                    </button>
+
+                    <div class="text-center opacity-30">
+                        <div class="d-flex align-items-center gap-2 justify-content-center xs fw-black ls-2 uppercase">
+                            <i class="bi bi-shield-lock-fill"></i>
+                            ENCRYPTED DISBURSEMENT ACTIVE
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

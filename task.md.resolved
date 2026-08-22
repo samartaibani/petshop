@@ -1,0 +1,48 @@
+# Adoption Center Redesign Tasks
+
+## Core Objectives
+- [x] Complete UI redesign of the Adoption Center (adopter side or admin side, based on user context).
+- [x] Fix the pet image display issue in the "Manage Pets" tab.
+- [x] Redesign the "REQUESTS" and "MANAGE PETS" tab buttons to be more elegant.
+- [x] Refactor the "Register New Pet" modal to open as a proper centered popup with an overlay.
+
+## Admin Panel (Adoption Management)
+- [x] **Styles**: Overhaul [adoption-management.component.css](file:///c:/Users/Samar%20Taibani/Desktop/one/frontend/src/app/admin/adoption-management/adoption-management.component.css) for a premium, modern aesthetic.
+- [x] **Layout**: Refine table styles, buttons, and card containers in [adoption-management.component.html](file:///c:/Users/Samar%20Taibani/Desktop/one/frontend/src/app/admin/adoption-management/adoption-management.component.html).
+- [x] **Image Fallback**: Implement a robust fallback mechanism for pet images to prevent broken `<img>` icons.
+- [x] **Modal Popup**:
+  - [x] Add overlay background (dark, semi-transparent).
+  - [x] Center the modal content horizontally and vertically.
+  - [x] Add smooth entry/exit animations.
+  - [x] Ensure scrolling within the modal if the content is too tall, preventing the page background from scrolling.
+
+## Verification
+- [x] Verify tab switching between Requests and Manage Pets works correctly with the new UI.
+- [x] Open the "Register New Pet" modal and verify it is centered and looks like a proper popup.
+- [x] Add a new pet without an image and verify the fallback image displays nicely.
+- [x] Add a new pet with an image and verify it displays correctly.
+- [x] Verify adoption request status updates work properly from the new UI.
+
+## Adoption Requests UI (Part 2)
+- [x] Render the main list of requests grouped/styled in a cleaner way (e.g. showing petitioner and pet details).
+- [x] Add a `View Form` button to each request that opens a detailed modal.
+- [x] Build a modal component logic to display the full user adoption form answers.
+- [x] Style the modal to present the Q&A format elegantly (e.g. grid layout, highlights for important fields like `otherPets` or `childrenInHome`).
+
+## Phase 3: Pet-Centric Adoption Requests List
+- [x] Refactor [AdoptionManagementComponent](file:///c:/Users/Samar%20Taibani/Desktop/one/frontend/src/app/admin/adoption-management/adoption-management.component.ts#4-213) TS to group requests by `petId`.
+- [x] Update HTML to replace flat table with a toggleable two-pane view.
+- [x] Create View 1 (Pet List) showing a grid of pets and their application counts.
+- [x] Update View 2 (Request List) to filter the table applications for the selected pet.
+- [x] Add "Back to Pets" navigation button from within the Request List.
+
+## Phase 4: Pet Display Expiry Logic
+- [x] Modify [productController.js](file:///c:/Users/Samar%20Taibani/Desktop/one/backend/controllers/productController.js) to track `statusUpdatedAt` for Adopted pets.
+- [x] Implement 24-hour filtering logic in [getAllProducts](file:///c:/Users/Samar%20Taibani/Desktop/one/backend/controllers/productController.js#21-55) for public users.
+- [x] Update [adoptionController.js](file:///c:/Users/Samar%20Taibani/Desktop/one/backend/controllers/adoptionController.js) to trigger the timestamp and pet status change upon Approval.
+- [x] Verified filter logic using curl and a mock expired pet record.
+
+## Phase 5: User-Initiated Adoption Cancellation
+- [x] Modify [adoptionController.js](file:///c:/Users/Samar%20Taibani/Desktop/one/backend/controllers/adoptionController.js) to revert pet status in [deleteRequest](file:///c:/Users/Samar%20Taibani/Desktop/one/backend/controllers/adoptionController.js#110-137).
+- [x] Update [my-adoptions.component.html](file:///c:/Users/Samar%20Taibani/Desktop/one/frontend/src/app/pages/my-adoptions/my-adoptions.component.html) to allow cancelling Approved/Paid requests.
+- [x] Verify cancellation reverts pet status and clears the 24h hiding timer.
